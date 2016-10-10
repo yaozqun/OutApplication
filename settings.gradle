@@ -1,1 +1,1 @@
-include ':app', ':zsws', ':baselib'
+include ':zsws', ':baselib'
