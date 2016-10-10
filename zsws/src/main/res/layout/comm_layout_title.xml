@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_title_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/header_color_bg"
+    android:padding="5dp">
+
+    <!-- 中间标题 -->
+
+    <LinearLayout
+        android:id="@+id/ll_title_subject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title_subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:text="Title"
+            android:textColor="@color/header_title_color"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_title_userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:text="userName"
+            android:textColor="@color/header_title_color"
+            android:textSize="13sp"
+            android:visibility="gone"/>
+
+        <ProgressBar
+            android:id="@+id/pb_title_subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+    </LinearLayout>
+    <!-- 左边 -->
+
+    <LinearLayout
+        android:id="@+id/ll_title_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <Button
+            android:id="@+id/btn_title_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_click_bg"
+            android:drawableLeft="@mipmap/icon_back"
+            android:drawablePadding="@dimen/px2dp25"
+            android:minHeight="@dimen/px2dp90"
+            android:text="@string/back"
+            android:textColor="@color/header_title_color" />
+    </LinearLayout>
+
+    <!-- 右边 -->
+
+
+    <Button
+        android:id="@+id/btn_title_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:minHeight="@dimen/px2dp90"
+        android:minWidth="@dimen/px2dp148"
+        android:text="@string/exit"
+        android:background="@null"
+        android:textColor="@color/header_title_color"
+        android:textSize="14sp" />
+
+</RelativeLayout>

@@ -4,4 +4,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="titlebar_minheight">57dp</dimen>
+
+    <dimen name="px2dp25">8.3dp</dimen>
+    <dimen name="px2dp90">30dp</dimen>
+    <dimen name="px2dp148">55dp</dimen>
 </resources>

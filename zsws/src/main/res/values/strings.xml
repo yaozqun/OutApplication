@@ -10,6 +10,9 @@
     <string name="password">密码：</string>
     <string name="please_input_pwd">请输入密码</string>
     <string name="login">登  录</string>
+    <string name="back">返回</string>
+    <string name="exit">退出</string>
+
     <string name="userName_not_allowed_null">对不起，用户名不能为空</string>
     <string name="pwd_not_allowed_null">对不起，密码不能为空</string>
 </resources>
