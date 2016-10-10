@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res"><file name="btn_frame_bg_gray" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\drawable\btn_frame_bg_gray.xml" qualifiers="" type="drawable"/><file name="btn_frame_bg_white" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\drawable\btn_frame_bg_white.xml" qualifiers="" type="drawable"/><file name="dialog_bg" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\drawable\dialog_bg.xml" qualifiers="" type="drawable"/><file name="dialog_btn_press" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\drawable\dialog_btn_press.xml" qualifiers="" type="drawable"/><file name="dialog_btn_selector" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\drawable\dialog_btn_selector.xml" qualifiers="" type="drawable"/><file name="dialog_btn_unpress" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\drawable\dialog_btn_unpress.xml" qualifiers="" type="drawable"/><file name="dialog_loading_bg" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\drawable\dialog_loading_bg.xml" qualifiers="" type="drawable"/><file name="dialog_loading_shadow" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\drawable\dialog_loading_shadow.xml" qualifiers="" type="drawable"/><file name="frame_bg_gray_normal" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\drawable\frame_bg_gray_normal.xml" qualifiers="" type="drawable"/><file name="frame_bg_gray_pressed" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\drawable\frame_bg_gray_pressed.xml" qualifiers="" type="drawable"/><file name="frame_bg_white" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\drawable\frame_bg_white.xml" qualifiers="" type="drawable"/><file name="frame_bg_white_stroke_gary" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\drawable\frame_bg_white_stroke_gary.xml" qualifiers="" type="drawable"/><file name="activity_test" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\layout\activity_test.xml" qualifiers="" type="layout"/><file name="base_dialog_custom_view" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\layout\base_dialog_custom_view.xml" qualifiers="" type="layout"/><file name="base_dialog_layout" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\layout\base_dialog_layout.xml" qualifiers="" type="layout"/><file name="base_dialog_loading_layout" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\layout\base_dialog_loading_layout.xml" qualifiers="" type="layout"/><file name="base_layout_loading_view" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\layout\base_layout_loading_view.xml" qualifiers="" type="layout"/><file name="ic_launcher" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\mipmap-hdpi\ic_launcher.png" qualifiers="hdpi" type="mipmap"/><file name="ic_launcher" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\mipmap-mdpi\ic_launcher.png" qualifiers="mdpi" type="mipmap"/><file name="del" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\mipmap-xhdpi\del.png" qualifiers="xhdpi" type="mipmap"/><file name="ic_launcher" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\mipmap-xxhdpi\ic_launcher.png" qualifiers="xxhdpi" type="mipmap"/><file name="ic_launcher" path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\mipmap-xxxhdpi\ic_launcher.png" qualifiers="xxxhdpi" type="mipmap"/><file path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\values\dialog_color.xml" qualifiers=""><color name="dialog_bg">#ffe74c3c</color><color name="text_color">#FFFFFF</color><color name="btn_unpress_color">#22000000</color><color name="bg_pressed">#bcbcbc</color><color name="btn_press_color">#66000000</color><color name="ltgray">#ffcccccc</color><color name="msg_color">#FFFFFFFF</color><color name="divider_color">#11000000</color><color name="white">#ffffffff</color></file><file path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\values\dialog_styles.xml" qualifiers=""><style name="dialog_tran" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+    </style><style name="dialog_btn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">36dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:background">@drawable/dialog_btn_selector</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+    </style><style name="DialogWindowTitle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style><style name="dialog_untran" parent="dialog_tran">
+        <item name="android:backgroundDimEnabled">true</item>
+    </style></file><file path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\values\dimens.xml" qualifiers=""><dimen name="padding_horizontal">10dp</dimen><dimen name="activity_vertical_margin">16dp</dimen><dimen name="padding_horizontal_click">10dp</dimen><dimen name="activity_horizontal_margin">16dp</dimen><dimen name="padding_vertical">10dp</dimen><dimen name="padding_vertical_click">10dp</dimen></file><file path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\values\loading_arrt.xml" qualifiers=""><declare-styleable name="LoadingView">
+
+        <attr format="string" name="loadingText"/>
+        <attr format="reference" name="loadingTextAppearance"/>
+    </declare-styleable></file><file path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\values\loading_color.xml" qualifiers=""><color name="circle">#aa738ffe</color><color name="rect">#aae84e40</color><color name="view_bg">#00000000</color><color name="loading_dialog_bg">#f5f5f5</color><color name="triangle">#aa72d572</color><color name="shadow">#25808080</color></file><file path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\values\loading_styles.xml" qualifiers=""><style name="custom_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:layout_margin">20dp</item>
+    </style></file><file path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\values\numberprogressbar_attrs.xml" qualifiers=""><declare-styleable name="NumberProgressBar">
+        <attr format="integer" name="progress_current"/>
+        <attr format="integer" name="progress_max"/>
+
+        <attr format="color" name="progress_unreached_color"/>
+        <attr format="color" name="progress_reached_color"/>
+
+        <attr format="dimension" name="progress_reached_bar_height"/>
+        <attr format="dimension" name="progress_unreached_bar_height"/>
+
+        <attr format="dimension" name="progress_text_size"/>
+        <attr format="color" name="progress_text_color"/>
+
+        <attr format="dimension" name="progress_text_offset"/>
+
+        <attr format="enum" name="progress_text_visibility">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1"/>
+        </attr>
+    </declare-styleable><declare-styleable name="Themes">
+        <attr format="reference" name="numberProgressBarStyle"/>
+    </declare-styleable></file><file path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\values\numberprogressbar_styles.xml" qualifiers=""><style name="NumberProgressBar_Beauty_Red">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+
+        <item name="progress_max">100</item>
+        <item name="progress_current">0</item>
+
+        <item name="progress_unreached_color">#CCCCCC</item>
+        <item name="progress_reached_color">#FF3D7F</item>
+        <item name="progress_text_size">10sp</item>
+        <item name="progress_text_color">#FF3D7F</item>
+
+        <item name="progress_reached_bar_height">1.5dp</item>
+        <item name="progress_unreached_bar_height">0.75dp</item>
+    </style><style name="NumberProgressBar_Relax_Blue">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+
+        <item name="progress_max">100</item>
+        <item name="progress_current">0</item>
+
+        <item name="progress_unreached_color">#CCCCCC</item>
+        <item name="progress_reached_color">#6DBCDB</item>
+        <item name="progress_text_size">10sp</item>
+        <item name="progress_text_color">#6DBCDB</item>
+
+        <item name="progress_reached_bar_height">1.5dp</item>
+        <item name="progress_unreached_bar_height">0.75dp</item>
+    </style><style name="NumberProgressBar_Grace_Yellow">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+
+        <item name="progress_max">100</item>
+        <item name="progress_current">0</item>
+
+        <item name="progress_unreached_color">#CCCCCC</item>
+        <item name="progress_reached_color">#FFC73B</item>
+        <item name="progress_text_size">10sp</item>
+        <item name="progress_text_color">#FFC73B</item>
+
+        <item name="progress_reached_bar_height">1.5dp</item>
+        <item name="progress_unreached_bar_height">0.75dp</item>
+    </style><style name="NumberProgressBar_Warning_Red">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+
+        <item name="progress_max">100</item>
+        <item name="progress_current">0</item>
+
+        <item name="progress_unreached_color">#CCCCCC</item>
+        <item name="progress_reached_color">#E74C3C</item>
+        <item name="progress_text_size">10sp</item>
+        <item name="progress_text_color">#E74C3C</item>
+
+        <item name="progress_reached_bar_height">1.5dp</item>
+        <item name="progress_unreached_bar_height">0.75dp</item>
+    </style><style name="NumberProgressBar_Default">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+
+        <item name="progress_max">100</item>
+        <item name="progress_current">0</item>
+
+        <item name="progress_unreached_color">#CCCCCC</item>
+        <item name="progress_reached_color">#3498DB</item>
+
+        <item name="progress_text_size">10sp</item>
+        <item name="progress_text_color">#3498DB</item>
+
+        <item name="progress_reached_bar_height">1.5dp</item>
+        <item name="progress_unreached_bar_height">0.75dp</item>
+    </style><style name="NumberProgressBar_Passing_Green">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+
+        <item name="progress_max">100</item>
+        <item name="progress_current">0</item>
+
+        <item name="progress_unreached_color">#CCCCCC</item>
+        <item name="progress_reached_color">#70A800</item>
+
+        <item name="progress_text_size">10sp</item>
+        <item name="progress_text_color">#70A800</item>
+
+        <item name="progress_reached_bar_height">1.5dp</item>
+        <item name="progress_unreached_bar_height">0.75dp</item>
+    </style><style name="NumberProgressBar_Funny_Orange">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+
+        <item name="progress_max">100</item>
+        <item name="progress_current">0</item>
+
+        <item name="progress_unreached_color">#CCCCCC</item>
+        <item name="progress_reached_color">#FF530D</item>
+        <item name="progress_text_size">10sp</item>
+        <item name="progress_text_color">#FF530D</item>
+
+        <item name="progress_reached_bar_height">1.5dp</item>
+        <item name="progress_unreached_bar_height">0.75dp</item>
+    </style><style name="NumberProgressBar_Twinkle_Night">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+
+        <item name="progress_max">100</item>
+        <item name="progress_current">0</item>
+
+        <item name="progress_unreached_color">#CCCCCC</item>
+        <item name="progress_reached_color">#ECF0F1</item>
+        <item name="progress_text_size">10sp</item>
+        <item name="progress_text_color">#ECF0F1</item>
+
+        <item name="progress_reached_bar_height">1.5dp</item>
+        <item name="progress_unreached_bar_height">0.75dp</item>
+    </style></file><file path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\values\strings.xml" qualifiers=""><string name="app_name">Base Library</string><string name="cancel">取消</string></file><file path="E:\AndroidStudioProjects\MyApplication\baselib\src\main\res\values-w820dp\dimens.xml" qualifiers="w820dp"><dimen name="activity_horizontal_margin">64dp</dimen></file></source><source path="E:\AndroidStudioProjects\MyApplication\baselib\build\generated\res\rs\debug"/><source path="E:\AndroidStudioProjects\MyApplication\baselib\build\generated\res\resValues\debug"/></dataSet><dataSet config="debug"><source path="E:\AndroidStudioProjects\MyApplication\baselib\src\debug\res"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="LoadingView"><attr format="string" name="loadingText"/><attr format="reference" name="loadingTextAppearance"/></declare-styleable><declare-styleable name="NumberProgressBar"><attr format="integer" name="progress_current"/><attr format="integer" name="progress_max"/><attr format="color" name="progress_unreached_color"/><attr format="color" name="progress_reached_color"/><attr format="dimension" name="progress_reached_bar_height"/><attr format="dimension" name="progress_unreached_bar_height"/><attr format="dimension" name="progress_text_size"/><attr format="color" name="progress_text_color"/><attr format="dimension" name="progress_text_offset"/><attr format="enum" name="progress_text_visibility"><enum name="visible" value="0"/><enum name="invisible" value="1"/></attr></declare-styleable><declare-styleable name="Themes"><attr format="reference" name="numberProgressBarStyle"/></declare-styleable></configuration></mergedItems></merger>
