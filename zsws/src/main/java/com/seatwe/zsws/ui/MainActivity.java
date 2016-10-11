@@ -1,17 +1,17 @@
 package com.seatwe.zsws.ui;
 
-import android.app.Activity;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.Bundle;
 import android.widget.ListView;
 
 import com.seatwe.zsws.R;
 import com.seatwe.zsws.model.Module;
 import com.seatwe.zsws.ui.adapter.ModuleAdapter;
+import com.seatwe.zsws.ui.base.BaseActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
   private ListView lv_module;
 
@@ -44,8 +44,9 @@ public class MainActivity extends Activity {
   public void initView() {
     lv_module = (ListView) findViewById(R.id.lv_module);
     // 设置适配器
-    adapter = new ModuleAdapter(MainActivity.this, modules);
+    adapter = new ModuleAdapter(this, modules);
     lv_module.setAdapter(adapter);
+    tvTitleSubject.setText("dddd");
   }
 
   /**

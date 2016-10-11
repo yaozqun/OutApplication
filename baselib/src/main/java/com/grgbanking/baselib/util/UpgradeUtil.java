@@ -100,9 +100,6 @@ public class UpgradeUtil {
         loadingDialog.setButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (!isForcedToUpdate) {
-//                    loadingDialog.dismiss();
-//                }
             }
         });
 
@@ -144,7 +141,6 @@ public class UpgradeUtil {
      * 检查更新
      */
     public static void checkVersionUpdate(final String requestUrl, final VersionInfoReq req) {
-//        registerDownloadReceiver();//注册下载完成广播
 
         //检查更新
         SystemService.getInstance()
@@ -161,11 +157,7 @@ public class UpgradeUtil {
                                     customDialog.setCancelable(false);
                                     customDialog.isCancelable(false);
                                     customDialog.withMessage("检测有新版本啦V" + resp.version + "，需要强制更新,更新内容如下:\n" + resp.content).withButton1Text("更 新").withButton2Text(null).show();
-//                                    isForcedToUpdate = true;//若是强制更新，则不能取消diallog
-//                                    loadingDialog.setButtonText("拼命下载中");
                                 } else {
-//                                    isForcedToUpdate = false;//若非强制更新，则可以在后台下载
-//                                    loadingDialog.setButtonText("后台下载");
                                     customDialog.withMessage("检测有新版本啦V" + resp.version + "，更新内容如下：\n" + resp.content).withButton1Text("更 新")
                                             .withButton2Text("取 消").show();
                                 }

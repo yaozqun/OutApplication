@@ -48,8 +48,6 @@ public class SystemService extends BaseService {
      */
     public void downLoadFile(String url, ResultCallback<File> resultCallback,
                              ProgressListener progressListener) {
-        // http://hukai.me/images/android_perf_patterns_season_4.png
-        // http://bos.nj.bpc.baidu.com/v1/nuomi-b-apk/BusinessApp.apk
         WebService.getInstance().asyncGet(
                 url,
                 new FileCallback(AppConfig.FILE_ROOT, resultCallback,
@@ -62,12 +60,6 @@ public class SystemService extends BaseService {
      * @param callback
      */
     public void checkUpgrade(String url, VersionInfoReq req, ResultCallback<VersionInfoResponse> callback) {
-//    test(new JsonCallback<Void>(new TypeToken<ResponseRoot<Void>>() {
-//    }.getType(), callback));
-
-//        VersionInfoReq req = new VersionInfoReq();
-//        req.phoneCode = SystemUtil.getDeviceId();
-//        req.version = SystemUtil.getCurrentVersion();
         WebService.getInstance().asyncPost(url, req, new JsonCallback<VersionInfoResponse>(new TypeToken<ResponseRoot<VersionInfoResponse>>() {
         }.getType(), callback));
     }
@@ -106,18 +98,6 @@ public class SystemService extends BaseService {
                     }
                 }, progressListener);
 
-        // test(new BaseCallback<Void>(callback) {
-        //
-        // @Override
-        // public void onResponse(Call call, Response response) throws IOException {
-        // if (!response.isSuccessful()) {
-        // LogUtil.i(TAG, "onResponse Failure:" + response.code());
-        // onFailure(call, new ErrorMsg(response.code()));
-        // return;
-        // }
-        // onSuccess(call, response, null);
-        // }
-        // }, progressListener);
     }
 
     /**

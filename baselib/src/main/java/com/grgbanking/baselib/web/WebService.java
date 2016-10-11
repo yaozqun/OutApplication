@@ -1,17 +1,5 @@
 package com.grgbanking.baselib.web;
 
-import android.content.Context;
-import android.util.Log;
-
-import com.grgbanking.baselib.util.JsonUtils;
-import com.grgbanking.baselib.util.NetWorkUtil;
-import com.grgbanking.baselib.util.log.LogUtil;
-import com.grgbanking.baselib.web.entity.ErrorMsg;
-import com.grgbanking.baselib.web.okhttp.ProgressListener;
-import com.grgbanking.baselib.web.okhttp.ProgressRequestBody;
-import com.grgbanking.baselib.web.request.RequestHeader;
-import com.grgbanking.baselib.web.request.RequestRoot;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -24,6 +12,19 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import android.content.Context;
+import android.util.Log;
+
+import com.grgbanking.baselib.util.JsonUtils;
+import com.grgbanking.baselib.util.NetWorkUtil;
+import com.grgbanking.baselib.util.SecurityUtils;
+import com.grgbanking.baselib.util.log.LogUtil;
+import com.grgbanking.baselib.web.entity.ErrorMsg;
+import com.grgbanking.baselib.web.okhttp.ProgressListener;
+import com.grgbanking.baselib.web.okhttp.ProgressRequestBody;
+import com.grgbanking.baselib.web.request.RequestHeader;
+import com.grgbanking.baselib.web.request.RequestRoot;
 
 public class WebService {
     private static final int TIME_OUT = 5;//单位：s
@@ -75,16 +76,20 @@ public class WebService {
     public void asyncPost(final String url, final Object req, WebCallback callback) {
 
         if (NetWorkUtil.isNetWorkConnected(ctx)) {
-//            RequestRoot requestRoot = new RequestRoot(getRequestHeader(), req);
-//            String json = JsonUtils.toJson(requestRoot);
-            String json = JsonUtils.toJson(req);
+            String json= null;
+            try {
+                //加密
+                json = SecurityUtils.aesEncrypt(JsonUtils.toJson(req), SecurityUtils.MESSAGE_AES_KEY);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             Log.e("json", json);
             RequestBody body = new FormBody.Builder().add("params", json).build();
             Request request = new Request.Builder().url(url).post(body).build();
             Call call = okHttp.newCall(request);
             callback.onPre(call);
             call.enqueue(callback);
-            LogUtil.i(TAG, "asyncPost :    url=" + url + "?params=" + json);
+            LogUtil.i(TAG, "asyncPost :    url=" + url + "?params=" + JsonUtils.toJson(req));
         } else {
             callback.onFailure(null, new ErrorMsg(ErrorMsg.CODE_NO_NETWORK));
         }
@@ -93,9 +98,10 @@ public class WebService {
     /**
      * 不是异步请求，需要在子线程执行
      */
-    public void syncPost(final String url, final String json, WebCallback callback) {
+    public void syncPost(final String url, final String json, WebCallback callback) throws Exception {
         if (NetWorkUtil.isNetWorkConnected(ctx)) {
-            RequestBody body = new FormBody.Builder().add("", json).build();
+            String reqStr = SecurityUtils.aesEncrypt(json, SecurityUtils.MESSAGE_AES_KEY);
+            RequestBody body = new FormBody.Builder().add("", reqStr).build();
             Request request = new Request.Builder().url(url).post(body).build();
             Call call = okHttp.newCall(request);
             callback.onPre(call);
@@ -113,8 +119,7 @@ public class WebService {
 
     public void upLoadFile(final String url, final Object req, Map<String, File> files, WebCallback callback, ProgressListener progressListener) {
         if (NetWorkUtil.isNetWorkConnected(ctx)) {
-            RequestRoot requestRoot = new RequestRoot(getRequestHeader(), req);
-            String json = JsonUtils.toJson(requestRoot);
+            String json = JsonUtils.toJson(req);
             upLoadFile(url, json, files, callback, progressListener);
         } else {
             callback.onFailure(null, new ErrorMsg(ErrorMsg.CODE_NO_NETWORK));
@@ -141,24 +146,4 @@ public class WebService {
             callback.onFailure(null, new ErrorMsg(ErrorMsg.CODE_NO_NETWORK));
         }
     }
-
-    /**
-     * 请求参数格式
-     * @return
-     */
-    public RequestHeader getRequestHeader() {
-        if (requestHeader == null) {
-            requestHeader = new RequestHeader();
-        }else{
-//            requestHeader.loginName = UserService.getInstance().getLastLoginUser() == null ? null : UserService.getInstance().getLastLoginUser().userAccount;
-//            requestHeader.serialNo = UUID.randomUUID().toString();
-//            requestHeader.userId = UserService.getInstance().getLastLoginUser() == null ? null : UserService.getInstance().getLastLoginUser().userId;
-        }
-        return requestHeader;
-    }
-
-    public void setRequestHeader(RequestHeader requestHeader) {
-        this.requestHeader = requestHeader;
-    }
-
 }
