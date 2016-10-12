@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -26,8 +27,10 @@ import com.seatwe.zsws.R;
 import com.seatwe.zsws.TestDatas;
 import com.seatwe.zsws.bean.LineInfoData;
 import com.seatwe.zsws.bean.TaskInfoData;
+import com.seatwe.zsws.bean.req.ArriveNodeReqBean;
 import com.seatwe.zsws.bean.req.LoginReqBean;
 import com.seatwe.zsws.bean.resp.LoginRespBean;
+import com.seatwe.zsws.constant.StatusConstant;
 import com.seatwe.zsws.constant.UrlConstant;
 import com.seatwe.zsws.util.BusinessUtil;
 import com.seatwe.zsws.web.NetService;
@@ -61,40 +64,85 @@ public class LoginActivity extends AppCompatActivity {
 
     // 下载测试数据
     public void test() {
+
+        JSONObject object1 = null;
+        String data1 = null;
+        try {
+            object1 = new JSONObject(TestDatas.testSer(UrlConstant.USER_LOGIN));
+            data1 = object1.getString("data");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        LineInfoData resp1 = JsonUtils.fromJson(data1, LineInfoData.class);
+        //登录成功之后，获取到线路信息，若本地有数据，先与本地数据相比较，若线路id相同，则不下载，若不同，则先清除原有数据，在下载新数据
+        if (BusinessUtil.getInstance().queryLineInfo() == null) {
+            downloadTestData();
+        } else {
+            if (resp1.getId() != BusinessUtil.getInstance().queryLineInfo().getId()) {
+                BusinessUtil.getInstance().clearCashboxInfo();
+                BusinessUtil.getInstance().clearLineInfo();
+                BusinessUtil.getInstance().clearLineNodeInfo();
+                BusinessUtil.getInstance().clearNetInfo();
+                BusinessUtil.getInstance().clearTaskInfo();
+            }
+
+        }
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
+    private void downloadTestData() {
         try {
             JSONObject object1 = new JSONObject(TestDatas.testSer(UrlConstant.USER_LOGIN));
             String data1 = object1.getString("data");
             LineInfoData resp1 = JsonUtils.fromJson(data1, LineInfoData.class);
-            BusinessUtil.saveLineInfoData(resp1);
-            LogUtil.e("线路信息","线路编号：" + BusinessUtil.queryLineInfo().getLine_number());
+            BusinessUtil.getInstance().saveLineInfoData(resp1);
+            LogUtil.e("线路信息", "线路编号：" + BusinessUtil.getInstance().queryLineInfo().getLine_number());
 
+            //下载任务信息
             JSONObject object2 = new JSONObject(TestDatas.testSer(UrlConstant.TASK_INFO));
             List<TaskInfoData> list2 = new ArrayList<TaskInfoData>();
             JSONArray arr2 = object2.getJSONArray("data");
             for (int i = 0; i < arr2.length(); i++) {
                 list2.add(JsonUtils.fromJson(arr2.get(i).toString(), TaskInfoData.class));
             }
-            BusinessUtil.saveTaskInfoData(list2);
-            LogUtil.e("任务信息","钞箱编号：" + BusinessUtil.queryTaskInfo().get(0).getCashbox_num());
+            BusinessUtil.getInstance().saveTaskInfoData(list2);
+            LogUtil.e("任务信息", "钞箱编号：" + BusinessUtil.getInstance().queryTaskInfo().get(0).getCashbox_num());
 
+            //下载钞箱信息
             JSONObject object3 = new JSONObject(TestDatas.testSer(UrlConstant.GET_CASHBOX));
             List<CashBoxData> list3 = new ArrayList<CashBoxData>();
             JSONArray arr3 = object3.getJSONArray("data");
             for (int i = 0; i < arr3.length(); i++) {
                 list3.add(JsonUtils.fromJson(arr3.get(i).toString(), CashBoxData.class));
             }
-            BusinessUtil.saveCashboxInfoData(list3);
-            LogUtil.e("钞箱信息","网点编号：" + BusinessUtil.queryCashboxInfo().get(0).getCashbox_num());
+            BusinessUtil.getInstance().saveCashboxInfoData(list3);
+            LogUtil.e("钞箱信息", "网点编号：" + BusinessUtil.getInstance().queryCashboxInfo().get(0).getCashbox_num());
 
-
+            //下载网点信息
             JSONObject object4 = new JSONObject(TestDatas.testSer(UrlConstant.GET_NET_INFO));
             List<NetInfoData> list4 = new ArrayList<NetInfoData>();
             JSONArray arr4 = object4.getJSONArray("data");
             for (int i = 0; i < arr4.length(); i++) {
                 list4.add(JsonUtils.fromJson(arr4.get(i).toString(), NetInfoData.class));
             }
-            BusinessUtil.saveNetInfoData(list4);
-            LogUtil.e("网点信息","网点名称：" + BusinessUtil.queryNetInfo().get(0).getNet_name());
+            BusinessUtil.getInstance().saveNetInfoData(list4);
+            LogUtil.e("网点信息", "网点名称：" + BusinessUtil.getInstance().queryNetInfo().get(0).getNet_name());
+
+            //保存节点信息
+            List<ArriveNodeReqBean> list5 = new ArrayList<ArriveNodeReqBean>();
+            String[] nodeName = new String[]{getResources().getString(R.string.node_name_start), getResources().getString(R.string.node_name_end)};
+            for (int i = 0; i < nodeName.length; i++) {
+                ArriveNodeReqBean bean = new ArriveNodeReqBean();
+                bean.setNode_name(nodeName[i]);
+                bean.setLine_id(i);
+                bean.setNode_type(i + "");
+                bean.setStatus(StatusConstant.UN_DONE);
+                bean.setLine_id(i);
+                bean.setArrive_time("20161012202822");
+                list5.add(bean);
+            }
+            BusinessUtil.getInstance().saveLineNodeInfoData(list5);
+            LogUtil.e("线路节点信息", "线路节点名称：" + BusinessUtil.getInstance().queryLineNodeInfo().get(0).getNode_name());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -135,7 +183,7 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         // 保存数据
                         if (resp.getData() != null) {
-                            BusinessUtil.saveLineInfoData(resp.getData());
+                            BusinessUtil.getInstance().saveLineInfoData(resp.getData());
                         }
                     }
 

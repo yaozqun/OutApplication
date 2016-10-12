@@ -75,4 +75,18 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <!-- 公共item标题字体样式 -->
+    <style name="CommenItemTitleStyle">
+        <item name="android:textColor">@color/commen_item_title</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- 公共item内容字体样式 -->
+    <style name="CommItemContentStyle">
+        <item name="android:textColor">@color/commen_item_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:padding">2dp</item>
+    </style>
+
 </resources>

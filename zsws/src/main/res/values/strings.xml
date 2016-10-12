@@ -13,6 +13,14 @@
     <string name="back">返回</string>
     <string name="exit">退出</string>
 
+    <string name="click_to_scan">点击扫描</string>
+    <string name="node_name">名称：</string>
+    <string name="node_status">状态：</string>
+    <string name="node_name_start">出发</string>
+    <string name="node_name_end">结束</string>
+    <string name="scanned">已扫描</string>
+    <string name="unscanned">未扫描</string>
+
     <string name="userName_not_allowed_null">对不起，用户名不能为空</string>
     <string name="pwd_not_allowed_null">对不起，密码不能为空</string>
 </resources>

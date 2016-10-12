@@ -3,7 +3,10 @@ package com.seatwe.zsws.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.seatwe.zsws.R;
@@ -13,59 +16,82 @@ import com.seatwe.zsws.ui.base.BaseActivity;
 
 public class MainActivity extends BaseActivity {
 
-  private ListView lv_module;
+    private ListView lv_module;
 
-  private String[] modules_str;// 模块名称
+    private String[] modules_str;// 模块名称
 
-  private int[] mudules_pic;// 模块图片
+    private int[] mudules_pic;// 模块图片
 
-  private List<Module> modules;
+    private List<Module> modules;
 
-  private ModuleAdapter adapter;// 适配器
+    private ModuleAdapter adapter;// 适配器
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-    init();
-  }
-
-  /**
-   *初始化
-   */
-  public void init() {
-    initData();
-    initView();
-  }
-
-  /**
-   *初始化UI
-   */
-  public void initView() {
-    lv_module = (ListView) findViewById(R.id.lv_module);
-    // 设置适配器
-    adapter = new ModuleAdapter(this, modules);
-    lv_module.setAdapter(adapter);
-    tvTitleSubject.setText("dddd");
-  }
-
-  /**
-   * 初始化数据
-   */
-  public void initData() {
-    modules_str = new String[] { getResources().getString(R.string.module_line),
-        getResources().getString(R.string.module_task),
-        getResources().getString(R.string.module_box) };
-    mudules_pic = new int[] { R.mipmap.module_line, R.mipmap.module_task,
-        R.mipmap.module_box };
-
-    modules = new ArrayList<Module>();
-    for (int i = 0; i < modules_str.length; i++) {
-      Module module = new Module();
-      module.setModuleName(modules_str[i]);
-      module.setModulePic(mudules_pic[i]);
-      modules.add(module);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        init();
     }
-  }
+
+    /**
+     * 初始化
+     */
+    public void init() {
+        initData();
+        initView();
+        initListener();
+    }
+
+    /**
+     * 初始化UI
+     */
+    public void initView() {
+        lv_module = (ListView) findViewById(R.id.lv_module);
+        // 设置适配器
+        adapter = new ModuleAdapter(this, modules);
+        lv_module.setAdapter(adapter);
+        tvTitleSubject.setText("dddd");
+    }
+
+    /**
+     * 初始化数据
+     */
+    public void initData() {
+        modules_str = new String[]{getResources().getString(R.string.module_line),
+                getResources().getString(R.string.module_task),
+                getResources().getString(R.string.module_box)};
+        mudules_pic = new int[]{R.mipmap.module_line, R.mipmap.module_task,
+                R.mipmap.module_box};
+
+        modules = new ArrayList<Module>();
+        for (int i = 0; i < modules_str.length; i++) {
+            Module module = new Module();
+            module.setModuleName(modules_str[i]);
+            module.setModulePic(mudules_pic[i]);
+            modules.add(module);
+        }
+    }
+
+    /**
+     * 初始化监听
+     */
+    public void initListener(){
+        lv_module.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        startActivity(new Intent(MainActivity.this,LineNodeActivity.class));
+                        break;
+                    case 1:
+
+                        break;
+                    case 2:
+
+                        break;
+                }
+            }
+        });
+    }
 
 }

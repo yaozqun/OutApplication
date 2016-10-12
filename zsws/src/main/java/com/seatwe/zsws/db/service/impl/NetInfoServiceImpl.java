@@ -29,4 +29,5 @@ public class NetInfoServiceImpl extends BaseDbServiceImpl<NetInfoData>
   public List<NetInfoData> queryNetInfo() throws SQLException {
     return dao.queryForAll();
   }
+
 }

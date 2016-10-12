@@ -23,7 +23,6 @@ public class TaskInfoServiceImpl extends BaseDbServiceImpl<TaskInfoData>
 
   @Override
   public void saveLineInfo(List<TaskInfoData> resp) throws SQLException {
-
     create(resp);// 保存数据
   }
 

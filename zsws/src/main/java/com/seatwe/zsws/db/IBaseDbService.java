@@ -172,4 +172,6 @@ public interface IBaseDbService<TEntity, ID> {
      */
     public abstract void initDao(Class<TEntity> classEntity, BaseDbTransactionImpl baseDbTransactionImpl);
 
+
+
 }

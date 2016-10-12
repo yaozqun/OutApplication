@@ -4,8 +4,10 @@ import com.grgbanking.baselib.web.bean.CashBoxData;
 import com.grgbanking.baselib.web.bean.NetInfoData;
 import com.seatwe.zsws.bean.LineInfoData;
 import com.seatwe.zsws.bean.TaskInfoData;
+import com.seatwe.zsws.bean.req.ArriveNodeReqBean;
 import com.seatwe.zsws.db.service.impl.CashboxInfoServiceImpl;
 import com.seatwe.zsws.db.service.impl.LineInfoServiceImpl;
+import com.seatwe.zsws.db.service.impl.LineNodeInfoServiceImpl;
 import com.seatwe.zsws.db.service.impl.NetInfoServiceImpl;
 import com.seatwe.zsws.db.service.impl.TaskInfoServiceImpl;
 
@@ -16,16 +18,33 @@ import java.util.List;
  * Created by Administrator on 2016/10/11.
  */
 public class BusinessUtil {
-    //private static LineInfoServiceImpl lineInfoServiceImpl = new LineInfoServiceImpl(LineInfoData.class);
+    private static BusinessUtil instance;
+    private static LineInfoServiceImpl lineInfoService;
+    private static TaskInfoServiceImpl taskInfoService;
+    private static NetInfoServiceImpl netInfoService;
+    private static LineNodeInfoServiceImpl lineNodeInfoService;
+    private static CashboxInfoServiceImpl cashboxInfoService;
+
+    public static synchronized BusinessUtil getInstance() {
+        if (instance == null) {
+            instance = new BusinessUtil();
+            lineInfoService = new LineInfoServiceImpl(LineInfoData.class);
+            taskInfoService = new TaskInfoServiceImpl(TaskInfoData.class);
+            netInfoService = new NetInfoServiceImpl(NetInfoData.class);
+            lineNodeInfoService = new LineNodeInfoServiceImpl(ArriveNodeReqBean.class);
+            cashboxInfoService = new CashboxInfoServiceImpl(CashBoxData.class);
+        }
+        return instance;
+    }
 
     /**
      * 保存线路信息
+     *
      * @param data
      */
-    public static void saveLineInfoData(LineInfoData data){
-        LineInfoServiceImpl infoServiceImpl = new LineInfoServiceImpl(LineInfoData.class);
+    public void saveLineInfoData(LineInfoData data) {
         try {
-            infoServiceImpl.saveLineInfo(data);
+            lineInfoService.saveLineInfo(data);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -34,10 +53,9 @@ public class BusinessUtil {
     /**
      * 查询线路信息
      */
-    public static LineInfoData queryLineInfo(){
-        LineInfoServiceImpl infoServiceImpl = new LineInfoServiceImpl(LineInfoData.class);
+    public LineInfoData queryLineInfo() {
         try {
-            return infoServiceImpl.queryLineInfo();
+            return lineInfoService.queryLineInfo();
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -45,13 +63,24 @@ public class BusinessUtil {
     }
 
     /**
+     * 删除线路信息
+     */
+    public void clearLineInfo() {
+        try {
+            lineInfoService.delete(queryLineInfo());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 保存任务信息
+     *
      * @param data
      */
-    public static void saveTaskInfoData(List<TaskInfoData> data){
-        TaskInfoServiceImpl infoServiceImpl = new TaskInfoServiceImpl(TaskInfoData.class);
+    public void saveTaskInfoData(List<TaskInfoData> data) {
         try {
-            infoServiceImpl.saveLineInfo(data);
+            taskInfoService.saveLineInfo(data);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -60,25 +89,34 @@ public class BusinessUtil {
     /**
      * 查询任务信息
      */
-    public static List<TaskInfoData> queryTaskInfo(){
-        TaskInfoServiceImpl infoServiceImpl = new TaskInfoServiceImpl(TaskInfoData.class);
+    public List<TaskInfoData> queryTaskInfo() {
         try {
-            return infoServiceImpl.queryTaskInfo();
+            return taskInfoService.queryTaskInfo();
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
+    }
 
+    /**
+     * 删除任务信息
+     */
+    public void clearTaskInfo() {
+        try {
+            taskInfoService.delete(queryTaskInfo());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * 保存钞箱信息
+     *
      * @param data
      */
-    public static void saveCashboxInfoData(List<CashBoxData> data){
-        CashboxInfoServiceImpl infoServiceImpl = new CashboxInfoServiceImpl(CashBoxData.class);
+    public void saveCashboxInfoData(List<CashBoxData> data) {
         try {
-            infoServiceImpl.saveCashboxInfo(data);
+            cashboxInfoService.saveCashboxInfo(data);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -87,10 +125,9 @@ public class BusinessUtil {
     /**
      * 查询钞箱信息
      */
-    public static List<CashBoxData> queryCashboxInfo(){
-        CashboxInfoServiceImpl infoServiceImpl = new CashboxInfoServiceImpl(CashBoxData.class);
+    public List<CashBoxData> queryCashboxInfo() {
         try {
-            return infoServiceImpl.queryCashboxInfo();
+            return cashboxInfoService.queryCashboxInfo();
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -98,13 +135,24 @@ public class BusinessUtil {
     }
 
     /**
+     * 删除任务信息
+     */
+    public void clearCashboxInfo() {
+        try {
+            cashboxInfoService.delete(queryCashboxInfo());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 保存网点信息
+     *
      * @param data
      */
-    public static void saveNetInfoData(List<NetInfoData> data){
-        NetInfoServiceImpl infoServiceImpl = new NetInfoServiceImpl(NetInfoData.class);
+    public void saveNetInfoData(List<NetInfoData> data) {
         try {
-            infoServiceImpl.saveNetInfo(data);
+            netInfoService.saveNetInfo(data);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -113,14 +161,74 @@ public class BusinessUtil {
     /**
      * 查询网点信息
      */
-    public static List<NetInfoData> queryNetInfo(){
-        NetInfoServiceImpl infoServiceImpl = new NetInfoServiceImpl(NetInfoData.class);
+    public List<NetInfoData> queryNetInfo() {
         try {
-            return infoServiceImpl.queryNetInfo();
+            return netInfoService.queryNetInfo();
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
 
+    }
+
+    /**
+     * 删除网点信息
+     */
+    public void clearNetInfo() {
+        try {
+            netInfoService.delete(queryNetInfo());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 根据网点ID查询网点信息
+     *
+     * @param id
+     */
+    public NetInfoData queryNetInfoById(int id) {
+        try {
+            return netInfoService.queryForId(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 保存线路节点信息
+     *
+     * @param data
+     */
+    public void saveLineNodeInfoData(List<ArriveNodeReqBean> data) {
+        try {
+            lineNodeInfoService.saveLineNodeInfo(data);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 查询线路节点信息
+     */
+    public List<ArriveNodeReqBean> queryLineNodeInfo() {
+        try {
+            return lineNodeInfoService.queryLineNodeInfo();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 删除线路节点信息
+     */
+    public void clearLineNodeInfo() {
+        try {
+            lineNodeInfoService.delete(queryLineNodeInfo());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.grgbanking.baselib.web.bean.CashBoxData;
+import com.seatwe.zsws.bean.TaskInfoData;
 import com.seatwe.zsws.db.IBaseDbService;
 
 public interface ICashboxInfoService extends IBaseDbService<CashBoxData,Integer> {
