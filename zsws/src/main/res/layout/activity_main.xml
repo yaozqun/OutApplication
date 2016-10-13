@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:padding="10dp"
     android:orientation="vertical"
-    tools:context="com.seatwe.zsws.MainActivity">
+    tools:context="com.seatwe.zsws.ui.MainActivity">
 
     <ListView
         android:id="@+id/lv_module"

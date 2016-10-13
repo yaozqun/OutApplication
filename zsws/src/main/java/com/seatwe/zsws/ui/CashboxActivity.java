@@ -1,11 +1,11 @@
 package com.seatwe.zsws.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import com.seatwe.zsws.R;
+import com.seatwe.zsws.ui.base.BaseActivity;
 
-public class CashboxActivity extends Activity {
+public class CashboxActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

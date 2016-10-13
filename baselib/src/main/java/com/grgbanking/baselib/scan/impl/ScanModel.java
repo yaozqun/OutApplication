@@ -8,14 +8,10 @@ import android.device.ScanManager;
 import android.device.scanner.configuration.PropertyID;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.os.Message;
-import android.util.Log;
 
 import com.grgbanking.baselib.scan.IScanModel;
 import com.grgbanking.baselib.scan.ODSListener;
 import com.grgbanking.baselib.util.ToastUtil;
-
-import java.io.IOException;
 
 /**
  * Created by Administrator on 2016/10/13.
@@ -29,6 +25,7 @@ public class ScanModel implements IScanModel {
     private SoundPool soundpool = null;
     private int soundid;
     private boolean isScanning = false;
+    private ODSListener listener;
 
     public static ScanModel getInstance() {
         if (model == null) {
@@ -52,7 +49,7 @@ public class ScanModel implements IScanModel {
         IntentFilter filter = new IntentFilter();
         int[] idbuf = new int[]{PropertyID.WEDGE_INTENT_ACTION_NAME, PropertyID.WEDGE_INTENT_DATA_STRING_TAG};
         String[] value_buf = mScanManager.getParameterString(idbuf);
-        if(value_buf != null && value_buf[0] != null && !value_buf[0].equals("")) {
+        if (value_buf != null && value_buf[0] != null && !value_buf[0].equals("")) {
             filter.addAction(value_buf[0]);
         } else {
             filter.addAction(SCAN_ACTION);
@@ -62,14 +59,23 @@ public class ScanModel implements IScanModel {
 
     @Override
     public void startOrStop() {
-        mScanManager.stopDecode();
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        if (isScanning) {
+            isScanning = false;
+            mScanManager.closeScanner();
+        } else {
+            isScanning = true;
+            mScanManager.startDecode();
+
         }
-        mScanManager.startDecode();
+
+//        mScanManager.stopDecode();
+//        try {
+//            Thread.sleep(100);
+//        } catch (InterruptedException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        mScanManager.startDecode();
     }
 
     @Override
@@ -89,7 +95,7 @@ public class ScanModel implements IScanModel {
 
     @Override
     public boolean isScaning() {
-        return false;
+        return isScanning;
     }
 
     @Override
@@ -110,6 +116,7 @@ public class ScanModel implements IScanModel {
 
             ToastUtil.shortShow(barcodeStr);
 
+
         }
     };
 
@@ -120,7 +127,14 @@ public class ScanModel implements IScanModel {
         public void run() {
             // TODO Auto-generated method stub
             while (run) {
+                if (isScanning) {
+                    isScanning = false;
+                    mScanManager.closeScanner();
+                } else {
+                    isScanning = true;
+                    mScanManager.startDecode();
 
+                }
 
             }
 

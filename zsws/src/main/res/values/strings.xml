@@ -23,6 +23,7 @@
     <string name="send_box">送出款箱</string>
     <string name="collect_box">收取款箱</string>
     <string name="middle_box">中调款箱</string>
+    <string name="confirm">确认交接</string>
 
     <string name="userName_not_allowed_null">对不起，用户名不能为空</string>
     <string name="pwd_not_allowed_null">对不起，密码不能为空</string>
