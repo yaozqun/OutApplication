@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.grgbanking.baselib.ui.view.AdaptScrViewListView;
+import com.grgbanking.baselib.util.log.LogUtil;
 import com.seatwe.zsws.R;
 import com.seatwe.zsws.bean.TaskInfoData;
 import com.seatwe.zsws.ui.adapter.TaskAdapter;
@@ -42,5 +43,11 @@ public class TaskActivity extends BaseActivity {
                 ActivityJumpUtil.jumpToTaskDetailActivity(TaskActivity.this, listTask.get(position));
             }
         });
+    }
+
+    @Override
+    public void onScanResult(String barcodeStr) {
+        super.onScanResult(barcodeStr);
+
     }
 }
