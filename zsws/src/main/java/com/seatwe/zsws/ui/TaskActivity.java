@@ -48,6 +48,10 @@ public class TaskActivity extends BaseActivity {
     @Override
     public void onScanResult(String barcodeStr) {
         super.onScanResult(barcodeStr);
-
+        for(TaskInfoData taskInfo : listTask){
+            if(BusinessUtil.getInstance().queryNetInfoById(taskInfo.getNet_id()).getNet_code().equals(barcodeStr)){
+                ActivityJumpUtil.jumpToTaskDetailActivity(TaskActivity.this,taskInfo);
+            }
+        }
     }
 }
