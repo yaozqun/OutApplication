@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_taskList_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/frame_bg_white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_netName"
+            style="@style/CommItemContentStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="网点：" />
+
+        <TextView
+            android:id="@+id/tv_arriveTime"
+            style="@style/CommItemContentStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_contact"
+            android:text="到达时间：" />
+
+        <TextView
+            android:id="@+id/tv_planSendBox"
+            style="@style/CommItemContentStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="款箱合计：" />
+
+        <TextView
+            android:id="@+id/tv_boxSum"
+            style="@style/CommItemContentStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:text="送出2个，收取2个，中调4个" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/black"/>
+
+        <Button
+            android:id="@+id/bt_sendBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/button_click_bg"
+            android:text="@string/send_box"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+
+        <Button
+            android:id="@+id/bt_collectBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/button_click_bg"
+            android:text="@string/collect_box"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+
+        <Button
+            android:id="@+id/bt_middleBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/button_click_bg"
+            android:text="@string/middle_box"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+    </LinearLayout>
+
+</LinearLayout>

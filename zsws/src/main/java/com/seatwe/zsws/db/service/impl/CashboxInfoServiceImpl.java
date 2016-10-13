@@ -27,4 +27,8 @@ public class CashboxInfoServiceImpl extends BaseDbServiceImpl<CashBoxData>
   public List<CashBoxData> queryCashboxInfo() throws SQLException {
     return dao.queryForAll();
   }
+
+  public List<CashBoxData> queryCashboxInfoByNetId(int netId) throws  SQLException{
+    return dao.getQueryBuilder().where().eq("net_id", netId).query();
+  }
 }

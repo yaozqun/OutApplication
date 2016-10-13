@@ -12,6 +12,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.seatwe.zsws.bean.LineInfoData;
+import com.seatwe.zsws.bean.RecordboxInfoData;
 import com.seatwe.zsws.bean.TaskInfoData;
 import com.seatwe.zsws.bean.req.ArriveNodeReqBean;
 
@@ -51,6 +52,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                 TableUtils.createTable(connectionSource, NetInfoData.class);
                 TableUtils.createTable(connectionSource, UpgradeData.class);
                 TableUtils.createTable(connectionSource, ArriveNodeReqBean.class);
+                TableUtils.createTable(connectionSource, RecordboxInfoData.class);
             } catch (java.sql.SQLException e) {
                 e.printStackTrace();
             }

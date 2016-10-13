@@ -6,7 +6,7 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
 
-    <uses-permission android:name="android.permission.READ_LOGS"></uses-permission>
+    <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
@@ -35,6 +35,9 @@
     <uses-feature android:name="android.hardware.autofocus" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -56,7 +59,11 @@
         </activity>
         <activity android:name=".ui.LineNodeActivity" >
         </activity>
-        <activity android:name=".ui.NetTaskActivity" >
+        <activity android:name=".ui.TaskActivity" >
+        </activity>
+        <activity android:name=".ui.CashboxActivity" >
+        </activity>
+        <activity android:name=".ui.TaskDetailActivity" >
         </activity>
     </application>
 

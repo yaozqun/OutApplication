@@ -7,18 +7,19 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.grgbanking.baselib.web.bean.NetInfoData;
 import com.seatwe.zsws.R;
 import com.seatwe.zsws.bean.TaskInfoData;
 import com.seatwe.zsws.util.BusinessUtil;
 
 import java.util.List;
 
-public class NetAdapter extends BaseAdapter {
+public class TaskAdapter extends BaseAdapter {
     private Activity context;
 
     private List<TaskInfoData> info;
 
-    public NetAdapter(Activity context, List<TaskInfoData> info) {
+    public TaskAdapter(Activity context, List<TaskInfoData> info) {
         super();
         this.context = context;
         this.info = info;
@@ -56,7 +57,7 @@ public class NetAdapter extends BaseAdapter {
         ViewHolder viewHolder = null;
         if (null == convertView) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.activity_net_item, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.activity_task_item, null);
             viewHolder.tv_netName = (TextView) convertView.findViewById(R.id.tv_netName);
             viewHolder.tv_contact = (TextView) convertView.findViewById(R.id.tv_contact);
             viewHolder.tv_address = (TextView) convertView.findViewById(R.id.tv_address);
@@ -67,10 +68,11 @@ public class NetAdapter extends BaseAdapter {
         }
         TaskInfoData item = getItem(position);
         if (null != item) {
-            viewHolder.tv_netName.setText((position + 1) + BusinessUtil.getInstance().q);
-//            viewHolder.tv_contact.setText("联系人：" + item.getTel_number());
-//            viewHolder.tv_address.setText("地址：" + item.getNet_address());
-//            viewHolder.tv_planSendBox.setText("计划送箱：" + item.get);
+            NetInfoData netInfo = BusinessUtil.getInstance().queryNetInfoById(item.getNet_id());
+            viewHolder.tv_netName.setText(netInfo.getNet_name());
+            viewHolder.tv_contact.setText("联系人：" + netInfo.getContacts_name() + ":" + netInfo.getTel_number());
+            viewHolder.tv_address.setText("地址：" + netInfo.getNet_address());
+            viewHolder.tv_planSendBox.setText("计划送箱：" + item.getCashbox_num());
         }
         return convertView;
     }

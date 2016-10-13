@@ -50,7 +50,6 @@ public class MainActivity extends BaseActivity {
         // 设置适配器
         adapter = new ModuleAdapter(this, modules);
         lv_module.setAdapter(adapter);
-        tvTitleSubject.setText("dddd");
     }
 
     /**
@@ -75,19 +74,19 @@ public class MainActivity extends BaseActivity {
     /**
      * 初始化监听
      */
-    public void initListener(){
+    public void initListener() {
         lv_module.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
+                switch (position) {
                     case 0:
-                        startActivity(new Intent(MainActivity.this,LineNodeActivity.class));
+                        startActivity(new Intent(MainActivity.this, LineNodeActivity.class));
                         break;
                     case 1:
-
+                        startActivity(new Intent(MainActivity.this, TaskActivity.class));
                         break;
                     case 2:
-
+                        startActivity(new Intent(MainActivity.this, CashboxActivity.class));
                         break;
                 }
             }

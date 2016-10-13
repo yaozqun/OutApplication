@@ -20,6 +20,9 @@
     <string name="node_name_end">结束</string>
     <string name="scanned">已扫描</string>
     <string name="unscanned">未扫描</string>
+    <string name="send_box">送出款箱</string>
+    <string name="collect_box">收取款箱</string>
+    <string name="middle_box">中调款箱</string>
 
     <string name="userName_not_allowed_null">对不起，用户名不能为空</string>
     <string name="pwd_not_allowed_null">对不起，密码不能为空</string>

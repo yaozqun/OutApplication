@@ -5,12 +5,11 @@ import android.os.Bundle;
 
 import com.seatwe.zsws.R;
 
-public class NetTaskActivity extends Activity {
-
+public class CashboxActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_line_node);
+        setContentView(R.layout.activity_cashbox);
     }
 }

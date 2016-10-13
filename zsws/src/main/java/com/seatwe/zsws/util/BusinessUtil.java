@@ -125,6 +125,18 @@ public class BusinessUtil {
     /**
      * 查询钞箱信息
      */
+    public List<CashBoxData> queryCashboxInfoByNetId(int netId) {
+        try {
+            return cashboxInfoService.queryCashboxInfoByNetId(netId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 查询钞箱信息
+     */
     public List<CashBoxData> queryCashboxInfo() {
         try {
             return cashboxInfoService.queryCashboxInfo();
