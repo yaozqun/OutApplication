@@ -17,7 +17,7 @@ public class CashBoxData extends ResponseBean {
     @DatabaseField(columnName = "brands")
     private String brands;
     @DatabaseField(columnName = "net_id")
-    private String net_id;
+    private int net_id;
     @DatabaseField(columnName = "clearing_space")
     private String clearing_space;
     @DatabaseField(columnName = "box_type_id")
@@ -63,11 +63,11 @@ public class CashBoxData extends ResponseBean {
         this.brands = brands;
     }
 
-    public String getNet_id() {
+    public int getNet_id() {
         return net_id;
     }
 
-    public void setNet_id(String net_id) {
+    public void setNet_id(int net_id) {
         this.net_id = net_id;
     }
 

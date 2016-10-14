@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_taskList_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/frame_bg_white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_cashboxCode"
+            style="@style/CommItemContentStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="款箱编号：" />
+
+        <TextView
+            android:id="@+id/tv_cashboxType"
+            style="@style/CommItemContentStyle"
+            android:layout_width="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_cashboxCode"
+            android:text="款箱类型：" />
+
+        <ImageView
+            android:id="@+id/iv_flagFalse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_cashboxCode"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/flag_true"/>
+
+        <ImageView
+            android:id="@+id/iv_flagTrue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_cashboxCode"
+            android:layout_toLeftOf="@id/iv_flagFalse"
+            android:layout_marginRight="15dp"
+            android:background="@mipmap/flag_true"/>
+
+        <TextView
+            android:id="@+id/tv_netName"
+            style="@style/CommItemContentStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_cashboxType"
+            android:singleLine="true"
+            android:text="所属机构：" />
+
+    </RelativeLayout>
+
+</LinearLayout>

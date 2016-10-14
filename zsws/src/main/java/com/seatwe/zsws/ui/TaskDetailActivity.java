@@ -1,6 +1,5 @@
 package com.seatwe.zsws.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +10,7 @@ import com.seatwe.zsws.R;
 import com.seatwe.zsws.bean.TaskInfoData;
 import com.seatwe.zsws.ui.base.BaseActivity;
 import com.seatwe.zsws.util.ActivityJumpUtil;
-import com.seatwe.zsws.util.BusinessUtil;
+import com.seatwe.zsws.util.db.NetInfoBusinessUtil;
 
 public class TaskDetailActivity extends BaseActivity implements View.OnClickListener {
     private TextView tv_netName, tv_arriveTime, tv_boxSum;
@@ -49,7 +48,8 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     public void initData() {
         //获取任务信息
         taskInfoData = (TaskInfoData) getIntent().getSerializableExtra(ActivityJumpUtil.INFO);
-        NetInfoData netInfoData = BusinessUtil.getInstance().queryNetInfoById(taskInfoData.getNet_id());
+        NetInfoData netInfoData =
+        NetInfoBusinessUtil.getInstance().queryNetInfoById(taskInfoData.getNet_id());
         tv_netName.setText("网点：(" + netInfoData.getNet_code() + ")" + netInfoData.getNet_address());
         tv_arriveTime.setText("到达时间：" + taskInfoData.getArriveTime());
         tv_boxSum.setText("送出2个，收取3个，中调1个");
@@ -59,7 +59,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_sendBox:
-
+                ActivityJumpUtil.jumpToScanboxActivity(TaskDetailActivity.this,taskInfoData);
                 break;
 
             case R.id.bt_collectBox:

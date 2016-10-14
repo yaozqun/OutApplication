@@ -7,7 +7,7 @@ import com.seatwe.zsws.R;
 import com.seatwe.zsws.bean.req.ArriveNodeReqBean;
 import com.seatwe.zsws.ui.adapter.LineNodeAdapter;
 import com.seatwe.zsws.ui.base.BaseActivity;
-import com.seatwe.zsws.util.BusinessUtil;
+import com.seatwe.zsws.util.db.LineNodeBusinessUtil;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class LineNodeActivity extends BaseActivity {
         tvTitleSubject.setText(getResources().getString(R.string.module_line));
         asvlv_node = (AdaptScrViewListView) findViewById(R.id.asvlv_node);
 
-        listNode = BusinessUtil.getInstance().queryLineNodeInfo();
+        listNode = LineNodeBusinessUtil.getInstance().queryLineNodeInfo();
         adapter = new LineNodeAdapter(this,listNode);
         asvlv_node.setAdapter(adapter);
     }

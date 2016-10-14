@@ -6,9 +6,9 @@
     android:padding="20dp" >
 
     <RelativeLayout
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:padding="15dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:padding="10dp"
         android:gravity="center"
         android:layout_weight="1"
         android:layout_gravity="center_horizontal"
@@ -25,19 +25,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/module_task" />
-
-            <TextView
-                android:id="@+id/tv_layout_main_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/little_circle_bg"
-                android:text="4"
-                android:gravity="top"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tv_layout_main_module"

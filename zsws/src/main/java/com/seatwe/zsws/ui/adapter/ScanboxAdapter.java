@@ -7,19 +7,19 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.grgbanking.baselib.web.bean.CashBoxData;
 import com.grgbanking.baselib.web.bean.NetInfoData;
 import com.seatwe.zsws.R;
-import com.seatwe.zsws.bean.TaskInfoData;
 import com.seatwe.zsws.util.db.NetInfoBusinessUtil;
 
 import java.util.List;
 
-public class TaskAdapter extends BaseAdapter {
+public class ScanboxAdapter extends BaseAdapter {
     private Activity context;
 
-    private List<TaskInfoData> info;
+    private List<CashBoxData> info;
 
-    public TaskAdapter(Activity context, List<TaskInfoData> info) {
+    public ScanboxAdapter(Activity context, List<CashBoxData> info) {
         super();
         this.context = context;
         this.info = info;
@@ -36,9 +36,9 @@ public class TaskAdapter extends BaseAdapter {
     }
 
     @Override
-    public TaskInfoData getItem(int position) {
+    public CashBoxData getItem(int position) {
         // TODO Auto-generated method stub
-        TaskInfoData item = null;
+        CashBoxData item = null;
         if (info != null) {
             item = info.get(position);
         }
@@ -57,22 +57,20 @@ public class TaskAdapter extends BaseAdapter {
         ViewHolder viewHolder = null;
         if (null == convertView) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.activity_task_item, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.activity_scanbox_item, null);
             viewHolder.tv_netName = (TextView) convertView.findViewById(R.id.tv_netName);
-            viewHolder.tv_contact = (TextView) convertView.findViewById(R.id.tv_contact);
-            viewHolder.tv_address = (TextView) convertView.findViewById(R.id.tv_address);
-            viewHolder.tv_planSendBox = (TextView) convertView.findViewById(R.id.tv_planSendBox);
+            viewHolder.tv_cashboxCode = (TextView) convertView.findViewById(R.id.tv_cashboxCode);
+            viewHolder.tv_cashboxType = (TextView) convertView.findViewById(R.id.tv_cashboxType);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        TaskInfoData item = getItem(position);
+        CashBoxData item = getItem(position);
         if (null != item) {
             NetInfoData netInfo = NetInfoBusinessUtil.getInstance().queryNetInfoById(item.getNet_id());
-            viewHolder.tv_netName.setText(netInfo.getNet_name());
-            viewHolder.tv_contact.setText("联系人：" + netInfo.getContacts_name() + ":" + netInfo.getTel_number());
-            viewHolder.tv_address.setText("地址：" + netInfo.getNet_address());
-            viewHolder.tv_planSendBox.setText("计划送箱：" + item.getCashbox_num());
+            viewHolder.tv_netName.setText("所属机构：" + netInfo.getNet_name());
+            viewHolder.tv_cashboxCode.setText("款箱编号：" + item.getCashbox_num());
+            viewHolder.tv_cashboxType.setText("款箱类型：" + item.getBox_type_name());
         }
         return convertView;
     }
@@ -80,11 +78,10 @@ public class TaskAdapter extends BaseAdapter {
     private class ViewHolder {
         TextView tv_netName;
 
-        TextView tv_contact;
+        TextView tv_cashboxCode;
 
-        TextView tv_address;
+        TextView tv_cashboxType;
 
-        TextView tv_planSendBox;
     }
 
 }
