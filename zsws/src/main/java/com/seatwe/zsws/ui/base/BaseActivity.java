@@ -163,5 +163,9 @@ public class BaseActivity extends Activity {
      */
     public void onScanResult(String barcodeStr) {
 
+
+
+        //测试提交
+
     }
 }
