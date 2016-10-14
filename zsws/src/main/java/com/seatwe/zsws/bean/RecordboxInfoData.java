@@ -23,6 +23,8 @@ public class RecordboxInfoData {
     private String transfer_status;
     @DatabaseField(columnName = "task_id")
     private int task_id;
+    @DatabaseField(columnName = "net_id")
+    private int net_id;
     /**
      * 0: 送出
      * 1：收取
@@ -30,6 +32,14 @@ public class RecordboxInfoData {
      */
     @DatabaseField(columnName = "type")
     private String type;
+
+    public int getNet_id() {
+        return this.net_id;
+    }
+
+    public void setNet_id(int net_id) {
+        this.net_id = net_id;
+    }
 
     public int getTask_id() {
         return this.task_id;

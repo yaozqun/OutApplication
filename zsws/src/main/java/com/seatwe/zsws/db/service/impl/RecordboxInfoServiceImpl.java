@@ -21,7 +21,35 @@ public class RecordboxInfoServiceImpl extends BaseDbServiceImpl<RecordboxInfoDat
     }
 
     @Override
-    public void saveRecordboxInfo(List<RecordboxInfoData> resp) throws SQLException {
+    public void saveRecordBoxInfo(List<RecordboxInfoData> resp) throws SQLException {
 
     }
+
+    /**
+     * 根据任务ID和网点Id查询钞箱操作记录
+     *
+     * @param taskId
+     * @param netId
+     * @return
+     */
+    public List<RecordboxInfoData> queryRecordBoxByTaskIdAndNetId(int taskId, int netId) throws SQLException {
+        return dao.getQueryBuilder().where().eq("task_id", taskId).and().eq("net_id", netId).query();
+    }
+
+    /**
+     * 根据箱袋类型查询钞箱记录
+     * 0: 送出
+     * 1：收取
+     * 2：中调
+     *
+     * @param taskId
+     * @param netId
+     * @param type
+     * @return
+     * @throws SQLException
+     */
+    public List<RecordboxInfoData> queryRecordBoxByType(int taskId, int netId, int type) throws SQLException {
+        return dao.getQueryBuilder().where().eq("task_id", taskId).and().eq("net_id", netId).and().eq("type", type).query();
+    }
+
 }

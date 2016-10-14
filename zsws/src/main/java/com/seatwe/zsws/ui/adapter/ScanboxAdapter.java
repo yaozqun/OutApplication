@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grgbanking.baselib.web.bean.CashBoxData;
 import com.grgbanking.baselib.web.bean.NetInfoData;
 import com.seatwe.zsws.R;
+import com.seatwe.zsws.constant.StatusConstant;
 import com.seatwe.zsws.util.db.NetInfoBusinessUtil;
 
 import java.util.List;
@@ -61,6 +63,8 @@ public class ScanboxAdapter extends BaseAdapter {
             viewHolder.tv_netName = (TextView) convertView.findViewById(R.id.tv_netName);
             viewHolder.tv_cashboxCode = (TextView) convertView.findViewById(R.id.tv_cashboxCode);
             viewHolder.tv_cashboxType = (TextView) convertView.findViewById(R.id.tv_cashboxType);
+            viewHolder.iv_flagTrue = (ImageView) convertView.findViewById(R.id.iv_flagTrue);
+            viewHolder.iv_flagFalse = (ImageView) convertView.findViewById(R.id.iv_flagFalse);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -71,6 +75,13 @@ public class ScanboxAdapter extends BaseAdapter {
             viewHolder.tv_netName.setText("所属机构：" + netInfo.getNet_name());
             viewHolder.tv_cashboxCode.setText("款箱编号：" + item.getCashbox_num());
             viewHolder.tv_cashboxType.setText("款箱类型：" + item.getBox_type_name());
+            if(item.getStatus().equals(StatusConstant.DONE)){
+                viewHolder.iv_flagTrue.setVisibility(View.VISIBLE);
+                viewHolder.iv_flagTrue.setBackgroundResource(R.mipmap.flag_true);
+            }else{
+                viewHolder.iv_flagTrue.setVisibility(View.INVISIBLE);
+            }
+
         }
         return convertView;
     }
@@ -81,6 +92,10 @@ public class ScanboxAdapter extends BaseAdapter {
         TextView tv_cashboxCode;
 
         TextView tv_cashboxType;
+
+        ImageView iv_flagTrue;
+
+        ImageView iv_flagFalse;
 
     }
 

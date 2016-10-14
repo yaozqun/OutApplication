@@ -3,8 +3,8 @@
     android:id="@+id/ll_taskList_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,27 +23,29 @@
             android:id="@+id/tv_cashboxType"
             style="@style/CommItemContentStyle"
             android:layout_width="match_parent"
-            android:layout_centerVertical="true"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_cashboxCode"
+            android:layout_centerVertical="true"
             android:text="款箱类型：" />
 
         <ImageView
             android:id="@+id/iv_flagFalse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_cashboxCode"
             android:layout_alignParentRight="true"
-            android:background="@mipmap/flag_true"/>
+            android:layout_below="@id/tv_cashboxCode"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/del" />
 
         <ImageView
             android:id="@+id/iv_flagTrue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_cashboxCode"
-            android:layout_toLeftOf="@id/iv_flagFalse"
+            android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:background="@mipmap/flag_true"/>
+            android:layout_toLeftOf="@id/iv_flagFalse"
+            android:background="@mipmap/flag_true" />
 
         <TextView
             android:id="@+id/tv_netName"
