@@ -9,7 +9,6 @@ import android.content.Context;
 public class MyApplication extends Application {
     public static Context context;
     private static MyApplication instance;
-
     public static Context getContext() {
         return context;
     }
@@ -17,7 +16,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         context = getApplicationContext();
 
     }

@@ -36,6 +36,8 @@ public class BaseActivity extends Activity {
 
     protected TextView tvTiltleUserName;
 
+
+
     private Vibrator mVibrator;
     private ScanManager mScanManager;
     //    private SoundPool soundpool = null;
