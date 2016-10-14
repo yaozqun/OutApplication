@@ -9,7 +9,6 @@ public class WebConfig {
 //    public static final String HOST = "http://10.2.15.250:8081/mm";//测试---李倩
     public static final String HOST = "http://10.2.8.68:8182";//测试环境
 
-
     /**
      * 获取最新版本信息
      */
