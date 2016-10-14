@@ -142,6 +142,8 @@ public class BaseActivity extends Activity {
             onScanResult(barcodeStr);
             LogUtil.e("条形码  ：", barcodeStr);
 
+            //在测试一下
+
         }
 
     };
