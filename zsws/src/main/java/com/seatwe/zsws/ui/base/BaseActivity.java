@@ -140,7 +140,7 @@ public class BaseActivity extends Activity {
             android.util.Log.i("debug", "----codetype--" + temp);
             String barcodeStr = new String(barcode, 0, barcodelen);
             onScanResult(barcodeStr);
-            LogUtil.e("条形码：", barcodeStr);
+            LogUtil.e("条形码  ：", barcodeStr);
 
         }
 
