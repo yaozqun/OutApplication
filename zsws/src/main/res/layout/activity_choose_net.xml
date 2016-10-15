@@ -10,28 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="10dp"
         android:orientation="vertical">
-
-        <Button
-            android:id="@+id/bt_scan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/comm_edittext_bg_selector"
-            android:drawableRight="@mipmap/barcode"
-            android:hint="@string/click_to_scan"
-            android:singleLine="true"
-            android:visibility="gone"/>
-
-        <com.grgbanking.baselib.ui.view.EditTextToDel
-            android:id="@+id/et_inputCode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/comm_edittext_bg_selector"
-            android:drawableRight="@mipmap/barcode"
-            android:hint="@string/input_code"
-            android:singleLine="true" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -39,17 +19,18 @@
             android:layout_marginTop="20dp">
 
             <TextView
+                android:id="@+id/tv_sendDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="款箱列表"
+                android:text="送箱日期:"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_boxSum"
+            <ImageView
+                android:id="@+id/iv_chooseDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="共扫描2个" />
+                android:background="@mipmap/flag_true"/>
         </RelativeLayout>
 
         <View
@@ -58,7 +39,7 @@
             android:layout_marginTop="10dp" android:background="@color/black"/>
 
         <com.grgbanking.baselib.ui.view.AdaptScrViewListView
-            android:id="@+id/asvlv_box"
+            android:id="@+id/asvlv_net"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:cacheColorHint="@color/white"

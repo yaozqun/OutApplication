@@ -33,6 +33,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
+            android:textStyle="bold"
+            android:textSize="18sp"
             android:text="款箱合计：" />
 
         <TextView

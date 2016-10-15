@@ -1,11 +1,10 @@
 package com.seatwe.zsws.util.db;
 
-import com.grgbanking.baselib.web.bean.CashBoxData;
 import com.seatwe.zsws.bean.RecordboxInfoData;
-import com.seatwe.zsws.db.service.impl.CashboxInfoServiceImpl;
 import com.seatwe.zsws.db.service.impl.RecordboxInfoServiceImpl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,11 +36,23 @@ public class RecordBoxBusinessUtil {
     }
 
     /**
+     * 查询所有钞箱操作记录信息
+     */
+    public List<RecordboxInfoData> queryAllRecordbox() {
+        try {
+            return recordboxInfoService.queryForAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    /**
      * 根据网点ID和任务ID查询钞箱操作记录信息
      */
-    public List<RecordboxInfoData> queryRecordBoxByTaskIdAndNetId(int taskId, int netId) {
+    public List<RecordboxInfoData> queryRecordBoxByNetId(int netId) {
         try {
-            return recordboxInfoService.queryRecordBoxByTaskIdAndNetId(taskId, netId);
+            return recordboxInfoService.queryRecordBoxByNetId(netId);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -51,13 +62,8 @@ public class RecordBoxBusinessUtil {
     /**
      * 根据箱袋类型查询钞箱记录信息
      */
-    public List<RecordboxInfoData> queryRecordBoxByType(int taskId, int netId, int type) {
-        try {
-            return recordboxInfoService.queryRecordBoxByType(taskId, netId, type);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public List<RecordboxInfoData> queryRecordBoxByNetIdAndType(int netId, String type) {
+        return recordboxInfoService.queryRecordBoxByNetIdAndType(netId, type);
     }
 
     /**
@@ -65,7 +71,7 @@ public class RecordBoxBusinessUtil {
      */
     public void clearrecordBoxInfo() {
         try {
-            recordboxInfoService.delete(recordboxInfoService.queryForAll());
+            recordboxInfoService.delete(queryAllRecordbox());
         } catch (SQLException e) {
             e.printStackTrace();
         }

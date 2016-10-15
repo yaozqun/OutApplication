@@ -12,6 +12,7 @@
     <string name="login">登  录</string>
     <string name="back">返回</string>
     <string name="exit">退出</string>
+    <string name="sure">确认</string>
 
     <string name="click_to_scan">点击扫描</string>
     <string name="node_name">名称：</string>
@@ -24,7 +25,12 @@
     <string name="collect_box">收取款箱</string>
     <string name="middle_box">中调款箱</string>
     <string name="confirm">确认交接</string>
+    <string name="scan_cashbox">扫描款箱</string>
+    <string name="choose_net">选择网点</string>
+    <string name="input_code">请输入钞箱编码...</string>
 
     <string name="userName_not_allowed_null">对不起，用户名不能为空</string>
     <string name="pwd_not_allowed_null">对不起，密码不能为空</string>
+    <string name="scanned_error">对不起，钞箱条码不正确</string>
+    <string name="scanned_already">对不起，您已扫描过此钞箱条码,无需重复扫描</string>
 </resources>

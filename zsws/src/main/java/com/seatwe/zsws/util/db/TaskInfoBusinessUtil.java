@@ -36,11 +36,24 @@ public class TaskInfoBusinessUtil {
     }
 
     /**
+     * 保存或修改任务信息
+     *
+     * @param data
+     */
+    public void createOrUpdate(TaskInfoData data) {
+        try {
+            taskInfoService.createOrUpdate(data);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 查询任务信息
      */
-    public List<TaskInfoData> queryTaskInfo() {
+    public List<TaskInfoData> queryAllTaskInfo() {
         try {
-            return taskInfoService.queryTaskInfo();
+            return taskInfoService.queryForAll();
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -48,11 +61,32 @@ public class TaskInfoBusinessUtil {
     }
 
     /**
+     * 根据网点查询任务信息
+     */
+    public int queryTaskInfoByNetId(int netId) {
+        int sameNetCount = 0;
+        try {
+            List<TaskInfoData> list = taskInfoService.queryTaskInfoByNetId(netId);
+            if(list!=null&&list.size()>0){
+                sameNetCount = list.size();
+                for(TaskInfoData data:list){
+                    data.setCashbox_num_count(sameNetCount);
+                    taskInfoService.createOrUpdate(data);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sameNetCount;
+    }
+
+    /**
      * 删除任务信息
      */
     public void clearTaskInfo() {
         try {
-            taskInfoService.delete(queryTaskInfo());
+            taskInfoService.delete(queryAllTaskInfo());
         } catch (SQLException e) {
             e.printStackTrace();
         }

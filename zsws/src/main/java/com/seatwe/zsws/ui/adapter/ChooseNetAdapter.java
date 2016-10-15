@@ -5,21 +5,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.grgbanking.baselib.web.bean.NetInfoData;
 import com.seatwe.zsws.R;
-import com.seatwe.zsws.bean.TaskInfoData;
-import com.seatwe.zsws.util.db.NetInfoBusinessUtil;
 
 import java.util.List;
 
-public class TaskAdapter extends BaseAdapter {
+public class ChooseNetAdapter extends BaseAdapter {
     private Activity context;
 
-    private List<TaskInfoData> info;
+    private List<NetInfoData> info;
 
-    public TaskAdapter(Activity context, List<TaskInfoData> info) {
+    private int pos = -1;
+
+    public int getPos() {
+        return pos;
+    }
+
+    public ChooseNetAdapter(Activity context, List<NetInfoData> info) {
         super();
         this.context = context;
         this.info = info;
@@ -36,9 +41,9 @@ public class TaskAdapter extends BaseAdapter {
     }
 
     @Override
-    public TaskInfoData getItem(int position) {
+    public NetInfoData getItem(int position) {
         // TODO Auto-generated method stub
-        TaskInfoData item = null;
+        NetInfoData item = null;
         if (info != null) {
             item = info.get(position);
         }
@@ -57,22 +62,28 @@ public class TaskAdapter extends BaseAdapter {
         ViewHolder viewHolder = null;
         if (null == convertView) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.activity_task_item, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.activity_choose_net_item, null);
             viewHolder.tv_netName = (TextView) convertView.findViewById(R.id.tv_netName);
             viewHolder.tv_contact = (TextView) convertView.findViewById(R.id.tv_contact);
             viewHolder.tv_address = (TextView) convertView.findViewById(R.id.tv_address);
-            viewHolder.tv_planSendBox = (TextView) convertView.findViewById(R.id.tv_planSendBox);
+            viewHolder.ib_choose = (ImageButton) convertView.findViewById(R.id.ib_choose);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        TaskInfoData item = getItem(position);
+        NetInfoData item = getItem(position);
         if (null != item) {
-            NetInfoData netInfo = NetInfoBusinessUtil.getInstance().queryNetInfoById(item.getNet_id());
-            viewHolder.tv_netName.setText(netInfo.getNet_name());
-            viewHolder.tv_contact.setText("联系人：" + netInfo.getContacts_name() + ":" + netInfo.getTel_number());
-            viewHolder.tv_address.setText("地址：" + netInfo.getNet_address());
-            viewHolder.tv_planSendBox.setText("计划送箱：" + item.getCashbox_num_count()+"个");
+            viewHolder.tv_netName.setText(item.getNet_name());
+            viewHolder.tv_contact.setText("联系人：" + item.getContacts_name() + ":" + item.getTel_number());
+            viewHolder.tv_address.setText("地址：" + item.getNet_address());
+
+            if(pos == position){
+                viewHolder.ib_choose.setBackgroundResource(R.mipmap.flag_true);
+            }else{
+                viewHolder.ib_choose.setBackgroundResource(R.mipmap.del);
+            }
+
+            viewHolder.ib_choose.setOnClickListener(new MyOnClickListenr(position));
         }
         return convertView;
     }
@@ -84,7 +95,22 @@ public class TaskAdapter extends BaseAdapter {
 
         TextView tv_address;
 
-        TextView tv_planSendBox;
+        ImageButton ib_choose;
+
+    }
+
+    public class MyOnClickListenr implements View.OnClickListener{
+        private int position;
+
+        public MyOnClickListenr(int position){
+            this.position = position;
+        }
+
+        @Override
+        public void onClick(View v) {
+            pos = position;
+            notifyDataSetChanged();
+        }
     }
 
 }

@@ -39,7 +39,7 @@ public class TestDatas {
         //获取钞箱信息
         if (url.equals(UrlConstant.GET_CASHBOX)) {
             //最大版本14
-            return "{\"code\":\"00\",\"data\":[{\"id\":\"12\",\"cashbox_num\":\"C0000002\",\"status\":\"0\",\"brands\":\"brands2\",\"net_id\":\"002\",\"clearing_space\":\"ewqewq\",\"box_type_id\":\"234\",\"box_type_name\":\"款箱\",\"orgid\":\"2342\",\"deleted\":\"0\",\"version\":\"13\"},{\"id\":\"13\",\"cashbox_num\":\"C0000001\",\"status\":\"0\",\"brands\":\"brands1\",\"net_id\":\"001\",\"clearing_space\":\"ewqewq\",\"box_type_id\":\"234\",\"box_type_name\":\"款箱\",\"orgid\":\"2342\",\"deleted\":\"0\",\"version\":\"14\"},{\"id\":\"13\",\"cashbox_num\":\"C0000001\",\"status\":\"0\",\"brands\":\"brands1\",\"net_id\":\"001\",\"clearing_space\":\"ewqewq\",\"box_type_id\":\"234\",\"box_type_name\":\"下介箱\",\"orgid\":\"2342\",\"deleted\":\"0\",\"version\":\"14\"}]}";
+            return "{\"code\":\"00\",\"data\":[{\"id\":\"12\",\"cashbox_num\":\"C0000002\",\"status\":\"0\",\"brands\":\"brands2\",\"net_id\":\"002\",\"clearing_space\":\"ewqewq\",\"box_type_id\":\"234\",\"box_type_name\":\"款箱\",\"orgid\":\"2342\",\"deleted\":\"0\",\"version\":\"13\"},{\"id\":\"13\",\"cashbox_num\":\"C0000001\",\"status\":\"0\",\"brands\":\"brands1\",\"net_id\":\"001\",\"clearing_space\":\"ewqewq\",\"box_type_id\":\"234\",\"box_type_name\":\"款箱\",\"orgid\":\"2342\",\"deleted\":\"0\",\"version\":\"14\"},{\"id\":\"13\",\"cashbox_num\":\"C0000003\",\"status\":\"0\",\"brands\":\"brands1\",\"net_id\":\"001\",\"clearing_space\":\"ewqewq\",\"box_type_id\":\"234\",\"box_type_name\":\"下介箱\",\"orgid\":\"2342\",\"deleted\":\"0\",\"version\":\"14\"}]}";
         }
        /*网点类型：
         01：银行网点

@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.device.ScanManager;
 import android.device.scanner.configuration.PropertyID;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
@@ -17,7 +15,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.grgbanking.baselib.util.ActivityManagerUtil;
-import com.grgbanking.baselib.util.ToastUtil;
 import com.grgbanking.baselib.util.log.LogUtil;
 import com.seatwe.zsws.R;
 
@@ -36,8 +33,7 @@ public class BaseActivity extends Activity {
 
     protected TextView tvTiltleUserName;
 
-
-
+    //扫描相关
     private Vibrator mVibrator;
     private ScanManager mScanManager;
     //    private SoundPool soundpool = null;
@@ -117,18 +113,10 @@ public class BaseActivity extends Activity {
     protected void onResume() {
         super.onResume();
         initScan();
-        IntentFilter filter = new IntentFilter();
-        int[] idbuf = new int[]{PropertyID.WEDGE_INTENT_ACTION_NAME, PropertyID.WEDGE_INTENT_DATA_STRING_TAG};
-        String[] value_buf = mScanManager.getParameterString(idbuf);
-        if (value_buf != null && value_buf[0] != null && !value_buf[0].equals("")) {
-            filter.addAction(value_buf[0]);
-        } else {
-            filter.addAction(SCAN_ACTION);
-        }
 
-        registerReceiver(mScanReceiver, filter);
     }
 
+    //扫描成功广播
     private BroadcastReceiver mScanReceiver = new BroadcastReceiver() {
 
         @Override
@@ -147,6 +135,7 @@ public class BaseActivity extends Activity {
 
     };
 
+    //初始化扫描
     private void initScan() {
         // TODO Auto-generated method stub
         mScanManager = new ScanManager();
@@ -155,6 +144,17 @@ public class BaseActivity extends Activity {
         mScanManager.switchOutputMode(0);
 //        soundpool = new SoundPool(1, AudioManager.STREAM_NOTIFICATION, 100); // MODE_RINGTONE
 //        soundid = soundpool.load("/etc/Scan_new.ogg", 1);
+
+        IntentFilter filter = new IntentFilter();
+        int[] idbuf = new int[]{PropertyID.WEDGE_INTENT_ACTION_NAME, PropertyID.WEDGE_INTENT_DATA_STRING_TAG};
+        String[] value_buf = mScanManager.getParameterString(idbuf);
+        if (value_buf != null && value_buf[0] != null && !value_buf[0].equals("")) {
+            filter.addAction(value_buf[0]);
+        } else {
+            filter.addAction(SCAN_ACTION);
+        }
+
+        registerReceiver(mScanReceiver, filter);
     }
 
     /**
@@ -163,10 +163,16 @@ public class BaseActivity extends Activity {
      * @param barcodeStr
      */
     public void onScanResult(String barcodeStr) {
-
-
-
         //测试提交
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //注销扫描广播
+        if(mScanManager!=null){
+            unregisterReceiver(mScanReceiver);
+        }
 
     }
 }

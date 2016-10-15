@@ -6,6 +6,7 @@ import com.seatwe.zsws.db.BaseDbTransactionImpl;
 import com.seatwe.zsws.db.service.IRecordboxInfoService;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,12 +29,17 @@ public class RecordboxInfoServiceImpl extends BaseDbServiceImpl<RecordboxInfoDat
     /**
      * 根据任务ID和网点Id查询钞箱操作记录
      *
-     * @param taskId
      * @param netId
      * @return
      */
-    public List<RecordboxInfoData> queryRecordBoxByTaskIdAndNetId(int taskId, int netId) throws SQLException {
-        return dao.getQueryBuilder().where().eq("task_id", taskId).and().eq("net_id", netId).query();
+    public List<RecordboxInfoData> queryRecordBoxByNetId(int netId) throws SQLException {
+        List<RecordboxInfoData> list = new ArrayList<>();
+        try {
+            list = dao.getQueryBuilder().where().eq("transfer_net", netId).query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     /**
@@ -42,14 +48,19 @@ public class RecordboxInfoServiceImpl extends BaseDbServiceImpl<RecordboxInfoDat
      * 1：收取
      * 2：中调
      *
-     * @param taskId
      * @param netId
-     * @param type
+     * @param cashbox_type
      * @return
      * @throws SQLException
      */
-    public List<RecordboxInfoData> queryRecordBoxByType(int taskId, int netId, int type) throws SQLException {
-        return dao.getQueryBuilder().where().eq("task_id", taskId).and().eq("net_id", netId).and().eq("type", type).query();
+    public List<RecordboxInfoData> queryRecordBoxByNetIdAndType(int netId, String cashbox_type) {
+        List<RecordboxInfoData> list = new ArrayList<>();
+        try {
+            list = dao.getQueryBuilder().where().eq("transfer_net", netId).and().eq("cashbox_type", cashbox_type).query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
 }

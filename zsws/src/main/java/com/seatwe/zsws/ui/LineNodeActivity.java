@@ -28,7 +28,7 @@ public class LineNodeActivity extends BaseActivity {
         tvTitleSubject.setText(getResources().getString(R.string.module_line));
         asvlv_node = (AdaptScrViewListView) findViewById(R.id.asvlv_node);
 
-        listNode = LineNodeBusinessUtil.getInstance().queryLineNodeInfo();
+        listNode = LineNodeBusinessUtil.getInstance().queryAllLineNodeInfo();
         adapter = new LineNodeAdapter(this,listNode);
         asvlv_node.setAdapter(adapter);
     }

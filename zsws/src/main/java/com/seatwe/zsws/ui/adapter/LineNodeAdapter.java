@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.seatwe.zsws.R;
 import com.seatwe.zsws.bean.req.ArriveNodeReqBean;
-import com.seatwe.zsws.constant.StatusConstant;
+import com.seatwe.zsws.constant.LocalStatusConstant;
 
 import java.util.List;
 
@@ -69,7 +69,7 @@ public class LineNodeAdapter extends BaseAdapter {
         if (null != item) {
             viewHolder.tv_lineName.setText(item.getNode_name());
             viewHolder.tv_status.setText(item.getStatus()+"");
-            if (item.getStatus()== StatusConstant.DONE) {
+            if (item.getStatus()== LocalStatusConstant.DONE) {
                 viewHolder.iv_flag.setVisibility(View.VISIBLE);
             }else{
                 viewHolder.iv_flag.setVisibility(View.INVISIBLE);

@@ -24,7 +24,12 @@ public class LineNodeInfoServiceImpl extends BaseDbServiceImpl<ArriveNodeReqBean
         create(resp);// 保存数据
     }
 
-    public List<ArriveNodeReqBean> queryLineNodeInfo() throws SQLException {
-        return dao.queryForAll();
+    public List<ArriveNodeReqBean> queryLineNodeInfo(){
+        try {
+            return dao.queryForAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

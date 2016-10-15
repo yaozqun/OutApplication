@@ -1,15 +1,7 @@
 package com.seatwe.zsws.util.db;
 
-import com.grgbanking.baselib.web.bean.CashBoxData;
-import com.grgbanking.baselib.web.bean.NetInfoData;
-import com.seatwe.zsws.bean.LineInfoData;
-import com.seatwe.zsws.bean.TaskInfoData;
 import com.seatwe.zsws.bean.req.ArriveNodeReqBean;
-import com.seatwe.zsws.db.service.impl.CashboxInfoServiceImpl;
-import com.seatwe.zsws.db.service.impl.LineInfoServiceImpl;
 import com.seatwe.zsws.db.service.impl.LineNodeInfoServiceImpl;
-import com.seatwe.zsws.db.service.impl.NetInfoServiceImpl;
-import com.seatwe.zsws.db.service.impl.TaskInfoServiceImpl;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -45,7 +37,7 @@ public class LineNodeBusinessUtil {
     /**
      * 查询线路节点信息
      */
-    public List<ArriveNodeReqBean> queryLineNodeInfo() {
+    public List<ArriveNodeReqBean> queryAllLineNodeInfo() {
         try {
             return lineNodeInfoService.queryLineNodeInfo();
         } catch (SQLException e) {
@@ -59,7 +51,7 @@ public class LineNodeBusinessUtil {
      */
     public void clearLineNodeInfo() {
         try {
-            lineNodeInfoService.delete(queryLineNodeInfo());
+            lineNodeInfoService.delete(queryAllLineNodeInfo());
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,15 +1,7 @@
 package com.seatwe.zsws.util.db;
 
-import com.grgbanking.baselib.web.bean.CashBoxData;
 import com.grgbanking.baselib.web.bean.NetInfoData;
-import com.seatwe.zsws.bean.LineInfoData;
-import com.seatwe.zsws.bean.TaskInfoData;
-import com.seatwe.zsws.bean.req.ArriveNodeReqBean;
-import com.seatwe.zsws.db.service.impl.CashboxInfoServiceImpl;
-import com.seatwe.zsws.db.service.impl.LineInfoServiceImpl;
-import com.seatwe.zsws.db.service.impl.LineNodeInfoServiceImpl;
 import com.seatwe.zsws.db.service.impl.NetInfoServiceImpl;
-import com.seatwe.zsws.db.service.impl.TaskInfoServiceImpl;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -46,7 +38,7 @@ public class NetInfoBusinessUtil {
     /**
      * 查询网点信息
      */
-    public List<NetInfoData> queryNetInfo() {
+    public List<NetInfoData> queryAllNetInfo() {
         try {
             return netInfoService.queryNetInfo();
         } catch (SQLException e) {
@@ -61,7 +53,7 @@ public class NetInfoBusinessUtil {
      */
     public void clearNetInfo() {
         try {
-            netInfoService.delete(queryNetInfo());
+            netInfoService.delete(queryAllNetInfo());
         } catch (SQLException e) {
             e.printStackTrace();
         }

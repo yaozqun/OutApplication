@@ -8,20 +8,21 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.grgbanking.baselib.web.bean.CashBoxData;
 import com.grgbanking.baselib.web.bean.NetInfoData;
 import com.seatwe.zsws.R;
-import com.seatwe.zsws.constant.StatusConstant;
+import com.seatwe.zsws.bean.RecordboxInfoData;
+import com.seatwe.zsws.constant.LocalStatusConstant;
+import com.seatwe.zsws.util.db.CashboxBaseBusinessUtil;
 import com.seatwe.zsws.util.db.NetInfoBusinessUtil;
 
 import java.util.List;
 
-public class ScanboxAdapter extends BaseAdapter {
+public class SendBoxAdapter extends BaseAdapter {
     private Activity context;
 
-    private List<CashBoxData> info;
+    private List<RecordboxInfoData> info;
 
-    public ScanboxAdapter(Activity context, List<CashBoxData> info) {
+    public SendBoxAdapter(Activity context, List<RecordboxInfoData> info) {
         super();
         this.context = context;
         this.info = info;
@@ -38,9 +39,9 @@ public class ScanboxAdapter extends BaseAdapter {
     }
 
     @Override
-    public CashBoxData getItem(int position) {
+    public RecordboxInfoData getItem(int position) {
         // TODO Auto-generated method stub
-        CashBoxData item = null;
+        RecordboxInfoData item = null;
         if (info != null) {
             item = info.get(position);
         }
@@ -59,7 +60,7 @@ public class ScanboxAdapter extends BaseAdapter {
         ViewHolder viewHolder = null;
         if (null == convertView) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.activity_scanbox_item, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.activity_sendbox_item, null);
             viewHolder.tv_netName = (TextView) convertView.findViewById(R.id.tv_netName);
             viewHolder.tv_cashboxCode = (TextView) convertView.findViewById(R.id.tv_cashboxCode);
             viewHolder.tv_cashboxType = (TextView) convertView.findViewById(R.id.tv_cashboxType);
@@ -69,17 +70,17 @@ public class ScanboxAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        CashBoxData item = getItem(position);
+        RecordboxInfoData item = getItem(position);
         if (null != item) {
-            NetInfoData netInfo = NetInfoBusinessUtil.getInstance().queryNetInfoById(item.getNet_id());
+            NetInfoData netInfo = NetInfoBusinessUtil.getInstance().queryNetInfoById(item.getTransfer_net());
             viewHolder.tv_netName.setText("所属机构：" + netInfo.getNet_name());
-            viewHolder.tv_cashboxCode.setText("款箱编号：" + item.getCashbox_num());
-            viewHolder.tv_cashboxType.setText("款箱类型：" + item.getBox_type_name());
-            if(item.getStatus().equals(StatusConstant.DONE)){
+            viewHolder.tv_cashboxCode.setText("款箱编号：" + item.getBox_code());
+            viewHolder.tv_cashboxType.setText("款箱类型：" + CashboxBaseBusinessUtil.getInstance().queryCashboxInfoByCode(item.getBox_code()).getBox_type_name());
+            if (item.getLocalStatus() == LocalStatusConstant.DONE) {
                 viewHolder.iv_flagTrue.setVisibility(View.VISIBLE);
                 viewHolder.iv_flagTrue.setBackgroundResource(R.mipmap.flag_true);
-            }else{
-                viewHolder.iv_flagTrue.setVisibility(View.INVISIBLE);
+            } else {
+                viewHolder.iv_flagTrue.setVisibility(View.GONE);
             }
 
         }

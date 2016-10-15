@@ -2,6 +2,7 @@ package com.seatwe.zsws.bean;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.seatwe.zsws.constant.CashboxTypeConstant;
 
 import java.io.Serializable;
 
@@ -10,11 +11,14 @@ import java.io.Serializable;
  */
 
 @DatabaseTable(tableName = "T_SYS_TaskInfo")
-public class TaskInfoData implements Serializable{
+public class TaskInfoData implements Serializable {
     @DatabaseField(columnName = "id")
     private int id;
     @DatabaseField(columnName = "line_id")
     private int line_id;
+    /**
+     * 交接类型
+     */
     @DatabaseField(columnName = "task_type")
     private String task_type;
     @DatabaseField(columnName = "task_status")
@@ -27,9 +31,33 @@ public class TaskInfoData implements Serializable{
     private String cashbox_num;
     @DatabaseField(columnName = "arriveTime")
     private String arriveTime;
+    @DatabaseField(columnName = "cashbox_num_count")
+    private int cashbox_num_count;
+
+    /**
+     * 钞箱类型(送出/收取/中调)
+     */
+    @DatabaseField(columnName = "cashbox_type")
+    private String cashbox_type = CashboxTypeConstant.TYPE_SEND;
 
     public String getArriveTime() {
         return this.arriveTime;
+    }
+
+    public int getCashbox_num_count() {
+        return cashbox_num_count;
+    }
+
+    public String getCashbox_type() {
+        return cashbox_type;
+    }
+
+    public void setCashbox_type(String cashbox_type) {
+        this.cashbox_type = cashbox_type;
+    }
+
+    public void setCashbox_num_count(int cashbox_num_count) {
+        this.cashbox_num_count = cashbox_num_count;
     }
 
     public void setArriveTime(String arriveTime) {

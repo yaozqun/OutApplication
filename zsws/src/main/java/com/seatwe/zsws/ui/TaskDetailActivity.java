@@ -1,5 +1,6 @@
 package com.seatwe.zsws.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,9 +9,11 @@ import android.widget.TextView;
 import com.grgbanking.baselib.web.bean.NetInfoData;
 import com.seatwe.zsws.R;
 import com.seatwe.zsws.bean.TaskInfoData;
+import com.seatwe.zsws.constant.CashboxTypeConstant;
 import com.seatwe.zsws.ui.base.BaseActivity;
 import com.seatwe.zsws.util.ActivityJumpUtil;
 import com.seatwe.zsws.util.db.NetInfoBusinessUtil;
+import com.seatwe.zsws.util.db.RecordBoxBusinessUtil;
 
 public class TaskDetailActivity extends BaseActivity implements View.OnClickListener {
     private TextView tv_netName, tv_arriveTime, tv_boxSum;
@@ -49,17 +52,22 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
         //获取任务信息
         taskInfoData = (TaskInfoData) getIntent().getSerializableExtra(ActivityJumpUtil.INFO);
         NetInfoData netInfoData =
-        NetInfoBusinessUtil.getInstance().queryNetInfoById(taskInfoData.getNet_id());
+                NetInfoBusinessUtil.getInstance().queryNetInfoById(taskInfoData.getNet_id());
         tv_netName.setText("网点：(" + netInfoData.getNet_code() + ")" + netInfoData.getNet_address());
         tv_arriveTime.setText("到达时间：" + taskInfoData.getArriveTime());
-        tv_boxSum.setText("送出2个，收取3个，中调1个");
+
+        int sendBoxCount = RecordBoxBusinessUtil.getInstance().queryRecordBoxByNetIdAndType(taskInfoData.getNet_id(), CashboxTypeConstant.TYPE_SEND).size();
+        int receiveBoxCount = RecordBoxBusinessUtil.getInstance().queryRecordBoxByNetIdAndType(taskInfoData.getNet_id(), CashboxTypeConstant.TYPE_RECEIVE).size();
+        int middleBoxCount = RecordBoxBusinessUtil.getInstance().queryRecordBoxByNetIdAndType(taskInfoData.getNet_id(), CashboxTypeConstant.TYPE_MIDDLE).size();
+
+        tv_boxSum.setText("送出" + sendBoxCount + "个，收取" + receiveBoxCount + "个，中调" + middleBoxCount + "个");
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_sendBox:
-                ActivityJumpUtil.jumpToScanboxActivity(TaskDetailActivity.this,taskInfoData);
+                ActivityJumpUtil.jumpToSenBoxActivity(TaskDetailActivity.this, taskInfoData);
                 break;
 
             case R.id.bt_collectBox:
@@ -67,7 +75,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                 break;
 
             case R.id.bt_middleBox:
-
+                startActivity(new Intent(TaskDetailActivity.this, ChooseNetActivity.class));
                 break;
         }
     }

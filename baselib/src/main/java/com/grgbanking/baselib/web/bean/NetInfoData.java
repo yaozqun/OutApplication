@@ -3,11 +3,13 @@ package com.grgbanking.baselib.web.bean;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
+
 /**
  * Created by charry on 2016/10/7.
  */
 @DatabaseTable(tableName = "T_SYS_NetInfo")
-public class NetInfoData {
+public class NetInfoData implements Serializable{
     @DatabaseField(generatedId = true, columnName = "ID", canBeNull = false, unique = true)
     private int id;
     @DatabaseField(columnName = "net_code")

@@ -20,23 +20,26 @@
             android:background="@drawable/comm_edittext_bg_selector"
             android:drawableRight="@mipmap/barcode"
             android:hint="@string/click_to_scan"
-            android:singleLine="true"
-            android:visibility="gone"/>
+            android:singleLine="true" />
 
-        <com.grgbanking.baselib.ui.view.EditTextToDel
-            android:id="@+id/et_inputCode"
+        <TextView
+            android:id="@+id/tv_sendDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/comm_edittext_bg_selector"
-            android:drawableRight="@mipmap/barcode"
-            android:hint="@string/input_code"
-            android:singleLine="true" />
+            android:layout_marginTop="20dp"
+            android:text="送箱日期:"/>
+
+        <TextView
+            android:id="@+id/tv_sendNet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="送箱地点:"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -49,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="共扫描2个" />
+                android:text="扫描2个" />
         </RelativeLayout>
 
         <View

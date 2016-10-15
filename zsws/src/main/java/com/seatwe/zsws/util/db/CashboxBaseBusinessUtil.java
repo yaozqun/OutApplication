@@ -1,17 +1,10 @@
 package com.seatwe.zsws.util.db;
 
 import com.grgbanking.baselib.web.bean.CashBoxData;
-import com.grgbanking.baselib.web.bean.NetInfoData;
-import com.seatwe.zsws.bean.LineInfoData;
-import com.seatwe.zsws.bean.TaskInfoData;
-import com.seatwe.zsws.bean.req.ArriveNodeReqBean;
 import com.seatwe.zsws.db.service.impl.CashboxInfoServiceImpl;
-import com.seatwe.zsws.db.service.impl.LineInfoServiceImpl;
-import com.seatwe.zsws.db.service.impl.LineNodeInfoServiceImpl;
-import com.seatwe.zsws.db.service.impl.NetInfoServiceImpl;
-import com.seatwe.zsws.db.service.impl.TaskInfoServiceImpl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,19 +43,19 @@ public class CashboxBaseBusinessUtil {
             return cashboxInfoService.queryCashboxInfoByNetId(netId);
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            return new ArrayList<>();
         }
     }
 
     /**
      * 查询钞箱信息
      */
-    public List<CashBoxData> queryCashboxInfo() {
+    public List<CashBoxData> queryAllCashboxInfo() {
         try {
             return cashboxInfoService.queryCashboxInfo();
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            return new ArrayList<>();
         }
     }
 
@@ -71,9 +64,25 @@ public class CashboxBaseBusinessUtil {
      */
     public void clearCashboxInfo() {
         try {
-            cashboxInfoService.delete(queryCashboxInfo());
+            cashboxInfoService.delete(queryAllCashboxInfo());
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 根据钞箱编号查询钞箱信息
+     *
+     * @param code
+     * @return
+     */
+    public CashBoxData queryCashboxInfoByCode(String code) {
+        try {
+            List<CashBoxData> list = cashboxInfoService.queryCashboxInfoByCode(code);
+            return list.size() == 0 ? null : list.get(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

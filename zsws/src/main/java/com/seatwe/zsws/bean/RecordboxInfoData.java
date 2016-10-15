@@ -2,6 +2,7 @@ package com.seatwe.zsws.bean;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.seatwe.zsws.constant.LocalStatusConstant;
 
 /**
  * Created by Administrator on 2016/10/13.
@@ -16,45 +17,39 @@ public class RecordboxInfoData {
     @DatabaseField(columnName = "transfer_time")
     private String transfer_time;
     @DatabaseField(columnName = "transfer_net")
-    private String transfer_net;
+    /**
+     * 网店ID
+     */
+    private int transfer_net;
     @DatabaseField(columnName = "box_code")
     private String box_code;
     @DatabaseField(columnName = "transfer_status")
     private String transfer_status;
-    @DatabaseField(columnName = "task_id")
-    private int task_id;
-    @DatabaseField(columnName = "net_id")
-    private int net_id;
     /**
      * 0: 送出
      * 1：收取
      * 2：中调
      */
-    @DatabaseField(columnName = "type")
-    private String type;
+    @DatabaseField(columnName = "cashbox_type")
+    private String cashbox_type;
 
-    public int getNet_id() {
-        return this.net_id;
+    @DatabaseField(columnName = "local_status")
+    private int localStatus = LocalStatusConstant.UN_DONE;
+
+    public int getLocalStatus() {
+        return localStatus;
     }
 
-    public void setNet_id(int net_id) {
-        this.net_id = net_id;
+    public void setLocalStatus(int localStatus) {
+        this.localStatus = localStatus;
     }
 
-    public int getTask_id() {
-        return this.task_id;
+    public String getCashbox_type() {
+        return cashbox_type;
     }
 
-    public void setTask_id(int task_id) {
-        this.task_id = task_id;
-    }
-
-    public String getType() {
-        return this.type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+    public void setCashbox_type(String cashbox_type) {
+        this.cashbox_type = cashbox_type;
     }
 
     public int getId() {
@@ -81,11 +76,11 @@ public class RecordboxInfoData {
         this.transfer_time = transfer_time;
     }
 
-    public String getTransfer_net() {
+    public int getTransfer_net() {
         return transfer_net;
     }
 
-    public void setTransfer_net(String transfer_net) {
+    public void setTransfer_net(int transfer_net) {
         this.transfer_net = transfer_net;
     }
 
