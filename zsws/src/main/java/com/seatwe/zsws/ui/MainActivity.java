@@ -1,8 +1,5 @@
 package com.seatwe.zsws.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +10,9 @@ import com.seatwe.zsws.R;
 import com.seatwe.zsws.model.Module;
 import com.seatwe.zsws.ui.adapter.ModuleAdapter;
 import com.seatwe.zsws.ui.base.BaseActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
@@ -46,6 +46,9 @@ public class MainActivity extends BaseActivity {
      * 初始化UI
      */
     public void initView() {
+        btnTitleRight.setVisibility(View.VISIBLE);
+        btnTitleRight.setText(getResources().getString(R.string.upload));
+        btnTitleLeft.setBackgroundResource(R.mipmap.ic_launcher);
         lv_module = (ListView) findViewById(R.id.lv_module);
         // 设置适配器
         adapter = new ModuleAdapter(this, modules);
@@ -91,6 +94,21 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
+
+        btnTitleRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //上传
+            }
+        });
+
+        btnTitleLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SettingActivity.class));
+            }
+        });
+
     }
 
 }

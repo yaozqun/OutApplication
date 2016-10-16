@@ -24,15 +24,15 @@ public class ArriveNodeReqBean {
     @DatabaseField(columnName = "node_name")
     private String node_name;
 
-    @DatabaseField(columnName = "status")
-    private int status;
+    @DatabaseField(columnName = "local_status")
+    private int localStatus;
 
-    public int getStatus() {
-        return this.status;
+    public int getLocalStatus() {
+        return localStatus;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setLocalStatus(int localStatus) {
+        this.localStatus = localStatus;
     }
 
     public String getNode_name() {

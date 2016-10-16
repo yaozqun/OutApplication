@@ -33,6 +33,7 @@ public class TaskActivity extends BaseActivity {
 
     public void initView() {
         tvTitleSubject.setText(getResources().getString(R.string.module_task));
+        btnTitleRight.setText(getResources().getString(R.string.upload));
         asvlv_task = (AdaptScrViewListView) findViewById(R.id.asvlv_task);
 
         listTask = removeDuplicate(TaskInfoBusinessUtil.getInstance().queryAllTaskInfo());

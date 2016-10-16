@@ -1,11 +1,11 @@
 package com.seatwe.zsws.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.grgbanking.baselib.util.DateUtil;
 import com.grgbanking.baselib.web.bean.NetInfoData;
 import com.seatwe.zsws.R;
 import com.seatwe.zsws.bean.TaskInfoData;
@@ -14,6 +14,8 @@ import com.seatwe.zsws.ui.base.BaseActivity;
 import com.seatwe.zsws.util.ActivityJumpUtil;
 import com.seatwe.zsws.util.db.NetInfoBusinessUtil;
 import com.seatwe.zsws.util.db.RecordBoxBusinessUtil;
+
+import java.util.Date;
 
 public class TaskDetailActivity extends BaseActivity implements View.OnClickListener {
     private TextView tv_netName, tv_arriveTime, tv_boxSum;
@@ -26,6 +28,11 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         init();
     }
 
@@ -35,6 +42,8 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     public void initView() {
+        btnTitleRight.setVisibility(View.VISIBLE);
+        btnTitleRight.setText(getResources().getString(R.string.save));
         tv_netName = (TextView) findViewById(R.id.tv_netName);
         tv_arriveTime = (TextView) findViewById(R.id.tv_arriveTime);
         tv_boxSum = (TextView) findViewById(R.id.tv_boxSum);
@@ -45,6 +54,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
         bt_sendBox.setOnClickListener(this);
         bt_collectBox.setOnClickListener(this);
         bt_middleBox.setOnClickListener(this);
+        btnTitleRight.setOnClickListener(this);
 
     }
 
@@ -71,11 +81,16 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                 break;
 
             case R.id.bt_collectBox:
+                ActivityJumpUtil.jumpToScanboxActivity(TaskDetailActivity.this, NetInfoBusinessUtil.getInstance().queryNetInfoById(taskInfoData.getNet_id()), DateUtil.formatTime(new Date()), CashboxTypeConstant.TYPE_RECEIVE);
 
                 break;
 
             case R.id.bt_middleBox:
-                startActivity(new Intent(TaskDetailActivity.this, ChooseNetActivity.class));
+                ActivityJumpUtil.jumpToChooseNetActivity(TaskDetailActivity.this, taskInfoData);
+                break;
+
+            case R.id.btn_title_right:
+                ActivityJumpUtil.jumpToTransferActivity(TaskDetailActivity.this, taskInfoData);
                 break;
         }
     }

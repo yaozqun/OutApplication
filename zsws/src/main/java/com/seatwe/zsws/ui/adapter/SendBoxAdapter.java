@@ -22,10 +22,13 @@ public class SendBoxAdapter extends BaseAdapter {
 
     private List<RecordboxInfoData> info;
 
-    public SendBoxAdapter(Activity context, List<RecordboxInfoData> info) {
+    private boolean showFlag;
+
+    public SendBoxAdapter(Activity context, List<RecordboxInfoData> info, boolean showFlag) {
         super();
         this.context = context;
         this.info = info;
+        this.showFlag = showFlag;
     }
 
     @Override
@@ -73,15 +76,22 @@ public class SendBoxAdapter extends BaseAdapter {
         RecordboxInfoData item = getItem(position);
         if (null != item) {
             NetInfoData netInfo = NetInfoBusinessUtil.getInstance().queryNetInfoById(item.getTransfer_net());
-            viewHolder.tv_netName.setText("所属机构：" + netInfo.getNet_name());
+            viewHolder.tv_netName.setText("所属网点：" + netInfo.getNet_name());
             viewHolder.tv_cashboxCode.setText("款箱编号：" + item.getBox_code());
+
             viewHolder.tv_cashboxType.setText("款箱类型：" + CashboxBaseBusinessUtil.getInstance().queryCashboxInfoByCode(item.getBox_code()).getBox_type_name());
-            if (item.getLocalStatus() == LocalStatusConstant.DONE) {
-                viewHolder.iv_flagTrue.setVisibility(View.VISIBLE);
-                viewHolder.iv_flagTrue.setBackgroundResource(R.mipmap.flag_true);
+            if (showFlag) {
+                if (item.getLocalStatus() == LocalStatusConstant.DONE) {
+                    viewHolder.iv_flagTrue.setVisibility(View.VISIBLE);
+                    viewHolder.iv_flagTrue.setBackgroundResource(R.mipmap.flag_true);
+                } else {
+                    viewHolder.iv_flagTrue.setVisibility(View.GONE);
+                }
             } else {
                 viewHolder.iv_flagTrue.setVisibility(View.GONE);
+                viewHolder.iv_flagFalse.setVisibility(View.GONE);
             }
+
 
         }
         return convertView;

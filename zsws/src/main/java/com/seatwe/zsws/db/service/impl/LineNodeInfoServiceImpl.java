@@ -6,6 +6,7 @@ import com.seatwe.zsws.db.BaseDbTransactionImpl;
 import com.seatwe.zsws.db.service.ILineNodeInfoService;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LineNodeInfoServiceImpl extends BaseDbServiceImpl<ArriveNodeReqBean>
@@ -29,7 +30,7 @@ public class LineNodeInfoServiceImpl extends BaseDbServiceImpl<ArriveNodeReqBean
             return dao.queryForAll();
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            return new ArrayList<>();
         }
     }
 }

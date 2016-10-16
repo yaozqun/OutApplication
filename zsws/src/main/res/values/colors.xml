@@ -65,7 +65,7 @@
     <color name="txt_gary">#5c5c5c</color>
 
     <!-- 整体背景颜色 -->
-    <color name="background_bg">#F2F2F2</color>
+    <color name="background_bg">#E2E2E2</color>
     <!-- 深灰色字体 -->
     <color name="darkgray_text">#5E5E5E</color>
     <!-- 半透明颜色 -->

@@ -135,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                 list3.add(JsonUtils.fromJson(arr3.get(i).toString(), CashBoxData.class));
             }
             CashboxBaseBusinessUtil.getInstance().saveCashboxInfoData(list3);
+            List<CashBoxData> ll = CashboxBaseBusinessUtil.getInstance().queryAllCashboxInfo();
             LogUtil.e("钞箱信息", "网点编号：" + CashboxBaseBusinessUtil.getInstance().queryAllCashboxInfo().get(0).getCashbox_num());
 
             //下载网点信息
@@ -155,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                 bean.setNode_name(nodeName[i]);
                 bean.setLine_id(i);
                 bean.setNode_type(i + "");
-                bean.setStatus(LocalStatusConstant.UN_DONE);
+                bean.setLocalStatus(LocalStatusConstant.UN_DONE);
                 bean.setLine_id(i);
                 bean.setArrive_time("20161012202822");
                 list5.add(bean);

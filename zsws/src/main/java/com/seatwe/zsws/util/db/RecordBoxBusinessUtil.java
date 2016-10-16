@@ -67,6 +67,27 @@ public class RecordBoxBusinessUtil {
     }
 
     /**
+     * 根据箱袋类型和本地状态查询钞箱记录信息
+     */
+    public List<RecordboxInfoData> queryByNetIdAndTypeAndLocalStatus(int netId, String type, int localStatus) {
+        return recordboxInfoService.queryByNetIdAndTypeAndLocalStatus(netId, type, localStatus);
+    }
+
+    /**
+     * 根据箱袋类型和本地状态查询钞箱记录信息
+     */
+    public List<RecordboxInfoData> queryByCashboxTypeAndLocalStatus(String type, int localStatus) {
+        return recordboxInfoService.queryByCashboxTypeAndLocalStatus(type, localStatus);
+    }
+
+    /**
+     * 根据箱袋类型查询钞箱记录信息
+     */
+    public List<RecordboxInfoData> queryByCashboxType(String type) {
+        return recordboxInfoService.queryByCashboxType(type);
+    }
+
+    /**
      * 删除所有钞箱记录信息
      */
     public void clearrecordBoxInfo() {

@@ -38,11 +38,17 @@ public class LineNodeBusinessUtil {
      * 查询线路节点信息
      */
     public List<ArriveNodeReqBean> queryAllLineNodeInfo() {
+        return lineNodeInfoService.queryLineNodeInfo();
+    }
+
+    /**
+     * 创建或修改
+     */
+    public void createOrUpdate(ArriveNodeReqBean data) {
         try {
-            return lineNodeInfoService.queryLineNodeInfo();
+            lineNodeInfoService.createOrUpdate(data);
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
         }
     }
 

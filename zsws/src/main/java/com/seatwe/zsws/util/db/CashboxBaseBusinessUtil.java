@@ -1,5 +1,6 @@
 package com.seatwe.zsws.util.db;
 
+import com.grgbanking.baselib.util.log.LogUtil;
 import com.grgbanking.baselib.web.bean.CashBoxData;
 import com.seatwe.zsws.db.service.impl.CashboxInfoServiceImpl;
 
@@ -39,12 +40,7 @@ public class CashboxBaseBusinessUtil {
      * 查询钞箱信息
      */
     public List<CashBoxData> queryCashboxInfoByNetId(int netId) {
-        try {
-            return cashboxInfoService.queryCashboxInfoByNetId(netId);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
+        return cashboxInfoService.queryCashboxInfoByNetId(netId);
     }
 
     /**
@@ -77,13 +73,10 @@ public class CashboxBaseBusinessUtil {
      * @return
      */
     public CashBoxData queryCashboxInfoByCode(String code) {
-        try {
-            List<CashBoxData> list = cashboxInfoService.queryCashboxInfoByCode(code);
-            return list.size() == 0 ? null : list.get(0);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+        LogUtil.e("code", code);
+        List<CashBoxData> list = cashboxInfoService.queryCashboxInfoByCode(code);
+        LogUtil.e("list", list.size()+"");
+        return list.size() == 0 ? null : list.get(0);
     }
 
 }

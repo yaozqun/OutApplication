@@ -40,6 +40,7 @@ public class SendBoxActivity extends BaseActivity {
 
     public void initView() {
         tvTitleSubject.setText(getResources().getString(R.string.scan_cashbox));
+        btnTitleRight.setText(getResources().getString(R.string.sure));
         //获取任务信息
         taskInfoData = (TaskInfoData) getIntent().getSerializableExtra(ActivityJumpUtil.INFO);
 
@@ -47,24 +48,25 @@ public class SendBoxActivity extends BaseActivity {
         tv_boxSum = (TextView) findViewById(R.id.tv_boxSum);
 
 
-        TaskInfoData taskInfoData = (TaskInfoData) getIntent().getSerializableExtra(ActivityJumpUtil.INFO);
+        taskInfoData = (TaskInfoData) getIntent().getSerializableExtra(ActivityJumpUtil.INFO);
         listCashbox = RecordBoxBusinessUtil.getInstance().queryRecordBoxByNetIdAndType(taskInfoData.getNet_id(), CashboxTypeConstant.TYPE_SEND);
 
-        tv_boxSum.setText("计划"+ listCashbox.size()+"个,扫描"+RecordBoxBusinessUtil.getInstance().queryRecordBoxByNetIdAndType(taskInfoData.getNet_id(), CashboxTypeConstant.TYPE_SEND).size()+"个");
+        tv_boxSum.setText("计划" + listCashbox.size() + "个,扫描" + RecordBoxBusinessUtil.getInstance().queryByNetIdAndTypeAndLocalStatus(taskInfoData.getNet_id(), CashboxTypeConstant.TYPE_SEND, LocalStatusConstant.DONE).size() + "个");
 
-        adapter = new SendBoxAdapter(this, listCashbox);
+        adapter = new SendBoxAdapter(this, listCashbox,true);
         asvlv_cashbox.setAdapter(adapter);
 
         asvlv_cashbox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LogUtil.e("position",position+"");
+                LogUtil.e("position", position + "");
                 int pos = CashboxScannedUtil.scannedSuccess(SendBoxActivity.this, listCashbox, listCashbox.get(position).getBox_code());
                 if (pos != -1) {
                     listCashbox.get(pos).setLocalStatus(LocalStatusConstant.DONE);
                     adapter.notifyDataSetChanged();
+                    tv_boxSum.setText("计划" + listCashbox.size() + "个,扫描" + RecordBoxBusinessUtil.getInstance().queryByNetIdAndTypeAndLocalStatus(taskInfoData.getNet_id(), CashboxTypeConstant.TYPE_SEND, LocalStatusConstant.DONE).size() + "个");
                 }
-                LogUtil.e("pos",pos+"");
+                LogUtil.e("pos", pos + "");
             }
         });
     }

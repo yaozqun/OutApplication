@@ -61,7 +61,7 @@ public class ChooseNetActivity extends BaseActivity implements View.OnClickListe
             public void onClick(View v) {
                 if(adapter.getPos()!=-1){
                     ActivityJumpUtil.jumpToScanboxActivity(ChooseNetActivity.this, listNet.get(adapter.getPos()), DateUtil.formatTime(new Date()), CashboxTypeConstant.TYPE_MIDDLE);
-
+                    finish();
                 }else{
                     ToastUtil.shortShow("请先选择网点");
                 }

@@ -36,6 +36,17 @@ public class RecordboxInfoData {
     @DatabaseField(columnName = "local_status")
     private int localStatus = LocalStatusConstant.UN_DONE;
 
+    @DatabaseField(columnName = "is_middle")
+    private String isMiddle;
+
+    public String getIsMiddle() {
+        return isMiddle;
+    }
+
+    public void setIsMiddle(String isMiddle) {
+        this.isMiddle = isMiddle;
+    }
+
     public int getLocalStatus() {
         return localStatus;
     }

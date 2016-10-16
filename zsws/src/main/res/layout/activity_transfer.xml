@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sv_nodeScan"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_bg"
+    android:padding="10dp"
+    android:scrollbars="none">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_sendBoxSum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="送出款箱(共3个)"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/black" />
+
+            <com.grgbanking.baselib.ui.view.AdaptScrViewListView
+                android:id="@+id/asvlv_sendBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="@color/white"
+                android:divider="@null"
+                android:listSelector="@color/white"
+                android:scrollbars="none" />
+
+            <TextView
+                android:id="@+id/tv_receiveBoxSum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="收取款箱(共3个)"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/black" />
+
+            <com.grgbanking.baselib.ui.view.AdaptScrViewListView
+                android:id="@+id/asvlv_receiveBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="@color/white"
+                android:divider="@null"
+                android:listSelector="@color/white"
+                android:scrollbars="none" />
+
+            <TextView
+                android:id="@+id/tv_middleBoxSum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="中调款箱(共3个)"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/black" />
+
+            <com.grgbanking.baselib.ui.view.AdaptScrViewListView
+                android:id="@+id/asvlv_middleBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="@color/white"
+                android:divider="@null"
+                android:listSelector="@color/white"
+                android:scrollbars="none" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bt_transferConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/ll"
+            android:background="@drawable/button_click_bg"
+            android:text="@string/confirm_transfer"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            android:textSize="22sp" />
+
+    </RelativeLayout>
+
+
+</ScrollView>

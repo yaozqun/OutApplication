@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 @DatabaseTable(tableName = "T_SYS_TaskInfo")
 public class TaskInfoData implements Serializable {
-    @DatabaseField(columnName = "id")
+    @DatabaseField(generatedId = true, columnName = "ID", canBeNull = false, unique = true)
     private int id;
     @DatabaseField(columnName = "line_id")
     private int line_id;

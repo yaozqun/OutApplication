@@ -64,7 +64,11 @@
         <activity android:name=".ui.TaskDetailActivity" />
         <activity android:name=".ui.base.ScanBaseActivity" />
         <activity android:name=".ui.SendBoxActivity" />
-        <activity android:name=".ui.ChooseNetActivity"></activity>
+        <activity android:name=".ui.ScanboxActivity" />
+        <activity android:name=".ui.ChooseNetActivity" />
+        <activity android:name=".ui.TransferActivity" />
+        <activity android:name=".ui.TypeActivity" />
+        <activity android:name=".ui.SettingActivity"></activity>
     </application>
 
 </manifest>
