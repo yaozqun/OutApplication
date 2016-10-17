@@ -4,6 +4,7 @@ import com.seatwe.zsws.bean.TaskInfoData;
 import com.seatwe.zsws.db.service.impl.TaskInfoServiceImpl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,8 +57,15 @@ public class TaskInfoBusinessUtil {
             return taskInfoService.queryForAll();
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            return new ArrayList<>();
         }
+    }
+
+    /**
+     * 查询任务信息
+     */
+    public List<TaskInfoData> queryTaskInfoByLocalStatus(int localStatus) {
+        return taskInfoService.queryTaskInfoByLocalStatsu(localStatus);
     }
 
     /**
@@ -67,9 +75,9 @@ public class TaskInfoBusinessUtil {
         int sameNetCount = 0;
         try {
             List<TaskInfoData> list = taskInfoService.queryTaskInfoByNetId(netId);
-            if(list!=null&&list.size()>0){
+            if (list != null && list.size() > 0) {
                 sameNetCount = list.size();
-                for(TaskInfoData data:list){
+                for (TaskInfoData data : list) {
                     data.setCashbox_num_count(sameNetCount);
                     taskInfoService.createOrUpdate(data);
                 }

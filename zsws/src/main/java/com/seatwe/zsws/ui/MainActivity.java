@@ -10,6 +10,7 @@ import com.seatwe.zsws.R;
 import com.seatwe.zsws.model.Module;
 import com.seatwe.zsws.ui.adapter.ModuleAdapter;
 import com.seatwe.zsws.ui.base.BaseActivity;
+import com.seatwe.zsws.util.UploadUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,6 +100,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //上传
+                UploadUtil.uploadAllRecord(MainActivity.this);
             }
         });
 

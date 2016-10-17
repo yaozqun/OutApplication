@@ -40,6 +40,17 @@ public class TaskInfoData implements Serializable {
     @DatabaseField(columnName = "cashbox_type")
     private String cashbox_type = CashboxTypeConstant.TYPE_SEND;
 
+    @DatabaseField(columnName = "local_status")
+    private int localStatus;
+
+    public int getLocalStatus() {
+        return localStatus;
+    }
+
+    public void setLocalStatus(int localStatus) {
+        this.localStatus = localStatus;
+    }
+
     public String getArriveTime() {
         return this.arriveTime;
     }

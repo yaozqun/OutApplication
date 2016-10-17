@@ -3,14 +3,15 @@
     android:id="@+id/ll_taskList_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="10dp">
 
     <ImageButton
         android:id="@+id/ib_choose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="center_vertical"
+        android:background="@mipmap/radio" />
 
     <LinearLayout
         android:layout_width="match_parent"

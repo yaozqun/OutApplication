@@ -114,10 +114,29 @@ public class RecordboxInfoServiceImpl extends BaseDbServiceImpl<RecordboxInfoDat
      * @return
      * @throws SQLException
      */
-    public List<RecordboxInfoData> queryByCashboxType(String cashbox_type) {
+    public List<RecordboxInfoData> queryByCashboxByType(String cashbox_type) {
         List<RecordboxInfoData> list = new ArrayList<>();
         try {
             list = dao.getQueryBuilder().where().eq("cashbox_type", cashbox_type).query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    /**
+     * 0: 送出
+     * 1：收取
+     * 2：中调
+     *
+     * @param localStatus
+     * @return
+     * @throws SQLException
+     */
+    public List<RecordboxInfoData> queryByCashboxByNetIdAndLocalStatus(int netId, String localStatus) {
+        List<RecordboxInfoData> list = new ArrayList<>();
+        try {
+            list = dao.getQueryBuilder().where().eq("transfer_net", netId).and().eq("local_status", localStatus).query();
         } catch (SQLException e) {
             e.printStackTrace();
         }

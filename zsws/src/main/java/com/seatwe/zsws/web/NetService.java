@@ -7,6 +7,7 @@ import com.grgbanking.baselib.core.callback.ResultCallback;
 import com.grgbanking.baselib.web.WebService;
 import com.grgbanking.baselib.web.bean.CashBoxData;
 import com.grgbanking.baselib.web.bean.NetInfoData;
+import com.grgbanking.baselib.web.bean.ResponseBean;
 import com.grgbanking.baselib.web.bean.req.BaseInfoReqBean;
 import com.seatwe.zsws.bean.TaskInfoData;
 import com.seatwe.zsws.bean.req.ArriveNodeReqBean;
@@ -97,12 +98,12 @@ public class NetService extends BaseService {
      *
      * @param callback
      */
-    public void loginOut(ResultCallback<LoginRespBean> callback) {
+    public void loginOut(ResultCallback<ResponseBean> callback) {
         LogoutReqBean req = new LogoutReqBean();
         req.setLine_id(TaskInfoBusinessUtil.getInstance().queryAllTaskInfo().get(0).getLine_id() + "");
         req.setLogin_name("");//登录名
         WebService.getInstance().asyncPost(UrlConstant.TASK_INFO, req, new
-                JsonCallback<LoginRespBean>(new TypeToken<LoginRespBean>() {
+                JsonCallback<ResponseBean>(new TypeToken<ResponseBean>() {
         }.getType(),
                 callback));
     }
@@ -112,9 +113,9 @@ public class NetService extends BaseService {
      *
      * @param callback
      */
-    public void arriveNode(ArriveNodeReqBean req, ResultCallback<LoginRespBean> callback) {
+    public void arriveNode(ArriveNodeReqBean req, ResultCallback<ResponseBean> callback) {
         WebService.getInstance().asyncPost(UrlConstant.TASK_INFO, req, new
-                JsonCallback<LoginRespBean>(new TypeToken<LoginRespBean>() {
+                JsonCallback<ResponseBean>(new TypeToken<ResponseBean>() {
         }.getType(),
                 callback));
     }
@@ -124,9 +125,9 @@ public class NetService extends BaseService {
      *
      * @param callback
      */
-    public void uploadRecord(RecordReqBean req, ResultCallback<LoginRespBean> callback) {
+    public void uploadRecord(RecordReqBean req, ResultCallback<ResponseBean> callback) {
         WebService.getInstance().asyncPost(UrlConstant.TASK_INFO, req, new
-                JsonCallback<LoginRespBean>(new TypeToken<LoginRespBean>() {
+                JsonCallback<ResponseBean>(new TypeToken<ResponseBean>() {
         }.getType(),
                 callback));
     }

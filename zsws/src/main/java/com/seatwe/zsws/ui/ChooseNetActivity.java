@@ -8,9 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grgbanking.baselib.ui.view.AdaptScrViewListView;
+import com.grgbanking.baselib.util.DateTimeUtil;
 import com.grgbanking.baselib.util.DateUtil;
 import com.grgbanking.baselib.util.ToastUtil;
-import com.grgbanking.baselib.util.log.LogUtil;
 import com.grgbanking.baselib.web.bean.NetInfoData;
 import com.seatwe.zsws.R;
 import com.seatwe.zsws.constant.CashboxTypeConstant;
@@ -19,7 +19,6 @@ import com.seatwe.zsws.ui.base.BaseActivity;
 import com.seatwe.zsws.util.ActivityJumpUtil;
 import com.seatwe.zsws.util.db.NetInfoBusinessUtil;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +31,7 @@ public class ChooseNetActivity extends BaseActivity implements View.OnClickListe
     private AdaptScrViewListView asvlv_net;
     private List<NetInfoData> listNet;
     private ChooseNetAdapter adapter;
+    private String chooseDate;
 
 
     @Override
@@ -42,12 +42,16 @@ public class ChooseNetActivity extends BaseActivity implements View.OnClickListe
     }
 
     public void initView() {
+        chooseDate = DateTimeUtil.formatDate(new Date());//默认是今天
         tvTitleSubject.setText(getResources().getString(R.string.choose_net));
         btnTitleRight.setText(getResources().getString(R.string.sure));
         tv_sendDate = (TextView) findViewById(R.id.tv_sendDate);
         iv_chooseDate = (ImageView) findViewById(R.id.iv_chooseDate);
-        iv_chooseDate.setOnClickListener(this);
         asvlv_net = (AdaptScrViewListView) findViewById(R.id.asvlv_net);
+
+        iv_chooseDate.setOnClickListener(this);
+        tv_sendDate.setText(chooseDate);
+
 
         listNet = NetInfoBusinessUtil.getInstance().queryAllNetInfo();
         adapter = new ChooseNetAdapter(this, listNet);
@@ -59,10 +63,10 @@ public class ChooseNetActivity extends BaseActivity implements View.OnClickListe
         btnTitleRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(adapter.getPos()!=-1){
+                if (adapter.getPos() != -1) {
                     ActivityJumpUtil.jumpToScanboxActivity(ChooseNetActivity.this, listNet.get(adapter.getPos()), DateUtil.formatTime(new Date()), CashboxTypeConstant.TYPE_MIDDLE);
                     finish();
-                }else{
+                } else {
                     ToastUtil.shortShow("请先选择网点");
                 }
             }
@@ -105,12 +109,10 @@ public class ChooseNetActivity extends BaseActivity implements View.OnClickListe
             dateAndTime.set(Calendar.MONTH, monthOfYear);
             dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             //将页面TextView的显示更新为最新时间
-            upDateDate(dateAndTime);
+            chooseDate = DateTimeUtil.formatDate(dateAndTime.getTime());
+//            upDateDate(dateAndTime);
 
         }
     };
 
-    private void upDateDate(Calendar dateAndTime) {
-        LogUtil.e("wuzi", new SimpleDateFormat("yyyy-MM-dd").format(dateAndTime.getTime()));
-    }
 }

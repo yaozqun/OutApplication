@@ -77,10 +77,10 @@ public class ChooseNetAdapter extends BaseAdapter {
             viewHolder.tv_contact.setText("联系人：" + item.getContacts_name() + ":" + item.getTel_number());
             viewHolder.tv_address.setText("地址：" + item.getNet_address());
 
-            if(pos == position){
-                viewHolder.ib_choose.setBackgroundResource(R.mipmap.flag_true);
-            }else{
-                viewHolder.ib_choose.setBackgroundResource(R.mipmap.del);
+            if (pos == position) {
+                viewHolder.ib_choose.setBackgroundResource(R.mipmap.radio_focus);
+            } else {
+                viewHolder.ib_choose.setBackgroundResource(R.mipmap.radio);
             }
 
             viewHolder.ib_choose.setOnClickListener(new MyOnClickListenr(position));
@@ -99,10 +99,10 @@ public class ChooseNetAdapter extends BaseAdapter {
 
     }
 
-    public class MyOnClickListenr implements View.OnClickListener{
+    public class MyOnClickListenr implements View.OnClickListener {
         private int position;
 
-        public MyOnClickListenr(int position){
+        public MyOnClickListenr(int position) {
             this.position = position;
         }
 

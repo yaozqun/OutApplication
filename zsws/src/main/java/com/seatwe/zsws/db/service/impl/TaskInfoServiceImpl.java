@@ -35,4 +35,16 @@ public class TaskInfoServiceImpl extends BaseDbServiceImpl<TaskInfoData>
     return list;
   }
 
+  public List<TaskInfoData> queryTaskInfoByLocalStatsu(int localStatus) {
+    List<TaskInfoData>list = new ArrayList<>();
+    try {
+      list = dao.getQueryBuilder().where().eq("local_status", localStatus).query();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return list;
+  }
+
+
+
 }

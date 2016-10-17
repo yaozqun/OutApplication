@@ -15,6 +15,7 @@
     <string name="sure">确认</string>
     <string name="save">保存</string>
     <string name="upload">上传</string>
+    <string name="uploading">上传中</string>
     <string name="setting">设置</string>
     <string name="task_transfer">任务交接</string>
 

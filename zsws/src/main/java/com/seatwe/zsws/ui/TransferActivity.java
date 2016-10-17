@@ -14,6 +14,7 @@ import com.seatwe.zsws.constant.CashboxTypeConstant;
 import com.seatwe.zsws.ui.adapter.SendBoxAdapter;
 import com.seatwe.zsws.ui.base.BaseActivity;
 import com.seatwe.zsws.util.ActivityJumpUtil;
+import com.seatwe.zsws.util.UploadUtil;
 import com.seatwe.zsws.util.db.RecordBoxBusinessUtil;
 
 import java.util.List;
@@ -71,6 +72,7 @@ public class TransferActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         //确认交接
+        UploadUtil.uploadRecord(TransferActivity.this, taskInfoData);//上传
         startActivity(new Intent(TransferActivity.this, TaskActivity.class));
     }
 }

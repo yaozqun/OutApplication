@@ -84,7 +84,14 @@ public class RecordBoxBusinessUtil {
      * 根据箱袋类型查询钞箱记录信息
      */
     public List<RecordboxInfoData> queryByCashboxType(String type) {
-        return recordboxInfoService.queryByCashboxType(type);
+        return recordboxInfoService.queryByCashboxByType(type);
+    }
+
+    /**
+     * 根据网点ID和本地状态查询钞箱记录信息
+     */
+    public List<RecordboxInfoData> queryByCashboxByNetIdAndLocalStatus(int netId, String localStatus) {
+        return recordboxInfoService.queryByCashboxByNetIdAndLocalStatus(netId, localStatus);
     }
 
     /**
