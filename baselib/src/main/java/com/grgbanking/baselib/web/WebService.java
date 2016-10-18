@@ -76,7 +76,7 @@ public class WebService {
     public void asyncPost(final String url, final Object req, WebCallback callback) {
 
         if (NetWorkUtil.isNetWorkConnected(ctx)) {
-            String json= null;
+            String json = null;
             try {
                 //加密
                 json = SecurityUtils.aesEncrypt(JsonUtils.toJson(req), SecurityUtils.MESSAGE_AES_KEY);
@@ -100,6 +100,7 @@ public class WebService {
      */
     public void syncPost(final String url, final String json, WebCallback callback) throws Exception {
         if (NetWorkUtil.isNetWorkConnected(ctx)) {
+            //加密
             String reqStr = SecurityUtils.aesEncrypt(json, SecurityUtils.MESSAGE_AES_KEY);
             RequestBody body = new FormBody.Builder().add("", reqStr).build();
             Request request = new Request.Builder().url(url).post(body).build();

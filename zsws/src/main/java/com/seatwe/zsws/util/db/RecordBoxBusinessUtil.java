@@ -105,4 +105,14 @@ public class RecordBoxBusinessUtil {
         }
     }
 
+    /**
+     * 删除钞箱记录信息
+     */
+    public void deleteRecordBoxInfo(RecordboxInfoData info) {
+        try {
+            recordboxInfoService.delete(info);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

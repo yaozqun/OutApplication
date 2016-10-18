@@ -14,6 +14,7 @@ import com.seatwe.zsws.bean.RecordboxInfoData;
 import com.seatwe.zsws.constant.LocalStatusConstant;
 import com.seatwe.zsws.util.db.CashboxBaseBusinessUtil;
 import com.seatwe.zsws.util.db.NetInfoBusinessUtil;
+import com.seatwe.zsws.util.db.RecordBoxBusinessUtil;
 
 import java.util.List;
 
@@ -84,6 +85,7 @@ public class SendBoxAdapter extends BaseAdapter {
                 if (item.getLocalStatus() == LocalStatusConstant.DONE) {
                     viewHolder.iv_flagTrue.setVisibility(View.VISIBLE);
                     viewHolder.iv_flagTrue.setBackgroundResource(R.mipmap.flag_true);
+                    viewHolder.iv_flagFalse.setOnClickListener(new MyClickListener(position));
                 } else {
                     viewHolder.iv_flagTrue.setVisibility(View.GONE);
                 }
@@ -110,4 +112,18 @@ public class SendBoxAdapter extends BaseAdapter {
 
     }
 
+    public class MyClickListener implements View.OnClickListener {
+        private int position;
+
+        public MyClickListener(int position) {
+            this.position = position;
+        }
+
+        @Override
+        public void onClick(View v) {
+            info.remove(position);
+            notifyDataSetChanged();
+            RecordBoxBusinessUtil.getInstance().deleteRecordBoxInfo(info.get(position));
+        }
+    }
 }

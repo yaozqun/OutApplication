@@ -8,4 +8,5 @@
     <dimen name="px2dp25">8.3dp</dimen>
     <dimen name="px2dp90">30dp</dimen>
     <dimen name="px2dp148">55dp</dimen>
+    <dimen name="icon_size">28dp</dimen>
 </resources>
