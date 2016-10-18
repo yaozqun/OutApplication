@@ -12,9 +12,11 @@ import com.seatwe.zsws.R;
 import com.seatwe.zsws.bean.LineInfoData;
 import com.seatwe.zsws.bean.RecordboxInfoData;
 import com.seatwe.zsws.bean.TaskInfoData;
+import com.seatwe.zsws.bean.req.ArriveNodeReqBean;
 import com.seatwe.zsws.bean.req.RecordReqBean;
 import com.seatwe.zsws.constant.LocalStatusConstant;
 import com.seatwe.zsws.util.db.LineInfoBusinessUtil;
+import com.seatwe.zsws.util.db.LineNodeBusinessUtil;
 import com.seatwe.zsws.util.db.RecordBoxBusinessUtil;
 import com.seatwe.zsws.util.db.TaskInfoBusinessUtil;
 import com.seatwe.zsws.web.NetService;
@@ -23,12 +25,6 @@ import java.util.List;
 
 import okhttp3.Call;
 
-/**
- * Author：燕青 $ on 16/10/17 20:54
- * E-mail：359222347@qq.com
- * <p>
- * use to...
- */
 public class UploadUtil {
 
     /**
@@ -37,11 +33,9 @@ public class UploadUtil {
      * @param taskInfoData
      */
     public static void uploadRecord(Context context, final TaskInfoData taskInfoData) {
-        final ProgressDialog progressDialog = ProgressUtil.show(context, context.getResources().getString(R.string.uploading));
-
         final List<RecordboxInfoData> listUpload = RecordBoxBusinessUtil.getInstance().queryRecordBoxByNetId(taskInfoData.getNet_id());
         if (listUpload.size() > 0) {
-            progressDialog.show();//显示上传进度框
+            final ProgressDialog progressDialog = ProgressUtil.show(context, context.getResources().getString(R.string.uploading));
             LineInfoData lineInfoData = LineInfoBusinessUtil.getInstance().queryAllLineInfo();
             //上传参数
             RecordReqBean req = new RecordReqBean();
@@ -93,14 +87,13 @@ public class UploadUtil {
      * 将所有未上传的操作记录循环上传
      */
     public static void uploadAllRecord(Context context) {
-        final ProgressDialog progressDialog = ProgressUtil.show(context, context.getResources().getString(R.string.uploading));
 
         List<TaskInfoData> listTaskInfo = TaskInfoBusinessUtil.getInstance().queryTaskInfoByLocalStatus(LocalStatusConstant.DONE);
         if (listTaskInfo.size() > 0) {
             for (final TaskInfoData taskInfoData : listTaskInfo) {
                 final List<RecordboxInfoData> listUpload = RecordBoxBusinessUtil.getInstance().queryRecordBoxByNetId(taskInfoData.getNet_id());
                 if (listUpload.size() > 0) {
-                    progressDialog.show();//显示上传进度框
+                    final ProgressDialog progressDialog = ProgressUtil.show(context, context.getResources().getString(R.string.uploading));
 
                     LineInfoData lineInfoData = LineInfoBusinessUtil.getInstance().queryAllLineInfo();
 
@@ -148,6 +141,38 @@ public class UploadUtil {
         } else {
             ToastUtil.shortShow("当前没有可上传的任务");
         }
+    }
+
+    /**
+     * 上传线路节点信息
+     *
+     * @param context
+     * @param bean
+     */
+    public static void uploadLineNode(final Context context, final ArriveNodeReqBean bean) {
+        ArriveNodeReqBean req = new ArriveNodeReqBean();
+        req.setArrive_time(bean.getArrive_time());
+        req.setLine_id(bean.getLine_id());
+        req.setNode_type(bean.getNode_type());
+
+        NetService.getInstance().arriveNode(req, new ResultCallback<ResponseBean>() {
+            @Override
+            public void onSuccess(ResponseBean resp) {
+                ToastUtil.shortShow(context.getResources().getString(R.string.scan_success));
+                bean.setLocalStatus(LocalStatusConstant.UPLOADED);
+                LineNodeBusinessUtil.getInstance().createOrUpdate(bean);
+            }
+
+            @Override
+            public void onError(ErrorMsg errorMsg) {
+
+            }
+
+            @Override
+            public void onPre(Call call) {
+
+            }
+        });
     }
 
 }

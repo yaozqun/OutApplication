@@ -35,8 +35,8 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/button_click_bg"
                 android:text="@string/sure"
-                android:textColor="@color/white"
-                android:textSize="22sp" />
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -44,16 +44,16 @@
             android:id="@+id/tv_sendDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="送箱日期:"
             android:layout_marginTop="20dp"
+            android:text="送箱日期:"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_sendNet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="送箱地点:"
             android:layout_marginTop="10dp"
+            android:text="送箱地点:"
             android:textStyle="bold" />
 
         <RelativeLayout
@@ -78,14 +78,15 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginTop="10dp" android:background="@color/black"/>
+            android:layout_marginTop="10dp"
+            android:background="@color/black" />
 
         <com.grgbanking.baselib.ui.view.AdaptScrViewListView
             android:id="@+id/asvlv_box"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:cacheColorHint="@color/white"
             android:layout_marginTop="10dp"
+            android:cacheColorHint="@color/white"
             android:divider="@null"
             android:listSelector="@color/white"
             android:scrollbars="none" />

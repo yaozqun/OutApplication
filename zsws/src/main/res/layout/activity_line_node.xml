@@ -10,17 +10,34 @@
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/bt_scan"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="10dp"
-            android:background="@drawable/comm_edittext_bg_selector"
-            android:drawableRight="@mipmap/barcode"
-            android:hint="@string/click_to_scan"
-            android:singleLine="true" />
+            android:padding="10dp"
+            android:orientation="horizontal">
 
+            <com.grgbanking.baselib.ui.view.EditTextToDel
+                android:id="@+id/et_inputCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/comm_edittext_bg_selector"
+                android:drawableRight="@mipmap/barcode"
+                android:hint="@string/input_code"
+                android:singleLine="true" />
+
+            <Button
+                android:id="@+id/bt_sure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/button_click_bg"
+                android:text="@string/sure"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
         <com.grgbanking.baselib.ui.view.AdaptScrViewListView
             android:id="@+id/asvlv_node"
             android:layout_width="match_parent"

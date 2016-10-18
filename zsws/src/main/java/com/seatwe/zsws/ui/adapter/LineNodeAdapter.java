@@ -68,10 +68,11 @@ public class LineNodeAdapter extends BaseAdapter {
         ArriveNodeReqBean item = getItem(position);
         if (null != item) {
             viewHolder.tv_lineName.setText(item.getNode_name());
-            viewHolder.tv_status.setText(item.getLocalStatus()+"");
-            if (item.getLocalStatus()== LocalStatusConstant.DONE) {
+            if (item.getLocalStatus() != LocalStatusConstant.UN_DONE) {
+                viewHolder.tv_status.setText(context.getResources().getString(R.string.scanned));
                 viewHolder.iv_flag.setVisibility(View.VISIBLE);
-            }else{
+            } else {
+                viewHolder.tv_status.setText(context.getResources().getString(R.string.unscanned));
                 viewHolder.iv_flag.setVisibility(View.INVISIBLE);
             }
         }

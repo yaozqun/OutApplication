@@ -1,6 +1,7 @@
 package com.seatwe.zsws.ui;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -48,8 +49,13 @@ public class MainActivity extends BaseActivity {
      */
     public void initView() {
         btnTitleRight.setVisibility(View.VISIBLE);
-        btnTitleRight.setText(getResources().getString(R.string.upload));
-        btnTitleLeft.setBackgroundResource(R.mipmap.ic_launcher);
+        btnTitleRight.setText("");
+        btnTitleRight.setBackgroundResource(R.mipmap.icon_upload);
+        btnTitleLeft.setText("");
+        Drawable drawable= getResources().getDrawable(R.mipmap.icon_setting);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        btnTitleLeft.setCompoundDrawables(drawable, null, null, null);
+
         lv_module = (ListView) findViewById(R.id.lv_module);
         // 设置适配器
         adapter = new ModuleAdapter(this, modules);

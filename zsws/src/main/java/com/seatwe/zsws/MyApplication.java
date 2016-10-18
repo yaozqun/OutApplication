@@ -29,7 +29,7 @@ public class MyApplication extends Application {
 
     public void init() {
         ToastUtil.init(getContext());
-        AppConfig.init(this, FilePathConfig.FILE_ROOT, FilePathConfig.APK_NAME);
+        AppConfig.init(this, FilePathConfig.FILE_FOLDER, FilePathConfig.APK_NAME);
         WebService.init(this);
         DownloadUtil.init(this);
     }

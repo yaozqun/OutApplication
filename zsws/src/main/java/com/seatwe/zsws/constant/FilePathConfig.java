@@ -9,7 +9,7 @@ public class FilePathConfig {
     /**
      * 根目录
      */
-    public static final String FILE_ROOT = SDCardUtils.getSDCardPath() + "/zsws/";
+    public static final String FILE_FOLDER =  "zsws";
 
     public static final String APK_NAME = "zsws.apk";
 }

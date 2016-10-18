@@ -15,14 +15,14 @@ import com.seatwe.zsws.R;
 import com.seatwe.zsws.bean.RecordboxInfoData;
 import com.seatwe.zsws.constant.LocalStatusConstant;
 import com.seatwe.zsws.ui.adapter.SendBoxAdapter;
-import com.seatwe.zsws.ui.base.BaseActivity;
+import com.seatwe.zsws.ui.base.ScanBaseActivity;
 import com.seatwe.zsws.util.ActivityJumpUtil;
-import com.seatwe.zsws.util.CashboxScannedUtil;
+import com.seatwe.zsws.util.BarcodeScannedUtil;
 import com.seatwe.zsws.util.db.RecordBoxBusinessUtil;
 
 import java.util.List;
 
-public class ScanboxActivity extends BaseActivity {
+public class ScanboxActivity extends ScanBaseActivity {
     private AdaptScrViewListView asvlv_cashbox;
 
     private TextView tv_sendDate, tv_sendNet, tv_boxSum;
@@ -88,7 +88,7 @@ public class ScanboxActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LogUtil.e("position", position + "");
-                int pos = CashboxScannedUtil.scannedSuccess(ScanboxActivity.this, listCashbox, listCashbox.get(position).getBox_code());
+                int pos = BarcodeScannedUtil.scannedSuccess(ScanboxActivity.this, listCashbox, listCashbox.get(position).getBox_code());
                 if (pos != -1) {
                     listCashbox.get(pos).setLocalStatus(LocalStatusConstant.DONE);
                     adapter.notifyDataSetChanged();
@@ -104,13 +104,12 @@ public class ScanboxActivity extends BaseActivity {
                 if (barcodeStr == null || barcodeStr.equals("")) {
                     ToastUtil.shortShow("请先输入钞箱条码");
                 } else {
-                    RecordboxInfoData infoData = CashboxScannedUtil.receivedOrMiddle(ScanboxActivity.this, listCashbox, netInfoData, sendDate, cashboxType, barcodeStr);
+                    RecordboxInfoData infoData = BarcodeScannedUtil.receivedOrMiddle(ScanboxActivity.this, listCashbox, netInfoData, sendDate, cashboxType, barcodeStr);
                     if (infoData.getBox_code() != null) {
                         listCashbox.add(infoData);
                         adapter.notifyDataSetChanged();
                         tv_boxSum.setText("已扫描" + listCashbox.size() + "个");
                     }
-
                 }
             }
         });
@@ -127,6 +126,14 @@ public class ScanboxActivity extends BaseActivity {
     @Override
     public void onScanResult(String barcodeStr) {
         super.onScanResult(barcodeStr);
+        if (barcodeStr == null || barcodeStr.equals("")) {
+            RecordboxInfoData infoData = BarcodeScannedUtil.receivedOrMiddle(this, listCashbox, netInfoData, sendDate, cashboxType, barcodeStr);
+            if (infoData.getBox_code() != null) {
+                listCashbox.add(infoData);
+                adapter.notifyDataSetChanged();
+                tv_boxSum.setText("已扫描" + listCashbox.size() + "个");
+            }
+        }
     }
 
 

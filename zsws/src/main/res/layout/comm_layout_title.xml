@@ -70,10 +70,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:minHeight="@dimen/px2dp90"
-        android:minWidth="@dimen/px2dp148"
         android:text="@string/exit"
         android:background="@null"
+        android:layout_marginRight="10dp"
         android:visibility="invisible"
         android:textColor="@color/header_title_color"
         android:textSize="14sp" />

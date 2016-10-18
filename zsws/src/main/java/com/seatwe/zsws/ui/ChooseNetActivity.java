@@ -45,12 +45,13 @@ public class ChooseNetActivity extends BaseActivity implements View.OnClickListe
         chooseDate = DateTimeUtil.formatDate(new Date());//默认是今天
         tvTitleSubject.setText(getResources().getString(R.string.choose_net));
         btnTitleRight.setText(getResources().getString(R.string.sure));
+        btnTitleRight.setVisibility(View.VISIBLE);
         tv_sendDate = (TextView) findViewById(R.id.tv_sendDate);
         iv_chooseDate = (ImageView) findViewById(R.id.iv_chooseDate);
         asvlv_net = (AdaptScrViewListView) findViewById(R.id.asvlv_net);
 
         iv_chooseDate.setOnClickListener(this);
-        tv_sendDate.setText(chooseDate);
+        tv_sendDate.setText("送箱日期：" + chooseDate);
 
 
         listNet = NetInfoBusinessUtil.getInstance().queryAllNetInfo();
@@ -110,6 +111,7 @@ public class ChooseNetActivity extends BaseActivity implements View.OnClickListe
             dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             //将页面TextView的显示更新为最新时间
             chooseDate = DateTimeUtil.formatDate(dateAndTime.getTime());
+            tv_sendDate.setText("送箱日期：" + chooseDate);
 //            upDateDate(dateAndTime);
 
         }

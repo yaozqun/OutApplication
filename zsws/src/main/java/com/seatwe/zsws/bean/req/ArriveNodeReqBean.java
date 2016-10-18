@@ -27,6 +27,17 @@ public class ArriveNodeReqBean {
     @DatabaseField(columnName = "local_status")
     private int localStatus;
 
+    @DatabaseField(columnName = "code")
+    private String code;
+
+    public String getCode() {
+        return this.code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public int getLocalStatus() {
         return localStatus;
     }

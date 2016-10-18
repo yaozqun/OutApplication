@@ -14,6 +14,7 @@ import com.seatwe.zsws.bean.RecordboxInfoData;
 import com.seatwe.zsws.bean.TaskInfoData;
 import com.seatwe.zsws.bean.req.ArriveNodeReqBean;
 import com.seatwe.zsws.constant.CashboxTypeConstant;
+import com.seatwe.zsws.constant.LineNodeConstant;
 import com.seatwe.zsws.constant.LocalStatusConstant;
 import com.seatwe.zsws.constant.UrlConstant;
 import com.seatwe.zsws.ui.MainActivity;
@@ -123,11 +124,11 @@ public class TestDownloadUtil {
             for (int i = 0; i < nodeName.length; i++) {
                 ArriveNodeReqBean bean = new ArriveNodeReqBean();
                 bean.setNode_name(nodeName[i]);
-                bean.setLine_id(i);
-                bean.setNode_type(i + "");
+                bean.setLine_id(LineInfoBusinessUtil.getInstance().queryAllLineInfo().getId());
                 bean.setLocalStatus(LocalStatusConstant.UN_DONE);
                 bean.setLine_id(i);
-                bean.setArrive_time("20161012202822");
+                bean.setNode_type(i+"");
+                bean.setCode(i == 0 ? LineNodeConstant.NODE_START : LineNodeConstant.NODE_END);
                 list5.add(bean);
             }
             LineNodeBusinessUtil.getInstance().saveLineNodeInfoData(list5);
