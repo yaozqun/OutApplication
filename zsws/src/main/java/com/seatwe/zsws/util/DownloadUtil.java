@@ -7,18 +7,23 @@ import android.content.Intent;
 import com.grgbanking.baselib.core.callback.ResultCallback;
 import com.grgbanking.baselib.util.ProgressUtil;
 import com.grgbanking.baselib.util.ToastUtil;
+import com.grgbanking.baselib.util.log.LogUtil;
 import com.grgbanking.baselib.web.bean.resp.CashBoxRespBean;
 import com.grgbanking.baselib.web.bean.resp.NetInfoRespBean;
 import com.grgbanking.baselib.web.entity.ErrorMsg;
+import com.seatwe.zsws.bean.RecordboxInfoData;
+import com.seatwe.zsws.bean.TaskInfoData;
 import com.seatwe.zsws.bean.req.LoginReqBean;
 import com.seatwe.zsws.bean.resp.LoginRespBean;
 import com.seatwe.zsws.bean.resp.TaskInfoRespBean;
+import com.seatwe.zsws.constant.CashboxTypeConstant;
 import com.seatwe.zsws.model.UserInfo;
 import com.seatwe.zsws.ui.MainActivity;
 import com.seatwe.zsws.util.db.CashboxBaseBusinessUtil;
 import com.seatwe.zsws.util.db.LineInfoBusinessUtil;
 import com.seatwe.zsws.util.db.LineNodeBusinessUtil;
 import com.seatwe.zsws.util.db.NetInfoBusinessUtil;
+import com.seatwe.zsws.util.db.RecordBoxBusinessUtil;
 import com.seatwe.zsws.util.db.TaskInfoBusinessUtil;
 import com.seatwe.zsws.web.NetService;
 
@@ -33,9 +38,10 @@ public class DownloadUtil {
                     @Override
                     public void onSuccess(LoginRespBean resp) {
                         progressDialog.dismiss();
+                        ToastUtil.shortShow("登录成功");
                         // 保存数据
                         if (resp.getData() != null) {
-                            LineInfoBusinessUtil.getInstance().saveLineInfoData(resp.getData());
+
                             //将用户信息保存到SP中
                             UserInfo userInfo = new UserInfo();
                             userInfo.setLogin_name(reqBean.getLogin_name());
@@ -44,6 +50,9 @@ public class DownloadUtil {
                             SharePrefUtil.getInstance().saveUserInfo(userInfo);
 
                             if (LineInfoBusinessUtil.getInstance().queryAllLineInfo() == null) {
+                                LineInfoBusinessUtil.getInstance().saveLineInfoData(resp.getData());
+                                LogUtil.e("线路信息", "线路编号：" + LineInfoBusinessUtil.getInstance().queryAllLineInfo().getLine_number());
+
                                 downloadCashBox(context);//下载钞箱信息
                             } else {
                                 if (!resp.getData().getId().equals(LineInfoBusinessUtil.getInstance().queryAllLineInfo().getId())) {
@@ -53,7 +62,12 @@ public class DownloadUtil {
                                     LineNodeBusinessUtil.getInstance().clearLineNodeInfo();
                                     TaskInfoBusinessUtil.getInstance().clearTaskInfo();
 
+                                    LineInfoBusinessUtil.getInstance().saveLineInfoData(resp.getData());
+                                    LogUtil.e("线路信息", "线路编号：" + LineInfoBusinessUtil.getInstance().queryAllLineInfo().getLine_number());
+
                                     downloadCashBox(context);//下载钞箱信息
+                                }else{
+                                    context.startActivity(new Intent(context,MainActivity.class));
                                 }
 
                             }
@@ -63,7 +77,7 @@ public class DownloadUtil {
 
                     @Override
                     public void onError(ErrorMsg errorMsg) {
-                        ToastUtil.shortShow("登录失败");
+                        ToastUtil.shortShow("对不起登录失败");
                         progressDialog.dismiss();
                     }
 
@@ -83,6 +97,8 @@ public class DownloadUtil {
             @Override
             public void onSuccess(CashBoxRespBean resp) {
                 CashboxBaseBusinessUtil.getInstance().saveCashboxInfoData(resp.getData());
+                LogUtil.e("钞箱信息", "网点编号：" + CashboxBaseBusinessUtil.getInstance().queryAllCashboxInfo().get(0).getCashbox_num());
+
                 downloadNetInfo(context);
             }
 
@@ -107,6 +123,8 @@ public class DownloadUtil {
             @Override
             public void onSuccess(NetInfoRespBean resp) {
                 NetInfoBusinessUtil.getInstance().saveNetInfoData(resp.getData());
+                LogUtil.e("网点信息", "网点名称：" + NetInfoBusinessUtil.getInstance().queryAllNetInfo().get(0).getNet_name());
+
                 downloadTaskInfo(context);
             }
 
@@ -131,8 +149,23 @@ public class DownloadUtil {
             @Override
             public void onSuccess(TaskInfoRespBean resp) {
                 TaskInfoBusinessUtil.getInstance().saveTaskInfoData(resp.getData());
+                LogUtil.e("任务信息", "钞箱编号：" + TaskInfoBusinessUtil.getInstance().queryAllTaskInfo().get(0).getCashbox_num());
+                //任务信息下载完成后,将钞箱信息保存到钞箱操作记录表中
+                for (TaskInfoData data : resp.getData()) {
+                    RecordboxInfoData info = new RecordboxInfoData();
+                    info.setBox_code(data.getCashbox_num());
+                    info.setTransfer_net(data.getNet_id());
+                    info.setTransfer_status(data.getTask_status());
+                    info.setCashbox_type(CashboxTypeConstant.TYPE_SEND);
+                    info.setTransfer_type(data.getTask_type());
+                    RecordBoxBusinessUtil.getInstance().createOrUpdate(info);
+                }
+                LogUtil.e("钞箱记录信息", "钞箱编号：" + RecordBoxBusinessUtil.getInstance().queryAllRecordbox().get(0).getBox_code());
+
+
                 context.startActivity(new Intent(context, MainActivity.class));
                 progressDialog.dismiss();
+
             }
 
             @Override
