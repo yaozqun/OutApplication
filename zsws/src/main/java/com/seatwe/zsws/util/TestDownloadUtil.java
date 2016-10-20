@@ -126,7 +126,7 @@ public class TestDownloadUtil {
                 bean.setNode_name(nodeName[i]);
                 bean.setLine_id(LineInfoBusinessUtil.getInstance().queryAllLineInfo().getId());
                 bean.setLocalStatus(LocalStatusConstant.UN_DONE);
-                bean.setLine_id(i);
+                bean.setLine_id(i+"");
                 bean.setNode_type(i+"");
                 bean.setCode(i == 0 ? LineNodeConstant.NODE_START : LineNodeConstant.NODE_END);
                 list5.add(bean);

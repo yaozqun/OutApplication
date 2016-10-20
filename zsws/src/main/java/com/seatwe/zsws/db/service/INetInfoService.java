@@ -1,6 +1,5 @@
 package com.seatwe.zsws.db.service;
 
-import com.grgbanking.baselib.web.bean.CashBoxData;
 import com.grgbanking.baselib.web.bean.NetInfoData;
 import com.seatwe.zsws.db.IBaseDbService;
 

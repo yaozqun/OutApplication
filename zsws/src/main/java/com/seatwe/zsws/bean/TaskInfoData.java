@@ -12,8 +12,8 @@ import java.io.Serializable;
 
 @DatabaseTable(tableName = "T_SYS_TaskInfo")
 public class TaskInfoData implements Serializable {
-    @DatabaseField(generatedId = true, columnName = "ID", canBeNull = false, unique = true)
-    private int id;
+    @DatabaseField(columnName = "id", id = true, useGetSet = true)
+    private String id;
     @DatabaseField(columnName = "line_id")
     private int line_id;
     /**
@@ -24,7 +24,7 @@ public class TaskInfoData implements Serializable {
     @DatabaseField(columnName = "task_status")
     private String task_status;
     @DatabaseField(columnName = "net_id")
-    private int net_id;
+    private String net_id;
     @DatabaseField(columnName = "orgid")
     private String orgid;
     @DatabaseField(columnName = "cashbox_num")
@@ -75,11 +75,11 @@ public class TaskInfoData implements Serializable {
         this.arriveTime = arriveTime;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -107,11 +107,11 @@ public class TaskInfoData implements Serializable {
         this.task_status = task_status;
     }
 
-    public int getNet_id() {
+    public String getNet_id() {
         return net_id;
     }
 
-    public void setNet_id(int net_id) {
+    public void setNet_id(String net_id) {
         this.net_id = net_id;
     }
 

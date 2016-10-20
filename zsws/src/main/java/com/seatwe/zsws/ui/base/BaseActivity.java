@@ -1,21 +1,13 @@
 package com.seatwe.zsws.ui.base;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.device.ScanManager;
-import android.device.scanner.configuration.PropertyID;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.grgbanking.baselib.util.ActivityManagerUtil;
-import com.grgbanking.baselib.util.log.LogUtil;
 import com.seatwe.zsws.R;
 
 /**
@@ -106,5 +98,9 @@ public class BaseActivity extends Activity {
         super.onResume();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityManagerUtil.removeActivity(this);
+    }
 }

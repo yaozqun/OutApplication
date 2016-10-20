@@ -8,8 +8,8 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable(tableName = "T_SYS_LineNodeInfo")
 public class ArriveNodeReqBean {
-    @DatabaseField(generatedId = true, columnName = "ID", canBeNull = false, unique = true)
-    private int line_id;
+    @DatabaseField(columnName = "id", id = true, useGetSet = true)
+    private String line_id;
 
     /**
      * 0：开始
@@ -54,11 +54,11 @@ public class ArriveNodeReqBean {
         this.node_name = node_name;
     }
 
-    public int getLine_id() {
+    public String getLine_id() {
         return line_id;
     }
 
-    public void setLine_id(int line_id) {
+    public void setLine_id(String line_id) {
         this.line_id = line_id;
     }
 

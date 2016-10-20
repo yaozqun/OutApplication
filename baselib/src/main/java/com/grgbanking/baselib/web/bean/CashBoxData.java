@@ -8,8 +8,8 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable(tableName = "T_SYS_CashBox")
 public class CashBoxData extends ResponseBean {
-    @DatabaseField(generatedId = true, columnName = "ID", canBeNull = false, unique = true)
-    private int id;
+    @DatabaseField(columnName = "id", id = true, useGetSet = true)
+    private String id;
     @DatabaseField(columnName = "cashbox_num")
     private String cashbox_num;
     @DatabaseField(columnName = "status")
@@ -31,11 +31,11 @@ public class CashBoxData extends ResponseBean {
     @DatabaseField(columnName = "version")
     private String version;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

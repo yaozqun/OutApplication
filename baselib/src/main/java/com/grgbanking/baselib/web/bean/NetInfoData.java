@@ -10,8 +10,8 @@ import java.io.Serializable;
  */
 @DatabaseTable(tableName = "T_SYS_NetInfo")
 public class NetInfoData implements Serializable{
-    @DatabaseField(generatedId = true, columnName = "ID", canBeNull = false, unique = true)
-    private int id;
+    @DatabaseField(columnName = "id", id = true, useGetSet = true)
+    private String id;
     @DatabaseField(columnName = "net_code")
     private String net_code;
     @DatabaseField(columnName = "net_name")
@@ -30,11 +30,11 @@ public class NetInfoData implements Serializable{
     @DatabaseField(columnName = "version")
     private String version;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

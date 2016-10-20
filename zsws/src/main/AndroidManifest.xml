@@ -69,6 +69,7 @@
         <activity android:name=".ui.TransferActivity" />
         <activity android:name=".ui.TypeActivity" />
         <activity android:name=".ui.SettingActivity" />
+        <activity android:name=".ui.ModifyPasswordActivity" />
     </application>
 
 </manifest>

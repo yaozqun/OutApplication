@@ -50,7 +50,7 @@ public class RecordBoxBusinessUtil {
     /**
      * 根据网点ID和任务ID查询钞箱操作记录信息
      */
-    public List<RecordboxInfoData> queryRecordBoxByNetId(int netId) {
+    public List<RecordboxInfoData> queryRecordBoxByNetId(String netId) {
         try {
             return recordboxInfoService.queryRecordBoxByNetId(netId);
         } catch (SQLException e) {
@@ -62,14 +62,14 @@ public class RecordBoxBusinessUtil {
     /**
      * 根据箱袋类型查询钞箱记录信息
      */
-    public List<RecordboxInfoData> queryRecordBoxByNetIdAndType(int netId, String type) {
+    public List<RecordboxInfoData> queryRecordBoxByNetIdAndType(String netId, String type) {
         return recordboxInfoService.queryRecordBoxByNetIdAndType(netId, type);
     }
 
     /**
      * 根据箱袋类型和本地状态查询钞箱记录信息
      */
-    public List<RecordboxInfoData> queryByNetIdAndTypeAndLocalStatus(int netId, String type, int localStatus) {
+    public List<RecordboxInfoData> queryByNetIdAndTypeAndLocalStatus(String netId, String type, int localStatus) {
         return recordboxInfoService.queryByNetIdAndTypeAndLocalStatus(netId, type, localStatus);
     }
 
@@ -90,7 +90,7 @@ public class RecordBoxBusinessUtil {
     /**
      * 根据网点ID和本地状态查询钞箱记录信息
      */
-    public List<RecordboxInfoData> queryByCashboxByNetIdAndLocalStatus(int netId, String localStatus) {
+    public List<RecordboxInfoData> queryByCashboxByNetIdAndLocalStatus(String netId, String localStatus) {
         return recordboxInfoService.queryByCashboxByNetIdAndLocalStatus(netId, localStatus);
     }
 

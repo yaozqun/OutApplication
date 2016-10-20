@@ -2,18 +2,18 @@ package com.grgbanking.baselib.core;
 
 import com.google.gson.reflect.TypeToken;
 import com.grgbanking.baselib.config.AppConfig;
+import com.grgbanking.baselib.util.log.LogUtil;
+import com.grgbanking.baselib.web.WebService;
+import com.grgbanking.baselib.web.bean.UpgradeData;
+import com.grgbanking.baselib.web.okhttp.ProgressListener;
+import com.grgbanking.baselib.web.request.VersionInfoReq;
+import com.grgbanking.baselib.web.response.ResponseRoot;
 import com.grgbanking.baselib.core.callback.BaseCallback;
 import com.grgbanking.baselib.core.callback.FileCallback;
 import com.grgbanking.baselib.core.callback.JsonCallback;
 import com.grgbanking.baselib.core.callback.ResultCallback;
 import com.grgbanking.baselib.util.FileUtil;
-import com.grgbanking.baselib.util.log.LogUtil;
-import com.grgbanking.baselib.web.WebService;
 import com.grgbanking.baselib.web.entity.ErrorMsg;
-import com.grgbanking.baselib.web.okhttp.ProgressListener;
-import com.grgbanking.baselib.web.request.VersionInfoReq;
-import com.grgbanking.baselib.web.response.ResponseRoot;
-import com.grgbanking.baselib.web.response.VersionInfoResponse;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,8 +59,8 @@ public class SystemService extends BaseService {
      *
      * @param callback
      */
-    public void checkUpgrade(String url, VersionInfoReq req, ResultCallback<VersionInfoResponse> callback) {
-        WebService.getInstance().asyncPost(url, req, new JsonCallback<VersionInfoResponse>(new TypeToken<ResponseRoot<VersionInfoResponse>>() {
+    public void checkUpgrade(String url, VersionInfoReq req, ResultCallback<UpgradeData> callback) {
+        WebService.getInstance().asyncPost(url, req, new JsonCallback<UpgradeData>(new TypeToken<ResponseRoot<UpgradeData>>() {
         }.getType(), callback));
     }
 

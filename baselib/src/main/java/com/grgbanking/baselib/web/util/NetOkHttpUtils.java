@@ -3,7 +3,7 @@ package com.grgbanking.baselib.web.util;
 import java.io.IOException;
 
 /*import com.alibaba.fastjson.JSON;
-import com.grgbanking.baselib.util.SecurityUtils;
+import SecurityUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.callback.StringCallback;*/

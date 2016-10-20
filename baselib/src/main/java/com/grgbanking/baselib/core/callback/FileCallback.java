@@ -1,8 +1,8 @@
 package com.grgbanking.baselib.core.callback;
 
 import com.grgbanking.baselib.util.log.LogUtil;
-import com.grgbanking.baselib.web.entity.ErrorMsg;
 import com.grgbanking.baselib.web.okhttp.ProgressListener;
+import com.grgbanking.baselib.web.entity.ErrorMsg;
 
 import java.io.File;
 import java.io.FileOutputStream;

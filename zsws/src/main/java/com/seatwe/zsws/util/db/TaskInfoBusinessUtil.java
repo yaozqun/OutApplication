@@ -71,7 +71,7 @@ public class TaskInfoBusinessUtil {
     /**
      * 根据网点查询任务信息
      */
-    public int queryTaskInfoByNetId(int netId) {
+    public int queryTaskInfoByNetId(String netId) {
         int sameNetCount = 0;
         try {
             List<TaskInfoData> list = taskInfoService.queryTaskInfoByNetId(netId);

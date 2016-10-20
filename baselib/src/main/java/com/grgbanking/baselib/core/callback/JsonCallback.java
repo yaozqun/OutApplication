@@ -5,12 +5,11 @@ import java.lang.reflect.Type;
 import okhttp3.Call;
 import okhttp3.Response;
 
-import com.grgbanking.baselib.constant.ResponceCodeConstant;
 import com.grgbanking.baselib.util.JsonUtils;
-import com.grgbanking.baselib.util.StringUtil;
+import com.grgbanking.baselib.util.SecurityUtils;
 import com.grgbanking.baselib.util.log.LogUtil;
-import com.grgbanking.baselib.web.entity.ErrorMsg;
 import com.grgbanking.baselib.web.response.ResponseRoot;
+import com.grgbanking.baselib.web.entity.ErrorMsg;
 
 public class JsonCallback<T> extends BaseCallback<T> {
     public final static String TAG = "JsonCallback";
@@ -35,20 +34,17 @@ public class JsonCallback<T> extends BaseCallback<T> {
                 onFailure(call, new ErrorMsg(response.code()));
                 return;
             }
-            String bodyStr = response.body().string();
+            String bodyStr = SecurityUtils.aesDecrypt(response.body().string(), SecurityUtils.MESSAGE_AES_KEY);
             String url = response.request().url().url().toString();
             LogUtil.i(TAG, "onResponse :   url=" + url + " bodyStr= " + bodyStr);
             ResponseRoot respRoot = JsonUtils.fromJson(bodyStr, type);
-            String code = respRoot.getCode();
-            String msg = respRoot.getMsg();
-            if (code.equals(ResponceCodeConstant.HAVE_NEW_VERSION)) {
+//            String code = respRoot.getCode();
+//            String msg = respRoot.getMsg();
+            if (respRoot.isSuccess()) {
                 onSuccess(call, response, respRoot);
                 return;
-            } else if (code.equals(ResponceCodeConstant.ILLEGAL_APPLICATION)) {
-                onFailure(call, new ErrorMsg(StringUtil.toInt(code), msg));
-                return;
-            } else if (code.equals(ResponceCodeConstant.IS_NEWEST_VERSION)) {
-                onFailure(call, new ErrorMsg(StringUtil.toInt(code), msg));
+            } else {
+                onFailure(call, new ErrorMsg(Integer.parseInt(respRoot.getCode()), respRoot.getMsg()));
                 return;
             }
 

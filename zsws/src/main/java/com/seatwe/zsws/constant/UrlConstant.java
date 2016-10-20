@@ -4,11 +4,10 @@ package com.seatwe.zsws.constant;
  * Created by charry on 2016/10/6.
  */
 public class UrlConstant {
-    // 系统
-    public static String HOST = "http://st.saeese.net/zsws/";
 
+    public static String HOST = "http://15844403vs.imwork.net:58182/ad_zsws/mobile-message-operate-zsws!";
     //基础接口
-    public static String BASE_HOST = "http://st.saeese.net/baselib/";
+    public static String BASE_HOST = HOST;
 
     // 登录
     public static String USER_LOGIN = HOST + "userLogin.do";

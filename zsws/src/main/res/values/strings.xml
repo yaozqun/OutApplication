@@ -39,4 +39,6 @@
     <string name="scanned_error">对不起，条码不正确</string>
     <string name="scanned_already">对不起，您已扫描过此钞箱条码,无需重复扫描</string>
     <string name="scan_success">扫描成功</string>
+
+    <string name="comm_sharePre">获取sharePre缓存失败</string>
 </resources>

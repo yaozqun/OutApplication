@@ -10,8 +10,8 @@ import com.seatwe.zsws.constant.LocalStatusConstant;
 @DatabaseTable(tableName = "T_SYS_RecordBoxInfo")
 public class RecordboxInfoData {
 
-    @DatabaseField(generatedId = true, columnName = "ID", canBeNull = false, unique = true)
-    private int id;
+    @DatabaseField(columnName = "id", id = true, useGetSet = true)
+    private String id;
     @DatabaseField(columnName = "transfer_type")
     private String transfer_type;
     @DatabaseField(columnName = "transfer_time")
@@ -20,7 +20,7 @@ public class RecordboxInfoData {
     /**
      * 网店ID
      */
-    private int transfer_net;
+    private String transfer_net;
     @DatabaseField(columnName = "box_code")
     private String box_code;
     @DatabaseField(columnName = "transfer_status")
@@ -63,11 +63,11 @@ public class RecordboxInfoData {
         this.cashbox_type = cashbox_type;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -87,11 +87,11 @@ public class RecordboxInfoData {
         this.transfer_time = transfer_time;
     }
 
-    public int getTransfer_net() {
+    public String getTransfer_net() {
         return transfer_net;
     }
 
-    public void setTransfer_net(int transfer_net) {
+    public void setTransfer_net(String transfer_net) {
         this.transfer_net = transfer_net;
     }
 

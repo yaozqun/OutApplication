@@ -39,7 +39,7 @@ public class CashboxBaseBusinessUtil {
     /**
      * 查询钞箱信息
      */
-    public List<CashBoxData> queryCashboxInfoByNetId(int netId) {
+    public List<CashBoxData> queryCashboxInfoByNetId(String netId) {
         return cashboxInfoService.queryCashboxInfoByNetId(netId);
     }
 
@@ -79,4 +79,22 @@ public class CashboxBaseBusinessUtil {
         return list.size() == 0 ? null : list.get(0);
     }
 
+    /**
+     * 查询钞箱版本号
+     *
+     * @return
+     */
+    public String queryCurrentVersion() {
+        try {
+            List<CashBoxData> list = cashboxInfoService.queryForAll();
+            if(list!=null&&list.size()>0){
+                return list.get(0).getVersion();
+            }else{
+                return "0";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "0";
+        }
+    }
 }

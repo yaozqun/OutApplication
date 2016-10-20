@@ -10,14 +10,12 @@ import com.grgbanking.baselib.util.ToastUtil;
 import com.grgbanking.baselib.util.log.LogUtil;
 import com.seatwe.zsws.R;
 import com.seatwe.zsws.bean.req.ArriveNodeReqBean;
-import com.seatwe.zsws.constant.CashboxTypeConstant;
 import com.seatwe.zsws.constant.LocalStatusConstant;
 import com.seatwe.zsws.ui.adapter.LineNodeAdapter;
 import com.seatwe.zsws.ui.base.ScanBaseActivity;
 import com.seatwe.zsws.util.BarcodeScannedUtil;
 import com.seatwe.zsws.util.UploadUtil;
 import com.seatwe.zsws.util.db.LineNodeBusinessUtil;
-import com.seatwe.zsws.util.db.RecordBoxBusinessUtil;
 
 import java.util.List;
 

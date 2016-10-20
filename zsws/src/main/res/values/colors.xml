@@ -110,4 +110,10 @@
     <color name="possible_result_points">#c0ffff00</color>
 
     <color name="module_bg">#666261</color>
+
+    <color name="bg_task_list">#FFEEEEEE</color>
+    <color name="comm_item_blue">#030600</color>
+    <color name="bg_task_list_transparent">#66EEEEEE</color>
+    <color name="graydeep">#525252</color>
+
 </resources>

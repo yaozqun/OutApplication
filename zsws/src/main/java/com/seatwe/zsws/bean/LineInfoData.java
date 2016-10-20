@@ -8,8 +8,8 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable(tableName = "T_SYS_LineInfo")
 public class LineInfoData {
-    @DatabaseField(generatedId = true, columnName = "ID", canBeNull = false, unique = true)
-    private int id;
+    @DatabaseField(columnName = "id", id = true, useGetSet = true)
+    private String id;
     @DatabaseField(columnName = "line_number")
     private String line_number;
     @DatabaseField(columnName = "line_notes")
@@ -33,11 +33,11 @@ public class LineInfoData {
     @DatabaseField(columnName = "orgid")
     private String orgid;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

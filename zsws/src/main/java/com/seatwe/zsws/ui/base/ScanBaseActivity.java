@@ -1,17 +1,14 @@
 package com.seatwe.zsws.ui.base;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.device.ScanManager;
 import android.device.scanner.configuration.PropertyID;
-import android.os.Bundle;
 import android.os.Vibrator;
 
 import com.grgbanking.baselib.util.log.LogUtil;
-import com.seatwe.zsws.R;
 
 public class ScanBaseActivity extends BaseActivity {
 

@@ -32,7 +32,7 @@ public class RecordboxInfoServiceImpl extends BaseDbServiceImpl<RecordboxInfoDat
      * @param netId
      * @return
      */
-    public List<RecordboxInfoData> queryRecordBoxByNetId(int netId) throws SQLException {
+    public List<RecordboxInfoData> queryRecordBoxByNetId(String netId) throws SQLException {
         List<RecordboxInfoData> list = new ArrayList<>();
         try {
             list = dao.getQueryBuilder().where().eq("transfer_net", netId).query();
@@ -53,7 +53,7 @@ public class RecordboxInfoServiceImpl extends BaseDbServiceImpl<RecordboxInfoDat
      * @return
      * @throws SQLException
      */
-    public List<RecordboxInfoData> queryRecordBoxByNetIdAndType(int netId, String cashbox_type) {
+    public List<RecordboxInfoData> queryRecordBoxByNetIdAndType(String netId, String cashbox_type) {
         List<RecordboxInfoData> list = new ArrayList<>();
         try {
             list = dao.getQueryBuilder().where().eq("transfer_net", netId).and().eq("cashbox_type", cashbox_type).query();
@@ -74,7 +74,7 @@ public class RecordboxInfoServiceImpl extends BaseDbServiceImpl<RecordboxInfoDat
      * @return
      * @throws SQLException
      */
-    public List<RecordboxInfoData> queryByNetIdAndTypeAndLocalStatus(int netId, String cashbox_type, int localStatus) {
+    public List<RecordboxInfoData> queryByNetIdAndTypeAndLocalStatus(String netId, String cashbox_type, int localStatus) {
         List<RecordboxInfoData> list = new ArrayList<>();
         try {
             list = dao.getQueryBuilder().where().eq("transfer_net", netId).and().eq("cashbox_type", cashbox_type).and().eq("local_status", localStatus).query();
@@ -133,7 +133,7 @@ public class RecordboxInfoServiceImpl extends BaseDbServiceImpl<RecordboxInfoDat
      * @return
      * @throws SQLException
      */
-    public List<RecordboxInfoData> queryByCashboxByNetIdAndLocalStatus(int netId, String localStatus) {
+    public List<RecordboxInfoData> queryByCashboxByNetIdAndLocalStatus(String netId, String localStatus) {
         List<RecordboxInfoData> list = new ArrayList<>();
         try {
             list = dao.getQueryBuilder().where().eq("transfer_net", netId).and().eq("local_status", localStatus).query();

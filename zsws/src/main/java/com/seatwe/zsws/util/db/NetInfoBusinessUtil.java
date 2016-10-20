@@ -64,13 +64,31 @@ public class NetInfoBusinessUtil {
      *
      * @param id
      */
-    public NetInfoData queryNetInfoById(int id) {
+    public NetInfoData queryNetInfoById(String id) {
         try {
-            return netInfoService.queryForId(id);
+            return netInfoService.queryForEq("id", id) == null ? null : netInfoService.queryForEq("id", id).get(0);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
     }
 
+    /**
+     * 查询钞箱版本号
+     *
+     * @return
+     */
+    public String queryCurrentVersion() {
+        try {
+            List<NetInfoData> list = netInfoService.queryForAll();
+            if (list != null && list.size() > 0) {
+                return list.get(0).getVersion();
+            } else {
+                return "0";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "0";
+        }
+    }
 }

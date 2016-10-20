@@ -35,4 +35,12 @@ public class ResponseRoot<T> {
     public void setMsg(String msg) {
         this.msg = msg;
     }
+
+    public boolean isSuccess() {
+        if ("00".equals(code)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

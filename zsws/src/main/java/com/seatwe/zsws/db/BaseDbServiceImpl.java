@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
-import com.grgbanking.baselib.util.BeanCopyUtil;
 import com.j256.ormlite.dao.Dao.CreateOrUpdateStatus;
 
 /**

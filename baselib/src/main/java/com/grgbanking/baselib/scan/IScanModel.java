@@ -1,7 +1,6 @@
 package com.grgbanking.baselib.scan;
 
 import android.content.Context;
-import android.os.Handler;
 
 /**
  * Created by Administrator on 2016/10/13.

@@ -9,6 +9,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.view.View;
 
+import com.grgbanking.baselib.web.bean.UpgradeData;
+import com.grgbanking.baselib.web.request.VersionInfoReq;
 import com.grgbanking.baselib.config.AppConfig;
 import com.grgbanking.baselib.config.WebConfig;
 import com.grgbanking.baselib.core.SystemService;
@@ -17,8 +19,6 @@ import com.grgbanking.baselib.receiver.DownloadCompleteReceiver;
 import com.grgbanking.baselib.ui.view.dialog.CustomDialog;
 import com.grgbanking.baselib.ui.view.loading.ShapeLoadingDialog;
 import com.grgbanking.baselib.web.entity.ErrorMsg;
-import com.grgbanking.baselib.web.request.VersionInfoReq;
-import com.grgbanking.baselib.web.response.VersionInfoResponse;
 
 import java.io.File;
 import java.util.List;
@@ -144,21 +144,21 @@ public class UpgradeUtil {
 
         //检查更新
         SystemService.getInstance()
-                .checkUpgrade(requestUrl, req, new ResultCallback<VersionInfoResponse>() {
+                .checkUpgrade(requestUrl, req, new ResultCallback<UpgradeData>() {
 
                     @Override
-                    public void onSuccess(VersionInfoResponse resp) {
+                    public void onSuccess(UpgradeData resp) {
                         String currentVersion = req.version;
-                        if (resp != null && resp.version != null && !"".equals(resp.version)) {
-                            if (currentVersion.compareTo(resp.version) < 0) {
-                                url = resp.url;
-                                if (resp.forcedUpdate.equals("1")) {//强制更新
+                        if (resp != null && resp.getVersion() != null && !"".equals(resp.getVersion())) {
+                            if (currentVersion.compareTo(resp.getVersion()) < 0) {
+                                url = resp.getUrl();
+                                if (resp.getForced_update().equals("1")) {//强制更新
                                     customDialog.isCancelableOnTouchOutside(false);
                                     customDialog.setCancelable(false);
                                     customDialog.isCancelable(false);
-                                    customDialog.withMessage("检测有新版本啦V" + resp.version + "，需要强制更新,更新内容如下:\n" + resp.content).withButton1Text("更 新").withButton2Text(null).show();
+                                    customDialog.withMessage("检测有新版本啦V" + resp.getVersion() + "，需要强制更新,更新内容如下:\n" + resp.getContent()).withButton1Text("更 新").withButton2Text(null).show();
                                 } else {
-                                    customDialog.withMessage("检测有新版本啦V" + resp.version + "，更新内容如下：\n" + resp.content).withButton1Text("更 新")
+                                    customDialog.withMessage("检测有新版本啦V" + resp.getVersion() + "，更新内容如下：\n" + resp.getContent()).withButton1Text("更 新")
                                             .withButton2Text("取 消").show();
                                 }
                             } else {

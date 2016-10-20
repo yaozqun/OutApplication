@@ -9,8 +9,6 @@ import android.widget.TextView;
 import com.grgbanking.baselib.ui.view.AdaptScrViewListView;
 import com.grgbanking.baselib.ui.view.EditTextToDel;
 import com.grgbanking.baselib.util.ToastUtil;
-import com.grgbanking.baselib.util.log.LogUtil;
-import com.grgbanking.baselib.web.bean.NetInfoData;
 import com.seatwe.zsws.R;
 import com.seatwe.zsws.bean.RecordboxInfoData;
 import com.seatwe.zsws.bean.TaskInfoData;
@@ -20,7 +18,6 @@ import com.seatwe.zsws.ui.adapter.SendBoxAdapter;
 import com.seatwe.zsws.ui.base.ScanBaseActivity;
 import com.seatwe.zsws.util.ActivityJumpUtil;
 import com.seatwe.zsws.util.BarcodeScannedUtil;
-import com.seatwe.zsws.util.db.NetInfoBusinessUtil;
 import com.seatwe.zsws.util.db.RecordBoxBusinessUtil;
 
 import java.util.List;

@@ -25,7 +25,7 @@ public class TaskInfoServiceImpl extends BaseDbServiceImpl<TaskInfoData>
     create(resp);// 保存数据
   }
 
-  public List<TaskInfoData> queryTaskInfoByNetId(int netId) {
+  public List<TaskInfoData> queryTaskInfoByNetId(String netId) {
     List<TaskInfoData>list = new ArrayList<>();
     try {
       list = dao.getQueryBuilder().where().eq("net_id", netId).query();

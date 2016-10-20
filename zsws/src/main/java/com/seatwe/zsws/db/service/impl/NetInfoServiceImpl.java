@@ -1,10 +1,8 @@
 package com.seatwe.zsws.db.service.impl;
 
 import com.grgbanking.baselib.web.bean.NetInfoData;
-import com.grgbanking.baselib.web.bean.NetInfoData;
 import com.seatwe.zsws.db.BaseDbServiceImpl;
 import com.seatwe.zsws.db.BaseDbTransactionImpl;
-import com.seatwe.zsws.db.service.ICashboxInfoService;
 import com.seatwe.zsws.db.service.INetInfoService;
 
 import java.sql.SQLException;
@@ -29,5 +27,4 @@ public class NetInfoServiceImpl extends BaseDbServiceImpl<NetInfoData>
   public List<NetInfoData> queryNetInfo() throws SQLException {
     return dao.queryForAll();
   }
-
 }

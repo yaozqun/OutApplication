@@ -29,7 +29,7 @@ public class CashboxInfoServiceImpl extends BaseDbServiceImpl<CashBoxData>
         return dao.queryForAll();
     }
 
-    public List<CashBoxData> queryCashboxInfoByNetId(int netId) {
+    public List<CashBoxData> queryCashboxInfoByNetId(String netId) {
         List<CashBoxData> list = new ArrayList<>();
         try {
             list = dao.getQueryBuilder().where().eq("net_id", netId).query();
@@ -48,4 +48,5 @@ public class CashboxInfoServiceImpl extends BaseDbServiceImpl<CashBoxData>
         }
         return list;
     }
+
 }

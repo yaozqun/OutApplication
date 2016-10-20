@@ -17,14 +17,13 @@ import android.content.Context;
 import android.util.Log;
 
 import com.grgbanking.baselib.util.JsonUtils;
-import com.grgbanking.baselib.util.NetWorkUtil;
 import com.grgbanking.baselib.util.SecurityUtils;
 import com.grgbanking.baselib.util.log.LogUtil;
-import com.grgbanking.baselib.web.entity.ErrorMsg;
 import com.grgbanking.baselib.web.okhttp.ProgressListener;
+import com.grgbanking.baselib.util.NetWorkUtil;
+import com.grgbanking.baselib.web.entity.ErrorMsg;
 import com.grgbanking.baselib.web.okhttp.ProgressRequestBody;
 import com.grgbanking.baselib.web.request.RequestHeader;
-import com.grgbanking.baselib.web.request.RequestRoot;
 
 public class WebService {
     private static final int TIME_OUT = 5;//单位：s
@@ -89,7 +88,7 @@ public class WebService {
             Call call = okHttp.newCall(request);
             callback.onPre(call);
             call.enqueue(callback);
-            LogUtil.i(TAG, "asyncPost :    url=" + url + "?params=" + JsonUtils.toJson(req));
+            LogUtil.i(TAG, "asyncPost :    url=" + url + "?param=" + JsonUtils.toJson(req));
         } else {
             callback.onFailure(null, new ErrorMsg(ErrorMsg.CODE_NO_NETWORK));
         }
@@ -107,7 +106,7 @@ public class WebService {
             Call call = okHttp.newCall(request);
             callback.onPre(call);
             try {
-                LogUtil.i(TAG, "asyncPost :    url=" + url + ";params=" + json);
+                LogUtil.i(TAG, "asyncPost :    url=" + url + ";param=" + json);
                 Response response = call.execute();
                 callback.onResponse(call, response);
             } catch (IOException e) {
@@ -131,7 +130,7 @@ public class WebService {
         if (NetWorkUtil.isNetWorkConnected(ctx)) {
             //构造上传请求，类似web表单
             MultipartBody.Builder requestBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                    .addFormDataPart("params", json);
+                    .addFormDataPart("param", json);
             for (String key : files.keySet()) {
                 File file = files.get(key);
                 requestBuilder.addFormDataPart(key, file.getName(), RequestBody.create(null, file));
@@ -142,7 +141,7 @@ public class WebService {
             Call call = okHttp.newCall(request);
             callback.onPre(call);
             call.enqueue(callback);
-            LogUtil.i(TAG, "asyncPost :    url=" + url + ";params=" + json);
+            LogUtil.i(TAG, "asyncPost :    url=" + url + ";param=" + json);
         } else {
             callback.onFailure(null, new ErrorMsg(ErrorMsg.CODE_NO_NETWORK));
         }

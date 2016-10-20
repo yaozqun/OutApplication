@@ -10,7 +10,6 @@ import com.seatwe.zsws.bean.RecordboxInfoData;
 import com.seatwe.zsws.bean.TaskInfoData;
 import com.seatwe.zsws.bean.req.ArriveNodeReqBean;
 import com.seatwe.zsws.constant.CashboxTypeConstant;
-import com.seatwe.zsws.constant.LineNodeConstant;
 import com.seatwe.zsws.constant.LocalStatusConstant;
 import com.seatwe.zsws.constant.TransferTypeConstant;
 import com.seatwe.zsws.util.db.CashboxBaseBusinessUtil;
@@ -82,7 +81,7 @@ public class BarcodeScannedUtil {
         int count = 0;
         boolean result = false;
         for (TaskInfoData data : list) {
-            String netCode = NetInfoBusinessUtil.getInstance().queryNetInfoById(data.getId()).getNet_code();
+            String netCode = NetInfoBusinessUtil.getInstance().queryNetInfoById(data.getNet_id()).getNet_code();
             if (barcodeStr.equals(netCode)) {
                 if (data.getLocalStatus() == LocalStatusConstant.UN_DONE) {
                     ToastUtil.shortShow("扫描成功");

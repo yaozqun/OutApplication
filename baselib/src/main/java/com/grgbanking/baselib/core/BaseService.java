@@ -1,7 +1,7 @@
 package com.grgbanking.baselib.core;
 
-import com.grgbanking.baselib.core.callback.BaseCallback;
 import com.grgbanking.baselib.web.okhttp.ProgressListener;
+import com.grgbanking.baselib.core.callback.BaseCallback;
 
 public class BaseService {
     private static final int SLEEP_TIME = 5000;

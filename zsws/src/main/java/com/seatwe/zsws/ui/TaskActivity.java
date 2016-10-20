@@ -7,22 +7,16 @@ import android.widget.Button;
 
 import com.grgbanking.baselib.ui.view.AdaptScrViewListView;
 import com.grgbanking.baselib.ui.view.EditTextToDel;
-import com.grgbanking.baselib.util.DateTimeUtil;
 import com.grgbanking.baselib.util.ToastUtil;
 import com.seatwe.zsws.R;
 import com.seatwe.zsws.bean.TaskInfoData;
-import com.seatwe.zsws.constant.CashboxTypeConstant;
 import com.seatwe.zsws.constant.LocalStatusConstant;
 import com.seatwe.zsws.ui.adapter.TaskAdapter;
-import com.seatwe.zsws.ui.base.BaseActivity;
 import com.seatwe.zsws.ui.base.ScanBaseActivity;
 import com.seatwe.zsws.util.ActivityJumpUtil;
 import com.seatwe.zsws.util.BarcodeScannedUtil;
-import com.seatwe.zsws.util.db.NetInfoBusinessUtil;
-import com.seatwe.zsws.util.db.RecordBoxBusinessUtil;
 import com.seatwe.zsws.util.db.TaskInfoBusinessUtil;
 
-import java.util.Date;
 import java.util.List;
 
 public class TaskActivity extends ScanBaseActivity {
