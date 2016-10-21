@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.grgbanking.baselib.ui.view.AdaptScrViewListView;
 import com.grgbanking.baselib.ui.view.EditTextToDel;
+import com.grgbanking.baselib.util.StringUtil;
 import com.grgbanking.baselib.util.ToastUtil;
 import com.seatwe.zsws.R;
 import com.seatwe.zsws.bean.RecordboxInfoData;
@@ -45,7 +46,7 @@ public class SendBoxActivity extends ScanBaseActivity {
     }
 
     public void initView() {
-        tvTitleSubject.setText(getResources().getString(R.string.scan_cashbox));
+        tvTitleSubject.setText(getResources().getString(R.string.send_box));
         btnTitleRight.setText(getResources().getString(R.string.sure));
         //获取任务信息
         taskInfoData = (TaskInfoData) getIntent().getSerializableExtra(ActivityJumpUtil.INFO);
@@ -59,17 +60,7 @@ public class SendBoxActivity extends ScanBaseActivity {
             @Override
             public void onClick(View v) {
                 String barcodeStr = et_inputCode.getText().toString().trim();
-                if (barcodeStr == null || barcodeStr.equals("")) {
-                    ToastUtil.shortShow("请先输入钞箱条码");
-                } else {
-                    int pos = BarcodeScannedUtil.scannedSuccess(SendBoxActivity.this, listCashbox, barcodeStr);
-                    if (pos != -1) {
-                        listCashbox.get(pos).setLocalStatus(LocalStatusConstant.DONE);
-                        adapter.notifyDataSetChanged();
-                        tv_boxSum.setText("计划" + listCashbox.size() + "个,扫描" + RecordBoxBusinessUtil.getInstance().queryByNetIdAndTypeAndLocalStatus(taskInfoData.getNet_id(), CashboxTypeConstant.TYPE_SEND, LocalStatusConstant.DONE).size() + "个");
-                    }
-
-                }
+                scan(barcodeStr);
             }
         });
 
@@ -84,35 +75,28 @@ public class SendBoxActivity extends ScanBaseActivity {
         asvlv_cashbox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int pos = BarcodeScannedUtil.scannedSuccess(SendBoxActivity.this, listCashbox, listCashbox.get(position).getBox_code());
-                if (pos != -1) {
-                    listCashbox.get(pos).setLocalStatus(LocalStatusConstant.DONE);
-                    adapter.notifyDataSetChanged();
-                    tv_boxSum.setText("计划" + listCashbox.size() + "个,扫描" + RecordBoxBusinessUtil.getInstance().queryByNetIdAndTypeAndLocalStatus(taskInfoData.getNet_id(), CashboxTypeConstant.TYPE_SEND, LocalStatusConstant.DONE).size() + "个");
-                }
+                scan(listCashbox.get(position).getBox_code());
             }
         });
 
-        bt_sure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     @Override
     public void onScanResult(String barcodeStr) {
         super.onScanResult(barcodeStr);
-        if (barcodeStr == null || barcodeStr.equals("")) {
-            int pos = BarcodeScannedUtil.scannedSuccess(SendBoxActivity.this, listCashbox, barcodeStr);
+        scan(barcodeStr);
+    }
+
+    public void scan(String barcodeStr){
+        if (!StringUtil.isEmpty(barcodeStr)) {
+            int pos = BarcodeScannedUtil.scannedSuccess(this, listCashbox, barcodeStr);
             if (pos != -1) {
                 listCashbox.get(pos).setLocalStatus(LocalStatusConstant.DONE);
                 adapter.notifyDataSetChanged();
                 tv_boxSum.setText("计划" + listCashbox.size() + "个,扫描" + RecordBoxBusinessUtil.getInstance().queryByNetIdAndTypeAndLocalStatus(taskInfoData.getNet_id(), CashboxTypeConstant.TYPE_SEND, LocalStatusConstant.DONE).size() + "个");
             }
+        }else{
+            ToastUtil.shortShow(getResources().getString(R.string.barcode_not_allowed_null));
         }
-
     }
-
 }

@@ -12,7 +12,6 @@
         android:focusable="true"
         android:orientation="vertical"
         android:padding="@dimen/left_side_padding">
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -26,7 +25,7 @@
                     style="@style/text_big_bold_black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="系统" />
+                    android:text="服务器设置" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -42,33 +41,32 @@
                     android:orientation="vertical"
                     android:padding="10dp">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/text_normal_black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="外网:" />
+
+                        <EditText
+                            android:id="@+id/setting_server_one_remote_et"
+                            style="@style/text_normal_black"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edittext_height"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
                     <Button
-                        android:id="@+id/setting_logout_btn"
+                        android:id="@+id/setting_server_commit_btn"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/btn_height"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_common_selector_blue_btn"
-                        android:text="注销系统"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/btn_text_size" />
-
-                    <Button
-                        android:id="@+id/setting_modify_password_btn"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/btn_height"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/bg_common_selector_blue_btn"
-                        android:text="修改密码"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/btn_text_size" />
-
-                    <Button
-                        android:id="@+id/setting_update_box_net_btn"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/btn_height"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/bg_common_selector_blue_btn"
-                        android:text="更新基础信息（款箱、网点）"
+                        android:text="保存"
                         android:textColor="@color/white"
                         android:textSize="@dimen/btn_text_size" />
                 </LinearLayout>
@@ -83,7 +81,7 @@
                         style="@style/text_big_bold_black"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="服务器设置" />
+                        android:text="系统" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -99,79 +97,48 @@
                         android:orientation="vertical"
                         android:padding="10dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                style="@style/text_normal_black"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="外网:" />
-
-                            <EditText
-                                android:id="@+id/setting_server_one_remote_et"
-                                style="@style/text_normal_black"
-                                android:layout_width="0dp"
-                                android:layout_height="@dimen/edittext_height"
-                                android:layout_weight="1" />
-                        </LinearLayout>
-
                         <Button
-                            android:id="@+id/setting_server_commit_btn"
+                            android:id="@+id/setting_update_box_net_btn"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/btn_height"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="10dp"
                             android:background="@drawable/bg_common_selector_blue_btn"
-                            android:text="保存"
+                            android:text="更新基础信息（款箱、网点）"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/btn_text_size" />
+
+                        <Button
+                            android:id="@+id/setting_logout_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/btn_height"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/bg_common_selector_blue_btn"
+                            android:text="注销系统"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/btn_text_size" />
+
+                        <Button
+                            android:id="@+id/setting_modify_password_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/btn_height"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/bg_common_selector_blue_btn"
+                            android:text="修改密码"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/btn_text_size" />
+
+                        <Button
+                            android:id="@+id/setting_update_app_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/btn_height"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/bg_common_selector_blue_btn"
+                            android:text="程序更新"
                             android:textColor="@color/white"
                             android:textSize="@dimen/btn_text_size" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
-
-        <TextView
-            style="@style/text_big_bold_black"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="软件版本" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/black" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/bg_task_list_item"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <TextView
-                android:id="@+id/setting_version"
-                style="@style/text_normal_black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="版本号:" />
-
-            <TextView
-                style="@style/text_normal_black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:text="更新内容:" />
-
-            <TextView
-                android:id="@+id/setting_version_info"
-                style="@style/text_normal_black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="" />
-        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

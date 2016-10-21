@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import com.grgbanking.baselib.ui.view.AdaptScrViewListView;
 import com.grgbanking.baselib.ui.view.EditTextToDel;
+import com.grgbanking.baselib.util.DateTimeUtil;
+import com.grgbanking.baselib.util.StringUtil;
 import com.grgbanking.baselib.util.ToastUtil;
 import com.seatwe.zsws.R;
 import com.seatwe.zsws.bean.TaskInfoData;
@@ -15,8 +17,11 @@ import com.seatwe.zsws.ui.adapter.TaskAdapter;
 import com.seatwe.zsws.ui.base.ScanBaseActivity;
 import com.seatwe.zsws.util.ActivityJumpUtil;
 import com.seatwe.zsws.util.BarcodeScannedUtil;
+import com.seatwe.zsws.util.db.NetInfoBusinessUtil;
 import com.seatwe.zsws.util.db.TaskInfoBusinessUtil;
 
+import java.io.DataOutputStream;
+import java.util.Date;
 import java.util.List;
 
 public class TaskActivity extends ScanBaseActivity {
@@ -52,7 +57,7 @@ public class TaskActivity extends ScanBaseActivity {
         asvlv_task.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                ActivityJumpUtil.jumpToTaskDetailActivity(TaskActivity.this, listTask.get(position));
+                scan(NetInfoBusinessUtil.getInstance().queryNetInfoById(listTask.get(position).getNet_id()).getNet_code());
             }
         });
 
@@ -60,11 +65,7 @@ public class TaskActivity extends ScanBaseActivity {
             @Override
             public void onClick(View v) {
                 String barcodeStr = et_inputCode.getText().toString().trim();
-                if (barcodeStr == null || barcodeStr.equals("")) {
-                    ToastUtil.shortShow("请先输入钞箱条码");
-                } else {
-                    scan(barcodeStr);
-                }
+                scan(barcodeStr);
             }
         });
     }
@@ -72,9 +73,7 @@ public class TaskActivity extends ScanBaseActivity {
     @Override
     public void onScanResult(String barcodeStr) {
         super.onScanResult(barcodeStr);
-        if (barcodeStr == null || barcodeStr.equals("")) {
-            scan(barcodeStr);
-        }
+        scan(barcodeStr);
     }
 
     /**
@@ -85,7 +84,7 @@ public class TaskActivity extends ScanBaseActivity {
     public List<TaskInfoData> removeDuplicate(List<TaskInfoData> list) {
         for (int i = 0; i < list.size() - 1; i++) {
             for (int j = list.size() - 1; j > i; j--) {
-                if (list.get(j).getNet_id() == list.get(i).getNet_id()) {
+                if (list.get(j).getNet_id().equals(list.get(i).getNet_id())) {
                     list.remove(j);
                 }
             }
@@ -98,12 +97,22 @@ public class TaskActivity extends ScanBaseActivity {
         return list;
     }
 
-    public void scan(String barcodeStr){
-        int pos = BarcodeScannedUtil.scannedTaskSuccess(this, listTask, barcodeStr);
-        if (pos != -1) {
-            listTask.get(pos).setLocalStatus(LocalStatusConstant.DONE);
-            adapter.notifyDataSetChanged();
-            ActivityJumpUtil.jumpToTaskDetailActivity(this, listTask.get(pos));
+    /**
+     * 扫描成功后更新UI
+     *
+     * @param barcodeStr
+     */
+    public void scan(String barcodeStr) {
+        if (!StringUtil.isEmpty(barcodeStr)) {
+            int pos = BarcodeScannedUtil.scannedTaskSuccess(this, listTask, barcodeStr);
+            if (pos != -1) {
+                listTask.get(pos).setLocalStatus(LocalStatusConstant.DONE);
+                listTask.get(pos).setArriveTime(DateTimeUtil.formatTime(new Date()));//扫描成功时间
+                adapter.notifyDataSetChanged();
+                ActivityJumpUtil.jumpToTaskDetailActivity(this, listTask.get(pos));
+            }
+        } else {
+            ToastUtil.shortShow(getResources().getString(R.string.barcode_not_allowed_null));
         }
     }
 }

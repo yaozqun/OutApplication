@@ -58,7 +58,7 @@ public class NetService extends BaseService {
                 e.printStackTrace();
             }
         } else {
-            WebService.getInstance().asyncPost(UrlConstant.USER_LOGIN, req, new
+            WebService.getInstance().asyncGet(UrlConstant.USER_LOGIN, req, new
                     JsonCallback<LoginRespBean>(new TypeToken<ResponseRoot<LoginRespBean>>() {
             }.getType(),
                     callback));
@@ -84,7 +84,7 @@ public class NetService extends BaseService {
                 e.printStackTrace();
             }
         } else {
-            WebService.getInstance().asyncPost(UrlConstant.GET_CASHBOX, req, new
+            WebService.getInstance().asyncGet(UrlConstant.GET_CASHBOX, req, new
                     JsonCallback<CashBoxRespBean>(new TypeToken<ResponseRoot<CashBoxRespBean>>() {
             }.getType(),
                     callback));
@@ -108,7 +108,7 @@ public class NetService extends BaseService {
                 e.printStackTrace();
             }
         } else {
-            WebService.getInstance().asyncPost(UrlConstant.GET_NET_INFO, req, new
+            WebService.getInstance().asyncGet(UrlConstant.GET_NET_INFO, req, new
                     JsonCallback<NetInfoRespBean>(new TypeToken<ResponseRoot<NetInfoRespBean>>() {
             }.getType(),
                     callback));
@@ -134,7 +134,7 @@ public class NetService extends BaseService {
                 e.printStackTrace();
             }
         } else {
-            WebService.getInstance().asyncPost(UrlConstant.TASK_INFO, req, new
+            WebService.getInstance().asyncGet(UrlConstant.TASK_INFO, req, new
                     JsonCallback<TaskInfoRespBean>(new TypeToken<ResponseRoot<TaskInfoRespBean>>() {
             }.getType(),
                     callback));
@@ -162,7 +162,7 @@ public class NetService extends BaseService {
             }
 
         } else {
-            WebService.getInstance().asyncPost(UrlConstant.TASK_INFO, req, new
+            WebService.getInstance().asyncGet(UrlConstant.TASK_INFO, req, new
                     JsonCallback<ResponseBean>(new TypeToken<ResponseBean>() {
             }.getType(),
                     callback));
@@ -184,7 +184,7 @@ public class NetService extends BaseService {
                 e.printStackTrace();
             }
         } else {
-            WebService.getInstance().asyncPost(UrlConstant.ARRIVE_NODE, req, new
+            WebService.getInstance().asyncGet(UrlConstant.ARRIVE_NODE, req, new
                     JsonCallback<ResponseBean>(new TypeToken<ResponseBean>() {
             }.getType(),
                     callback));
@@ -206,7 +206,7 @@ public class NetService extends BaseService {
                 e.printStackTrace();
             }
         } else {
-            WebService.getInstance().asyncPost(UrlConstant.UPLOAD_RECORD, req, new
+            WebService.getInstance().asyncGet(UrlConstant.UPLOAD_RECORD, req, new
                     JsonCallback<ResponseBean>(new TypeToken<ResponseBean>() {
             }.getType(),
                     callback));
@@ -229,7 +229,7 @@ public class NetService extends BaseService {
                 e.printStackTrace();
             }
         } else {
-            WebService.getInstance().asyncPost(UrlConstant.CHANGE_PASSWORD, req, new
+            WebService.getInstance().asyncGet(UrlConstant.CHANGE_PASSWORD, req, new
                     JsonCallback<ResponseBean>(new TypeToken<ResponseBean>() {
             }.getType(),
                     callback));

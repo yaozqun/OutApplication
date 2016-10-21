@@ -63,11 +63,39 @@ public class WebService {
             Call call = okHttp.newCall(request);
             callback.onPre(call);
             call.enqueue(callback);
-            LogUtil.i(TAG, "asyncPost :    url=" + url);
+            LogUtil.i(TAG, "asyncGet :    url=" + url);
         } else {
             callback.onFailure(null, new ErrorMsg(ErrorMsg.CODE_NO_NETWORK));
         }
     }
+
+    /**
+     * 开启异步网络请求
+     */
+    public void asyncGet(final String url, Object req, WebCallback callback) {
+        String json = null;
+        String uri = url;
+        try {
+            String temp = JsonUtils.toJson(req);
+            Log.e("json", temp);
+            //加密
+            json = SecurityUtils.aesEncrypt(JsonUtils.toJson(req), SecurityUtils.MESSAGE_AES_KEY);
+            uri = url + "?param=" + json;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.e("json", json);
+        if (NetWorkUtil.isNetWorkConnected(ctx)) {
+            Request request = new Request.Builder().url(uri).build();
+            Call call = okHttp.newCall(request);
+            callback.onPre(call);
+            call.enqueue(callback);
+            LogUtil.i(TAG, "asyncGet :    url=" + uri);
+        } else {
+            callback.onFailure(null, new ErrorMsg(ErrorMsg.CODE_NO_NETWORK));
+        }
+    }
+
 
     /**
      * 开启异步网络请求

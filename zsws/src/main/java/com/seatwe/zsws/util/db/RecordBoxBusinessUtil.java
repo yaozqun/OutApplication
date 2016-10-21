@@ -110,7 +110,7 @@ public class RecordBoxBusinessUtil {
      */
     public void deleteRecordBoxInfo(RecordboxInfoData info) {
         try {
-            recordboxInfoService.delete(info);
+            int i = recordboxInfoService.delete(info);
         } catch (SQLException e) {
             e.printStackTrace();
         }

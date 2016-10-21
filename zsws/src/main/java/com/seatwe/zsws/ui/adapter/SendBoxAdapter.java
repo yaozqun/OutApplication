@@ -16,6 +16,7 @@ import com.seatwe.zsws.util.db.CashboxBaseBusinessUtil;
 import com.seatwe.zsws.util.db.NetInfoBusinessUtil;
 import com.seatwe.zsws.util.db.RecordBoxBusinessUtil;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class SendBoxAdapter extends BaseAdapter {
@@ -121,9 +122,9 @@ public class SendBoxAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
+            RecordBoxBusinessUtil.getInstance().deleteRecordBoxInfo(info.get(position));
             info.remove(position);
             notifyDataSetChanged();
-            RecordBoxBusinessUtil.getInstance().deleteRecordBoxInfo(info.get(position));
         }
     }
 }

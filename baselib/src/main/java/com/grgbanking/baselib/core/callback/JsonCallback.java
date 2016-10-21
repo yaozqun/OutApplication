@@ -36,11 +36,9 @@ public class JsonCallback<T> extends BaseCallback<T> {
             }
             String bodyStr = SecurityUtils.aesDecrypt(response.body().string(), SecurityUtils.MESSAGE_AES_KEY);
             String url = response.request().url().url().toString();
-            LogUtil.i(TAG, "onResponse :   url=" + url + " bodyStr= " + bodyStr);
+            LogUtil.i(TAG, "onResponse解密 :   url=" + url + " bodyStr= " + bodyStr);
             ResponseRoot respRoot = JsonUtils.fromJson(bodyStr, type);
-//            String code = respRoot.getCode();
-//            String msg = respRoot.getMsg();
-            if (respRoot.isSuccess()) {
+            if (respRoot.getCode().equals("00")) {
                 onSuccess(call, response, respRoot);
                 return;
             } else {

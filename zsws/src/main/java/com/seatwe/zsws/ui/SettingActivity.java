@@ -32,8 +32,7 @@ import okhttp3.Call;
 public class SettingActivity extends BaseActivity implements View.OnClickListener {
     protected static final String tag = SettingActivity.class.getSimpleName();
 
-    private TextView versionTv;
-    private TextView versionInfoTv;
+    private Button updateAppButton;
     private EditText net;
     private Button saveNetButton;
     private Button logoutButton;
@@ -51,8 +50,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void initView() {
-        versionTv = (TextView) findViewById(R.id.setting_version);
-        versionInfoTv = (TextView) findViewById(R.id.setting_version_info);
+        updateAppButton = (Button) findViewById(R.id.setting_update_app_btn);
         net = (EditText) findViewById(R.id.setting_server_one_remote_et);
         saveNetButton = (Button) findViewById(R.id.setting_server_commit_btn);
         logoutButton = (Button) findViewById(R.id.setting_logout_btn);
@@ -81,6 +79,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         logoutButton.setOnClickListener(this);
         modifyPasswordButton.setOnClickListener(this);
         uprogressDialogateInfoButton.setOnClickListener(this);
+        updateAppButton.setOnClickListener(this);
+
     }
 
     @Override
@@ -99,8 +99,16 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 downLoadNet();
                 downLoadCashBox();
                 break;
+            case R.id.setting_update_app_btn:
+                checkUpdateApp();
+                break;
         }
     }
+
+    private void checkUpdateApp() {
+
+    }
+
 
     private void logout() {
         progressDialog = ProgressUtil.show(this,"正在注销退出系统...");

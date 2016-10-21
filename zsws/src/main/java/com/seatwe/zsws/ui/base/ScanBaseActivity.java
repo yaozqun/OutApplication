@@ -8,7 +8,9 @@ import android.device.ScanManager;
 import android.device.scanner.configuration.PropertyID;
 import android.os.Vibrator;
 
+import com.grgbanking.baselib.util.ToastUtil;
 import com.grgbanking.baselib.util.log.LogUtil;
+import com.seatwe.zsws.R;
 
 public class ScanBaseActivity extends BaseActivity {
 
@@ -47,22 +49,25 @@ public class ScanBaseActivity extends BaseActivity {
     private void initScan() {
         // TODO Auto-generated method stub
         mScanManager = new ScanManager();
-        mScanManager.openScanner();
-
-        mScanManager.switchOutputMode(0);
+        if (mScanManager.openScanner()) {//如果开启成功
+            mScanManager.openScanner();
+            mScanManager.switchOutputMode(0);
 //        soundpool = new SoundPool(1, AudioManager.STREAM_NOTIFICATION, 100); // MODE_RINGTONE
 //        soundid = soundpool.load("/etc/Scan_new.ogg", 1);
 
-        IntentFilter filter = new IntentFilter();
-        int[] idbuf = new int[]{PropertyID.WEDGE_INTENT_ACTION_NAME, PropertyID.WEDGE_INTENT_DATA_STRING_TAG};
-        String[] value_buf = mScanManager.getParameterString(idbuf);
-        if (value_buf != null && value_buf[0] != null && !value_buf[0].equals("")) {
-            filter.addAction(value_buf[0]);
-        } else {
-            filter.addAction(SCAN_ACTION);
-        }
+            IntentFilter filter = new IntentFilter();
+            int[] idbuf = new int[]{PropertyID.WEDGE_INTENT_ACTION_NAME, PropertyID.WEDGE_INTENT_DATA_STRING_TAG};
+            String[] value_buf = mScanManager.getParameterString(idbuf);
+            if (value_buf != null && value_buf[0] != null && !value_buf[0].equals("")) {
+                filter.addAction(value_buf[0]);
+            } else {
+                filter.addAction(SCAN_ACTION);
+            }
 
-        registerReceiver(mScanReceiver, filter);
+            registerReceiver(mScanReceiver, filter);
+        }else{
+            ToastUtil.shortShow(getResources().getString(R.string.not_support_scan));
+        }
     }
 
     /**
@@ -79,7 +84,7 @@ public class ScanBaseActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         //注销扫描广播
-        if(mScanManager!=null){
+        if (mScanManager != null) {
             unregisterReceiver(mScanReceiver);
         }
 

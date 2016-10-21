@@ -5,7 +5,8 @@ package com.seatwe.zsws.constant;
  */
 public class UrlConstant {
 
-    public static String HOST = "http://15844403vs.imwork.net:58182/ad_zsws/mobile-message-operate-zsws!";
+//    public static String HOST = "http://15844403vs.imwork.net:58182/ad_zsws/mobile-message-operate-zsws!";
+    public static String HOST = "http://10.2.11.50:8081/ad_qjxt/mobile-message-operate-zsws!";
     //基础接口
     public static String BASE_HOST = HOST;
 

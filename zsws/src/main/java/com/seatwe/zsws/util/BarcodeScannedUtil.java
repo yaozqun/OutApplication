@@ -1,8 +1,11 @@
 package com.seatwe.zsws.util;
 
 import android.content.Context;
+import android.view.View;
 
+import com.grgbanking.baselib.ui.view.dialog.CustomDialog;
 import com.grgbanking.baselib.util.DateTimeUtil;
+import com.grgbanking.baselib.util.DialogUtil;
 import com.grgbanking.baselib.util.ToastUtil;
 import com.grgbanking.baselib.web.bean.NetInfoData;
 import com.seatwe.zsws.R;
@@ -10,6 +13,7 @@ import com.seatwe.zsws.bean.RecordboxInfoData;
 import com.seatwe.zsws.bean.TaskInfoData;
 import com.seatwe.zsws.bean.req.ArriveNodeReqBean;
 import com.seatwe.zsws.constant.CashboxTypeConstant;
+import com.seatwe.zsws.constant.LineNodeConstant;
 import com.seatwe.zsws.constant.LocalStatusConstant;
 import com.seatwe.zsws.constant.TransferTypeConstant;
 import com.seatwe.zsws.util.db.CashboxBaseBusinessUtil;
@@ -21,15 +25,10 @@ import com.seatwe.zsws.util.db.TaskInfoBusinessUtil;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Author：燕青 $ on 16/10/15 16:42
- * E-mail：359222347@qq.com
- * <p>
- * use to...
- */
 public class BarcodeScannedUtil {
+
     /**
-     * 钞箱扫描
+     * 送出钞箱扫描
      *
      * @param context
      * @param listCashbox
@@ -42,7 +41,7 @@ public class BarcodeScannedUtil {
         for (RecordboxInfoData data : listCashbox) {
             if (barcodeStr.equals(data.getBox_code())) {
                 if (data.getLocalStatus() == LocalStatusConstant.UN_DONE) {
-                    ToastUtil.shortShow("扫描成功");
+                    ToastUtil.shortShow(context.getResources().getString(R.string.scan_success));
                     result = true;
                     data.setLocalStatus(LocalStatusConstant.DONE);
                     RecordBoxBusinessUtil.getInstance().createOrUpdate(data);//将钞箱状态保存到数据库
@@ -70,7 +69,7 @@ public class BarcodeScannedUtil {
 
 
     /**
-     * 钞箱扫描
+     * 任务扫描
      *
      * @param context
      * @param list
@@ -83,15 +82,15 @@ public class BarcodeScannedUtil {
         for (TaskInfoData data : list) {
             String netCode = NetInfoBusinessUtil.getInstance().queryNetInfoById(data.getNet_id()).getNet_code();
             if (barcodeStr.equals(netCode)) {
-                if (data.getLocalStatus() == LocalStatusConstant.UN_DONE) {
-                    ToastUtil.shortShow("扫描成功");
+                if (data.getLocalStatus() != LocalStatusConstant.UPLOADED) {
+                    ToastUtil.shortShow(context.getResources().getString(R.string.scan_success));
                     result = true;
                     data.setLocalStatus(LocalStatusConstant.DONE);
                     data.setArriveTime(DateTimeUtil.formatTime(new Date()));
                     TaskInfoBusinessUtil.getInstance().createOrUpdate(data);//将任务状态保存到数据库
                     break;
                 } else {
-                    ToastUtil.shortShow(context.getResources().getString(R.string.scanned_already));
+                    ToastUtil.shortShow(context.getResources().getString(R.string.uploaded_already));
                     result = false;
                     break;
                 }
@@ -171,7 +170,7 @@ public class BarcodeScannedUtil {
     }
 
     /**
-     * 钞箱扫描
+     * 节点扫描
      *
      * @param context
      * @param listNode
@@ -184,7 +183,10 @@ public class BarcodeScannedUtil {
         for (ArriveNodeReqBean data : listNode) {
             if (barcodeStr.equals(data.getCode())) {
                 if (data.getLocalStatus() == LocalStatusConstant.UN_DONE) {
-                    ToastUtil.shortShow("扫描成功");
+//                    if (barcodeStr.equals(LineNodeConstant.NODE_END) && listNode.get(0).getLocalStatus() == LocalStatusConstant.UN_DONE) {
+//                        result = showDialog(context, data);
+//                    }
+                    ToastUtil.shortShow(context.getResources().getString(R.string.scan_success));
                     result = true;
                     data.setLocalStatus(LocalStatusConstant.DONE);
                     LineNodeBusinessUtil.getInstance().createOrUpdate(data);//将钞箱状态保存到数据库
@@ -210,4 +212,34 @@ public class BarcodeScannedUtil {
         }
     }
 
+    /**
+     * @param context
+     * @param data
+     * @return
+     */
+    public static boolean showDialog(final Context context, final ArriveNodeReqBean data) {
+        final boolean[] result = {false};
+        final CustomDialog customDialog = DialogUtil.getDialog(context);
+        customDialog.setCancelable(false);//不能手动取消
+        customDialog.withMessage(context.getResources().getString(R.string.start_node_not_scanned)).withButton1Text(context.getResources().getString(R.string.continue_scan))
+                .withButton2Text(context.getResources().getString(R.string.cancel)).show();
+
+        customDialog.setButton2Click(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customDialog.dismiss();
+            }
+        });
+        customDialog.setButton1Click(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.shortShow(context.getResources().getString(R.string.scan_success));
+                result[0] = true;
+                data.setLocalStatus(LocalStatusConstant.DONE);
+                LineNodeBusinessUtil.getInstance().createOrUpdate(data);//将钞箱状态保存到数据库
+                customDialog.dismiss();
+            }
+        });
+        return result[0];
+    }
 }

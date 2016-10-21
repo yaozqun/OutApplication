@@ -8,7 +8,7 @@ public class ResponseRoot<T> {
      */
     private String code;
 
-    private String msg;
+    private String message;
 
     private T data;
 
@@ -29,11 +29,11 @@ public class ResponseRoot<T> {
     }
 
     public String getMsg() {
-        return msg;
+        return message;
     }
 
     public void setMsg(String msg) {
-        this.msg = msg;
+        this.message = msg;
     }
 
     public boolean isSuccess() {

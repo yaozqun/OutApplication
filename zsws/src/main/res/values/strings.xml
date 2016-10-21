@@ -37,8 +37,13 @@
     <string name="userName_not_allowed_null">对不起，用户名不能为空</string>
     <string name="pwd_not_allowed_null">对不起，密码不能为空</string>
     <string name="scanned_error">对不起，条码不正确</string>
-    <string name="scanned_already">对不起，您已扫描过此钞箱条码,无需重复扫描</string>
+    <string name="scanned_already">您已扫描过此钞箱条码,无需重复扫描</string>
+    <string name="uploaded_already">此任务已上传,不能重复扫描</string>
+    <string name="barcode_not_allowed_null">扫描条码不能为空</string>
     <string name="scan_success">扫描成功</string>
+    <string name="continue_scan">继续扫描</string>
+    <string name="not_support_scan">此设备不支持扫描</string>
+    <string name="start_node_not_scanned">系统检测到您未扫描开始节点，请问是否继续扫描结束节点？</string>
 
     <string name="comm_sharePre">获取sharePre缓存失败</string>
 </resources>

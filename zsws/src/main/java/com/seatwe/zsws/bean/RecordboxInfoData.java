@@ -10,7 +10,7 @@ import com.seatwe.zsws.constant.LocalStatusConstant;
 @DatabaseTable(tableName = "T_SYS_RecordBoxInfo")
 public class RecordboxInfoData {
 
-    @DatabaseField(columnName = "id", id = true, useGetSet = true)
+    @DatabaseField(columnName = "id", id = true,unique = true)
     private String id;
     @DatabaseField(columnName = "transfer_type")
     private String transfer_type;
@@ -18,7 +18,7 @@ public class RecordboxInfoData {
     private String transfer_time;
     @DatabaseField(columnName = "transfer_net")
     /**
-     * 网店ID
+     * 网点ID
      */
     private String transfer_net;
     @DatabaseField(columnName = "box_code")
