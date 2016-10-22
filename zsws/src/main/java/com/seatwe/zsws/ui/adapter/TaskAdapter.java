@@ -70,7 +70,7 @@ public class TaskAdapter extends BaseAdapter {
         if (null != item) {
             NetInfoData netInfo = NetInfoBusinessUtil.getInstance().queryNetInfoById(item.getNet_id());
             viewHolder.tv_netName.setText(netInfo.getNet_name());
-            viewHolder.tv_contact.setText(netInfo.getContacts_name() + "：" + netInfo.getTel_number());
+            viewHolder.tv_contact.setText("联系人:"+netInfo.getContacts_name() + "(" + netInfo.getTel_number()+")");
             viewHolder.tv_address.setText("地址：" + netInfo.getNet_address());
             viewHolder.tv_planSendBox.setText("计划送箱：" + item.getCashbox_num_count()+"个");
         }

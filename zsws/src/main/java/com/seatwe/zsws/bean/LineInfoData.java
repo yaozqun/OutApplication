@@ -14,14 +14,10 @@ public class LineInfoData {
     private String line_number;
     @DatabaseField(columnName = "line_notes")
     private String line_notes;
+    @DatabaseField(columnName = "line_status")
+    private String line_status;
     @DatabaseField(columnName = "task_number")
     private String task_number;
-    @DatabaseField(columnName = "line_type")
-    private String line_type;
-    @DatabaseField(columnName = "car_number")
-    private String car_number;
-    @DatabaseField(columnName = "drive")
-    private String drive;
     @DatabaseField(columnName = "counterman1")
     private String counterman1;
     @DatabaseField(columnName = "counterman2")
@@ -32,6 +28,15 @@ public class LineInfoData {
     private String escort_name2;
     @DatabaseField(columnName = "orgid")
     private String orgid;
+
+
+    @DatabaseField(columnName = "line_type")
+    private String line_type;
+    @DatabaseField(columnName = "car_number")
+    private String car_number;
+    @DatabaseField(columnName = "drive")
+    private String drive;
+
 
     public String getId() {
         return id;
@@ -127,5 +132,13 @@ public class LineInfoData {
 
     public void setOrgid(String orgid) {
         this.orgid = orgid;
+    }
+
+    public String getLine_status() {
+        return line_status;
+    }
+
+    public void setLine_status(String line_status) {
+        this.line_status = line_status;
     }
 }

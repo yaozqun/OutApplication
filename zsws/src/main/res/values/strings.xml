@@ -46,4 +46,9 @@
     <string name="start_node_not_scanned">系统检测到您未扫描开始节点，请问是否继续扫描结束节点？</string>
 
     <string name="comm_sharePre">获取sharePre缓存失败</string>
+    <string name="logining">登录中...</string>
+    <string name="downloading_task_info">任务信息下载中...</string>
+    <string name="downloading_cashbox_info">钞箱信息下载中...</string>
+    <string name="downloading_net_info">网店信息下载中...</string>
+
 </resources>

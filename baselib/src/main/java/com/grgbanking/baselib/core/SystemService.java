@@ -5,8 +5,8 @@ import com.grgbanking.baselib.config.AppConfig;
 import com.grgbanking.baselib.util.log.LogUtil;
 import com.grgbanking.baselib.web.WebService;
 import com.grgbanking.baselib.web.bean.UpgradeData;
+import com.grgbanking.baselib.web.bean.req.UpgradeReqBean;
 import com.grgbanking.baselib.web.okhttp.ProgressListener;
-import com.grgbanking.baselib.web.request.VersionInfoReq;
 import com.grgbanking.baselib.web.response.ResponseRoot;
 import com.grgbanking.baselib.core.callback.BaseCallback;
 import com.grgbanking.baselib.core.callback.FileCallback;
@@ -59,8 +59,8 @@ public class SystemService extends BaseService {
      *
      * @param callback
      */
-    public void checkUpgrade(String url, VersionInfoReq req, ResultCallback<UpgradeData> callback) {
-        WebService.getInstance().asyncPost(url, req, new JsonCallback<UpgradeData>(new TypeToken<ResponseRoot<UpgradeData>>() {
+    public void checkUpgrade(String url, UpgradeReqBean req, ResultCallback<UpgradeData> callback) {
+        WebService.getInstance().asyncGet(url, req, new JsonCallback<UpgradeData>(new TypeToken<ResponseRoot<UpgradeData>>() {
         }.getType(), callback));
     }
 

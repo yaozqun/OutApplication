@@ -1,6 +1,5 @@
 package com.seatwe.zsws.bean.resp;
 
-import com.grgbanking.baselib.web.bean.ResponseBean;
 import com.seatwe.zsws.bean.TaskInfoData;
 
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.List;
 /**
  * Created by charry on 2016/10/8.
  */
-public class TaskInfoRespBean extends ResponseBean {
+public class TaskInfoRespBean {
     private List<TaskInfoData> data;
 
     public List<TaskInfoData> getData() {

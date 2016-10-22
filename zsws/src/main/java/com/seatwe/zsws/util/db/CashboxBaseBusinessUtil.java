@@ -80,16 +80,23 @@ public class CashboxBaseBusinessUtil {
     }
 
     /**
-     * 查询钞箱版本号
+     * 查询网点版本号
      *
      * @return
      */
     public String queryCurrentVersion() {
         try {
             List<CashBoxData> list = cashboxInfoService.queryForAll();
-            if(list!=null&&list.size()>0){
-                return list.get(0).getVersion();
-            }else{
+            if (list != null && list.size() > 0) {
+                int version = Integer.parseInt(list.get(0).getVersion());
+                for (CashBoxData infoData : list) {
+                    int nextVersion = Integer.parseInt(infoData.getVersion());
+                    if (nextVersion > version) {
+                        version = nextVersion;
+                    }
+                }
+                return version+"";
+            } else {
                 return "0";
             }
         } catch (SQLException e) {

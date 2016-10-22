@@ -8,7 +8,7 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable(tableName = "T_SYS_CashBox")
 public class CashBoxData extends ResponseBean {
-    @DatabaseField(columnName = "id", id = true, useGetSet = true)
+    @DatabaseField(columnName = "id", id = true)
     private String id;
     @DatabaseField(columnName = "cashbox_num")
     private String cashbox_num;
@@ -17,19 +17,22 @@ public class CashBoxData extends ResponseBean {
     @DatabaseField(columnName = "brands")
     private String brands;
     @DatabaseField(columnName = "net_id")
-    private int net_id;
+    private String net_id;
+    @DatabaseField(columnName = "orgid")
+    private String orgid;
+    @DatabaseField(columnName = "version")
+    private String version;
+
+
     @DatabaseField(columnName = "clearing_space")
     private String clearing_space;
     @DatabaseField(columnName = "box_type_id")
     private String box_type_id;
     @DatabaseField(columnName = "box_type_name")
     private String box_type_name;
-    @DatabaseField(columnName = "orgid")
-    private String orgid;
     @DatabaseField(columnName = "deleted")
     private String deleted;
-    @DatabaseField(columnName = "version")
-    private String version;
+
 
     public String getId() {
         return id;
@@ -63,11 +66,11 @@ public class CashBoxData extends ResponseBean {
         this.brands = brands;
     }
 
-    public int getNet_id() {
+    public String getNet_id() {
         return net_id;
     }
 
-    public void setNet_id(int net_id) {
+    public void setNet_id(String net_id) {
         this.net_id = net_id;
     }
 

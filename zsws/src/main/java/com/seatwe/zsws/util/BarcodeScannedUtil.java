@@ -13,7 +13,6 @@ import com.seatwe.zsws.bean.RecordboxInfoData;
 import com.seatwe.zsws.bean.TaskInfoData;
 import com.seatwe.zsws.bean.req.ArriveNodeReqBean;
 import com.seatwe.zsws.constant.CashboxTypeConstant;
-import com.seatwe.zsws.constant.LineNodeConstant;
 import com.seatwe.zsws.constant.LocalStatusConstant;
 import com.seatwe.zsws.constant.TransferTypeConstant;
 import com.seatwe.zsws.util.db.CashboxBaseBusinessUtil;

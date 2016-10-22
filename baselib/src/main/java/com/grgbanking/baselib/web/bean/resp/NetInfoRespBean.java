@@ -2,14 +2,13 @@ package com.grgbanking.baselib.web.bean.resp;
 
 
 import com.grgbanking.baselib.web.bean.NetInfoData;
-import com.grgbanking.baselib.web.bean.ResponseBean;
 
 import java.util.List;
 
 /**
  * Created by charry on 2016/10/8.
  */
-public class NetInfoRespBean extends ResponseBean {
+public class NetInfoRespBean {
     private List<NetInfoData> data;
 
     public List<NetInfoData> getData() {

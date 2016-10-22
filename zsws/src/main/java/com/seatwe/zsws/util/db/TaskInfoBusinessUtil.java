@@ -69,18 +69,27 @@ public class TaskInfoBusinessUtil {
     }
 
     /**
-     * 根据网点查询任务信息
+     * 根据网点查询送出钞箱数量
      */
     public int queryTaskInfoByNetId(String netId) {
         int sameNetCount = 0;
         try {
             List<TaskInfoData> list = taskInfoService.queryTaskInfoByNetId(netId);
             if (list != null && list.size() > 0) {
-                sameNetCount = list.size();
+
+                //查询送出钞箱数量
+                for (TaskInfoData data : list) {
+                    if (data.getCashbox_num() != null && !"".equals(data.getCashbox_num())) {
+                        sameNetCount++;
+                    }
+                }
+
+                //每个网点需要送出的钞箱数量保存在书库,方便之后调用
                 for (TaskInfoData data : list) {
                     data.setCashbox_num_count(sameNetCount);
                     taskInfoService.createOrUpdate(data);
                 }
+
             }
 
         } catch (SQLException e) {

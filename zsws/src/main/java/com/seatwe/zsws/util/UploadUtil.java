@@ -1,10 +1,10 @@
 package com.seatwe.zsws.util;
 
-import android.app.ProgressDialog;
 import android.content.Context;
+import android.view.View;
 
 import com.grgbanking.baselib.core.callback.ResultCallback;
-import com.grgbanking.baselib.util.ProgressUtil;
+import com.grgbanking.baselib.ui.view.loading.ShapeLoadingDialog;
 import com.grgbanking.baselib.util.ToastUtil;
 import com.grgbanking.baselib.web.bean.ResponseBean;
 import com.grgbanking.baselib.web.entity.ErrorMsg;
@@ -27,15 +27,52 @@ import okhttp3.Call;
 
 public class UploadUtil {
 
+    private static ShapeLoadingDialog loadingDialog;
+    private static Context context;
+    private static UploadUtil instance;
+
+    public static synchronized UploadUtil getInstance() {
+        if (instance == null) {
+            instance = new UploadUtil();
+        }
+        return instance;
+    }
+
+    /**
+     * 初始化
+     *
+     * @param context
+     */
+    public void init(Context context) {
+        this.context = context;
+        loadingDialog = new ShapeLoadingDialog(context);
+        loadingDialog.setCancelable(true);
+        loadingDialog.setButtonText("拼命下载中");
+        loadingDialog.setButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+    }
+
+    // 显示 loading 对话框
+    private static void showLoadingDialog(String msg, boolean showProgressBar) {
+        loadingDialog.setLoadingText(msg);
+        loadingDialog.showProgressBar(showProgressBar);
+        loadingDialog.setProgress(0);
+        loadingDialog.showButton(showProgressBar);
+        loadingDialog.show();
+    }
+
     /**
      * 上传指定网点下的操作记录
      *
      * @param taskInfoData
      */
     public static void uploadRecord(Context context, final TaskInfoData taskInfoData) {
+        showLoadingDialog("操作记录上传中...", false);
         final List<RecordboxInfoData> listUpload = RecordBoxBusinessUtil.getInstance().queryRecordBoxByNetId(taskInfoData.getNet_id());
         if (listUpload.size() > 0) {
-            final ProgressDialog progressDialog = ProgressUtil.show(context, context.getResources().getString(R.string.uploading));
             LineInfoData lineInfoData = LineInfoBusinessUtil.getInstance().queryAllLineInfo();
             //上传参数
             RecordReqBean req = new RecordReqBean();
@@ -54,7 +91,7 @@ public class UploadUtil {
                 @Override
                 public void onSuccess(ResponseBean resp) {
                     ToastUtil.shortShow("上传成功");
-                    progressDialog.dismiss();
+                    loadingDialog.dismiss();
                     //上传成功后修改本地状态为已上传
                     taskInfoData.setLocalStatus(LocalStatusConstant.UPLOADED);
                     TaskInfoBusinessUtil.getInstance().createOrUpdate(taskInfoData);
@@ -68,12 +105,13 @@ public class UploadUtil {
 
                 @Override
                 public void onError(ErrorMsg errorMsg) {
-                    progressDialog.dismiss();
+                    loadingDialog.dismiss();
+                    ToastUtil.shortShow(errorMsg.getMessage());
                 }
 
                 @Override
                 public void onPre(Call call) {
-                    progressDialog.dismiss();
+
                 }
             });
         } else {
@@ -93,8 +131,7 @@ public class UploadUtil {
             for (final TaskInfoData taskInfoData : listTaskInfo) {
                 final List<RecordboxInfoData> listUpload = RecordBoxBusinessUtil.getInstance().queryRecordBoxByNetId(taskInfoData.getNet_id());
                 if (listUpload.size() > 0) {
-                    final ProgressDialog progressDialog = ProgressUtil.show(context, context.getResources().getString(R.string.uploading));
-
+                    ToastUtil.shortShow("操作记录上传中...");
                     LineInfoData lineInfoData = LineInfoBusinessUtil.getInstance().queryAllLineInfo();
 
                     RecordReqBean req = new RecordReqBean();
@@ -112,7 +149,6 @@ public class UploadUtil {
                     NetService.getInstance().uploadRecord(req, new ResultCallback<ResponseBean>() {
                         @Override
                         public void onSuccess(ResponseBean resp) {
-                            progressDialog.dismiss();
                             //上传成功后修改本地状态为已上传
                             taskInfoData.setLocalStatus(LocalStatusConstant.UPLOADED);
                             TaskInfoBusinessUtil.getInstance().createOrUpdate(taskInfoData);
@@ -125,12 +161,11 @@ public class UploadUtil {
 
                         @Override
                         public void onError(ErrorMsg errorMsg) {
-                            progressDialog.dismiss();
+                            ToastUtil.shortShow(errorMsg.getMessage());
                         }
 
                         @Override
                         public void onPre(Call call) {
-                            progressDialog.dismiss();
                         }
                     });
                 } else {
@@ -165,7 +200,7 @@ public class UploadUtil {
 
             @Override
             public void onError(ErrorMsg errorMsg) {
-
+                ToastUtil.shortShow(errorMsg.getMessage());
             }
 
             @Override

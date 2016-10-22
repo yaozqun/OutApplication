@@ -30,6 +30,17 @@ public class NetInfoData implements Serializable{
     @DatabaseField(columnName = "version")
     private String version;
 
+    @DatabaseField(columnName = "orgid")
+    private String orgid;
+
+    public String getOrgid() {
+        return orgid;
+    }
+
+    public void setOrgid(String orgid) {
+        this.orgid = orgid;
+    }
+
     public String getId() {
         return id;
     }

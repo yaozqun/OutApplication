@@ -7,22 +7,23 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.grgbanking.baselib.core.callback.ResultCallback;
-import com.grgbanking.baselib.util.ActivityManagerUtil;
 import com.grgbanking.baselib.util.ProgressUtil;
 import com.grgbanking.baselib.util.ToastUtil;
-import com.grgbanking.baselib.web.bean.ResponseBean;
-import com.grgbanking.baselib.web.bean.resp.CashBoxRespBean;
-import com.grgbanking.baselib.web.bean.resp.NetInfoRespBean;
+import com.grgbanking.baselib.web.bean.CashBoxData;
+import com.grgbanking.baselib.web.bean.NetInfoData;
+import com.grgbanking.baselib.web.bean.req.BaseInfoReqBean;
 import com.grgbanking.baselib.web.entity.ErrorMsg;
 import com.seatwe.zsws.R;
 import com.seatwe.zsws.constant.UrlConstant;
 import com.seatwe.zsws.ui.base.BaseActivity;
+import com.seatwe.zsws.util.CustomDialogUtil;
 import com.seatwe.zsws.util.db.CashboxBaseBusinessUtil;
 import com.seatwe.zsws.util.db.NetInfoBusinessUtil;
 import com.seatwe.zsws.web.NetService;
+
+import java.util.List;
 
 import okhttp3.Call;
 
@@ -32,14 +33,13 @@ import okhttp3.Call;
 public class SettingActivity extends BaseActivity implements View.OnClickListener {
     protected static final String tag = SettingActivity.class.getSimpleName();
 
-    private Button updateAppButton;
     private EditText net;
+    private Button updateAppButton;
     private Button saveNetButton;
     private Button logoutButton;
     private Button modifyPasswordButton;
-    private Button uprogressDialogateInfoButton;
-
-    private ProgressDialog progressDialog;
+    private Button updateInfoButton;
+    ProgressDialog pD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         saveNetButton = (Button) findViewById(R.id.setting_server_commit_btn);
         logoutButton = (Button) findViewById(R.id.setting_logout_btn);
         modifyPasswordButton = (Button) findViewById(R.id.setting_modify_password_btn);
-        uprogressDialogateInfoButton = (Button) findViewById(R.id.setting_update_box_net_btn);
+        updateInfoButton = (Button) findViewById(R.id.setting_update_box_net_btn);
 
         boolean isLogin = getIntent().getBooleanExtra("login", false);
         if (isLogin) {
@@ -71,23 +71,22 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             saveNetButton.setEnabled(true);
             saveNetButton.setVisibility(View.VISIBLE);
         }
-
+        net.setText(UrlConstant.HOST);
     }
 
     private void initOnclickListener() {
         saveNetButton.setOnClickListener(this);
         logoutButton.setOnClickListener(this);
         modifyPasswordButton.setOnClickListener(this);
-        uprogressDialogateInfoButton.setOnClickListener(this);
+        updateInfoButton.setOnClickListener(this);
         updateAppButton.setOnClickListener(this);
-
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.setting_modify_password_btn:
-                startActivity(new Intent(SettingActivity.this,MainActivity.class));
+                startActivity(new Intent(SettingActivity.this,ModifyPasswordActivity.class));
                 break;
             case R.id.setting_logout_btn:
                 logout();
@@ -105,60 +104,32 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
+    private void saveNetConfig() {
+
+    }
+
+    private void logout() {
+        CustomDialogUtil.loginOut(this);
+    }
+
     private void checkUpdateApp() {
 
     }
 
-
-    private void logout() {
-        progressDialog = ProgressUtil.show(this,"正在注销退出系统...");
-        try {
-            NetService.getInstance().loginOut(
-                    new ResultCallback<ResponseBean>() {
-                        @Override
-                        public void onSuccess(ResponseBean resp) {
-                            progressDialog.dismiss();
-                            ActivityManagerUtil.finishAll();
-                            startActivity(new Intent(SettingActivity.this,LoginActivity.class));
-                            finish();
-                            System.out.print(resp);
-                        }
-
-                        @Override
-                        public void onError(ErrorMsg errorMsg) {
-                            ToastUtil.shortShow(errorMsg.getMessage());
-                                progressDialog.dismiss();
-                            System.out.print(errorMsg.getMessage());
-                        }
-
-                        @Override
-                        public void onPre(Call call) {
-                            if (progressDialog.isShowing())
-                                progressDialog.dismiss();
-                        }
-                    });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void saveNetConfig() {
-        UrlConstant.BASE_HOST = net.getText().toString() + "/baselib/";
-        UrlConstant.HOST = net.getText().toString() + "/jkgl/";
-//doing保存本地
-    }
-
     private void downLoadCashBox() {
-        progressDialog = ProgressUtil.show(this,"正在更新基础信息（款箱）...");
+        pD = ProgressUtil.show(SettingActivity.this,"正在更新基础信息（款箱）...");
         try {
-            NetService.getInstance().downCashboxInfo(
-                    new ResultCallback<CashBoxRespBean>() {
+            NetService.getInstance().downCashboxInfo(new ResultCallback<List<CashBoxData>>() {
                         @Override
-                        public void onSuccess(CashBoxRespBean resp) {
-                            if (progressDialog.isShowing())
-                                progressDialog.dismiss();
+                        public void onSuccess(List<CashBoxData> resp) {
+                            if (pD.isShowing())
+                                pD.dismiss();
                             try {
-                                SaveCashBox(resp);
+                                if (resp != null) {
+                                    // 返回标识为成功时所执行的操作
+                                    CashboxBaseBusinessUtil.getInstance().saveCashboxInfoData(resp);
+                                    ToastUtil.shortShow("更新款箱信息完成");
+                                }
                             } catch (Exception e) {
                                 Log.d(tag, e.toString());
                             }
@@ -168,50 +139,38 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         @Override
                         public void onError(ErrorMsg errorMsg) {
                             ToastUtil.shortShow(errorMsg.getMessage());
-                            if (progressDialog.isShowing())
-                                progressDialog.dismiss();
+                            if (pD.isShowing())
+                                pD.dismiss();
                             System.out.print(errorMsg.getMessage());
                         }
 
                         @Override
                         public void onPre(Call call) {
-                            if (progressDialog.isShowing())
-                                progressDialog.dismiss();
+                            if (pD.isShowing())
+                                pD.dismiss();
                         }
                     });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void SaveCashBox(CashBoxRespBean resprogressDialogata) {
-        try {
-            if (resprogressDialogata.isSuccess()) {
-                // 返回标识为成功时所执行的操作
-                CashboxBaseBusinessUtil.getInstance().saveCashboxInfoData(resprogressDialogata.getData());
-                ToastUtil.shortShow("更新款箱信息完成");
-                if (progressDialog.isShowing())
-                    progressDialog.dismiss();
-            } else {
-                // 返回标识为失败时所执行的操作
-                ToastUtil.longShow(resprogressDialogata.getMessage());
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void downLoadNet() {
-        progressDialog = ProgressUtil.show(this,"正在更新基础信息（网点）...");
+        pD = ProgressUtil.show(SettingActivity.this,"正在更新基础信息（网点）...");
         try {
-            NetService.getInstance().downNetInfo(
-                    new ResultCallback<NetInfoRespBean>() {
+            BaseInfoReqBean infoReqBean = new BaseInfoReqBean();
+
+            NetService.getInstance().downNetInfo(new ResultCallback<List<NetInfoData>>() {
                         @Override
-                        public void onSuccess(NetInfoRespBean resp) {
-                            if (progressDialog.isShowing())
-                                progressDialog.dismiss();
+                        public void onSuccess(List<NetInfoData> resp) {
+                            if (pD.isShowing())
+                                pD.dismiss();
                             try {
-                                SaveNet(resp);
+                                if (resp != null) {
+                                    // 返回标识为成功时所执行的操作
+                                    NetInfoBusinessUtil.getInstance().saveNetInfoData(resp);
+                                    ToastUtil.shortShow("更新网点信息完成");
+                                }
                             } catch (Exception e) {
                                 Log.d(tag, e.toString());
                             }
@@ -221,63 +180,21 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         @Override
                         public void onError(ErrorMsg errorMsg) {
                             ToastUtil.shortShow(errorMsg.getMessage());
-                            if (progressDialog.isShowing())
-                                progressDialog.dismiss();
+                            if (pD.isShowing())
+                                pD.dismiss();
                             System.out.print(errorMsg.getMessage());
                         }
 
                         @Override
                         public void onPre(Call call) {
-                            if (progressDialog.isShowing())
-                                progressDialog.dismiss();
+                            if (pD.isShowing())
+                                pD.dismiss();
                         }
                     });
-           /* if (TestContant.isTest) {
-                progressDialog.dismiss();
-                try {
-                    NetInfoRespBean loginResprogressDialogata = FastJsonUtils.getSingleBean(new TestDatas().testSer(UrlConstant.GET_NET_INFO), NetInfoRespBean.class);
-                    SaveNet(loginResprogressDialogata);
-                } catch (Exception e) {
-                    Log.d(tag, e.toString());
-                }
-            } else
-                NetOkHttpUtils.post(UrlConstant.GET_NET_INFO, infoReqBean, new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        try {
-                            NetInfoRespBean resprogressDialogata = FastJsonUtils.getSingleBeanForRespone(response, NetInfoRespBean.class);
-                            SaveNet(resprogressDialogata);
-                        } catch (Exception e) {
-                            Log.d(tag, e.toString());
-                        }
-                        System.out.print(response);
-                    }
-                });*/
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void SaveNet(NetInfoRespBean resprogressDialogata) {
-        try {
-            if (resprogressDialogata.isSuccess()) {
-                // 返回标识为成功时所执行的操作
-                NetInfoBusinessUtil.getInstance().saveNetInfoData(resprogressDialogata.getData());
-                ToastUtil.shortShow("更新网点信息完成");
-                if (progressDialog.isShowing())
-                    progressDialog.dismiss();
-            } else {
-                // 返回标识为失败时所执行的操作
-                ToastUtil.longShow(resprogressDialogata.getMessage());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 }

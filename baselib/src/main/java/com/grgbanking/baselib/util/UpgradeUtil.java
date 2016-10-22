@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.view.View;
 
 import com.grgbanking.baselib.web.bean.UpgradeData;
-import com.grgbanking.baselib.web.request.VersionInfoReq;
 import com.grgbanking.baselib.config.AppConfig;
 import com.grgbanking.baselib.config.WebConfig;
 import com.grgbanking.baselib.core.SystemService;
@@ -18,6 +17,7 @@ import com.grgbanking.baselib.core.callback.ResultCallback;
 import com.grgbanking.baselib.receiver.DownloadCompleteReceiver;
 import com.grgbanking.baselib.ui.view.dialog.CustomDialog;
 import com.grgbanking.baselib.ui.view.loading.ShapeLoadingDialog;
+import com.grgbanking.baselib.web.bean.req.UpgradeReqBean;
 import com.grgbanking.baselib.web.entity.ErrorMsg;
 
 import java.io.File;
@@ -52,7 +52,7 @@ public class UpgradeUtil {
      * @param title       下载标题
      * @param description 下载描述
      */
-    public static void init(Context cxt, String requestUrl, VersionInfoReq req, final String title, final String description) {
+    public static void init(Context cxt, String requestUrl, UpgradeReqBean req, final String title, final String description) {
         context = cxt;
         initView(title, description);
         checkVersionUpdate(requestUrl, req);
@@ -66,7 +66,7 @@ public class UpgradeUtil {
      * @param title       下载标题
      * @param description 下载描述
      */
-    public static void init(Context cxt, VersionInfoReq req, String packageName, final String title, final String description) {
+    public static void init(Context cxt, UpgradeReqBean req, String packageName, final String title, final String description) {
         context = cxt;
         initView(title, description);
 //        if (isNewApkAvilible(packageName,req.version)) {
@@ -83,7 +83,7 @@ public class UpgradeUtil {
      * @param title       下载标题
      * @param description 下载描述
      */
-    public static void init(Context cxt, VersionInfoReq req, final String title, final String description) {
+    public static void init(Context cxt, UpgradeReqBean req, final String title, final String description) {
         context = cxt;
         initView(title, description);
         checkVersionUpdate(WebConfig.VERSION_UPGRADE, req);
@@ -140,7 +140,7 @@ public class UpgradeUtil {
     /**
      * 检查更新
      */
-    public static void checkVersionUpdate(final String requestUrl, final VersionInfoReq req) {
+    public static void checkVersionUpdate(final String requestUrl, final UpgradeReqBean req) {
 
         //检查更新
         SystemService.getInstance()
@@ -148,7 +148,7 @@ public class UpgradeUtil {
 
                     @Override
                     public void onSuccess(UpgradeData resp) {
-                        String currentVersion = req.version;
+                        String currentVersion = req.getVersion();
                         if (resp != null && resp.getVersion() != null && !"".equals(resp.getVersion())) {
                             if (currentVersion.compareTo(resp.getVersion()) < 0) {
                                 url = resp.getUrl();

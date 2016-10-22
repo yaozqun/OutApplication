@@ -11,6 +11,7 @@ import com.grgbanking.baselib.util.ToastUtil;
 import com.seatwe.zsws.R;
 import com.seatwe.zsws.bean.req.LoginReqBean;
 import com.seatwe.zsws.util.DownloadUtil;
+import com.seatwe.zsws.util.SystemUtil;
 
 public class LoginActivity extends AppCompatActivity {
     private Button bt_login;
@@ -23,6 +24,12 @@ public class LoginActivity extends AppCompatActivity {
         initView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SystemUtil.checkUpdate(LoginActivity.this);
+    }
+
     public void initView() {
         bt_login = (Button) findViewById(R.id.bt_login);
         et_userName = (EditTextToDel) findViewById(R.id.et_userName);
@@ -30,9 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         bt_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //测试代码
-//                TestDownloadUtil.test(LoginActivity.this);
-                if(checkInput()){
+                if (checkInput()) {
                     login();
                 }
             }
@@ -66,6 +71,9 @@ public class LoginActivity extends AppCompatActivity {
         final LoginReqBean reqBean = new LoginReqBean();
         reqBean.setLogin_name(et_userName.getText().toString().trim());
         reqBean.setLogin_password(et_pwd.getText().toString().trim());
-        DownloadUtil.login(this, reqBean);
+        DownloadUtil.getInstance().init(this);
+        DownloadUtil.getInstance().login(reqBean);
     }
+
+
 }

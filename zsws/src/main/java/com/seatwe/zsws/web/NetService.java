@@ -5,6 +5,8 @@ import com.grgbanking.baselib.core.BaseService;
 import com.grgbanking.baselib.core.callback.JsonCallback;
 import com.grgbanking.baselib.core.callback.ResultCallback;
 import com.grgbanking.baselib.web.WebService;
+import com.grgbanking.baselib.web.bean.CashBoxData;
+import com.grgbanking.baselib.web.bean.NetInfoData;
 import com.grgbanking.baselib.web.bean.ResponseBean;
 import com.grgbanking.baselib.web.bean.req.BaseInfoReqBean;
 import com.grgbanking.baselib.web.bean.req.ChangePasswordReqBean;
@@ -13,12 +15,13 @@ import com.grgbanking.baselib.web.bean.resp.NetInfoRespBean;
 import com.grgbanking.baselib.web.response.ResponseRoot;
 import com.grgbanking.baselib.web.util.FastJsonUtils;
 import com.seatwe.zsws.TestDatas;
+import com.seatwe.zsws.bean.LineInfoData;
+import com.seatwe.zsws.bean.TaskInfoData;
 import com.seatwe.zsws.bean.req.ArriveNodeReqBean;
 import com.seatwe.zsws.bean.req.LoginReqBean;
 import com.seatwe.zsws.bean.req.LogoutReqBean;
 import com.seatwe.zsws.bean.req.RecordReqBean;
 import com.seatwe.zsws.bean.req.TaskInfoReqBean;
-import com.seatwe.zsws.bean.resp.LoginRespBean;
 import com.seatwe.zsws.bean.resp.TaskInfoRespBean;
 import com.seatwe.zsws.constant.AppUserConfig;
 import com.seatwe.zsws.constant.UrlConstant;
@@ -26,6 +29,8 @@ import com.seatwe.zsws.util.SharePrefUtil;
 import com.seatwe.zsws.util.db.CashboxBaseBusinessUtil;
 import com.seatwe.zsws.util.db.LineInfoBusinessUtil;
 import com.seatwe.zsws.util.db.NetInfoBusinessUtil;
+
+import java.util.List;
 
 public class NetService extends BaseService {
     private static NetService service;
@@ -49,17 +54,17 @@ public class NetService extends BaseService {
      *
      * @param callback
      */
-    public void login(LoginReqBean req, ResultCallback<LoginRespBean> callback) {
+    public void login(LoginReqBean req, ResultCallback<LineInfoData> callback) {
         if (AppUserConfig.isTest) {
             try {
-                LoginRespBean respData = FastJsonUtils.getSingleBean(TestDatas.testSer(UrlConstant.USER_LOGIN), LoginRespBean.class);
+                LineInfoData respData = FastJsonUtils.getSingleBean(TestDatas.testSer(UrlConstant.USER_LOGIN), LineInfoData.class);
                 callback.onSuccess(respData);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             WebService.getInstance().asyncGet(UrlConstant.USER_LOGIN, req, new
-                    JsonCallback<LoginRespBean>(new TypeToken<ResponseRoot<LoginRespBean>>() {
+                    JsonCallback<LineInfoData>(new TypeToken<ResponseRoot<LineInfoData>>() {
             }.getType(),
                     callback));
         }
@@ -72,20 +77,20 @@ public class NetService extends BaseService {
      *
      * @param callback
      */
-    public void downCashboxInfo(ResultCallback<CashBoxRespBean> callback) {
+    public void downCashboxInfo(ResultCallback<List<CashBoxData>> callback) {
         BaseInfoReqBean req = new BaseInfoReqBean();
         req.setVersion(CashboxBaseBusinessUtil.getInstance().queryCurrentVersion());//当前版本号
 
         if (AppUserConfig.isTest) {
             try {
                 CashBoxRespBean respData = FastJsonUtils.getSingleBean(TestDatas.testSer(UrlConstant.GET_CASHBOX), CashBoxRespBean.class);
-                callback.onSuccess(respData);
+                callback.onSuccess(respData.getData());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             WebService.getInstance().asyncGet(UrlConstant.GET_CASHBOX, req, new
-                    JsonCallback<CashBoxRespBean>(new TypeToken<ResponseRoot<CashBoxRespBean>>() {
+                    JsonCallback<List<CashBoxData>>(new TypeToken<ResponseRoot<List<CashBoxData>>>() {
             }.getType(),
                     callback));
         }
@@ -97,19 +102,19 @@ public class NetService extends BaseService {
      *
      * @param callback
      */
-    public void downNetInfo(ResultCallback<NetInfoRespBean> callback) {
+    public void downNetInfo(ResultCallback<List<NetInfoData>> callback) {
         BaseInfoReqBean req = new BaseInfoReqBean();
         req.setVersion(NetInfoBusinessUtil.getInstance().queryCurrentVersion());
         if (AppUserConfig.isTest) {
             try {
                 NetInfoRespBean respData = FastJsonUtils.getSingleBean(TestDatas.testSer(UrlConstant.GET_NET_INFO), NetInfoRespBean.class);
-                callback.onSuccess(respData);
+                callback.onSuccess(respData.getData());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             WebService.getInstance().asyncGet(UrlConstant.GET_NET_INFO, req, new
-                    JsonCallback<NetInfoRespBean>(new TypeToken<ResponseRoot<NetInfoRespBean>>() {
+                    JsonCallback<List<NetInfoData>>(new TypeToken<ResponseRoot<List<NetInfoData>>>() {
             }.getType(),
                     callback));
         }
@@ -122,20 +127,20 @@ public class NetService extends BaseService {
      *
      * @param callback
      */
-    public void downTask(ResultCallback<TaskInfoRespBean> callback) {
+    public void downTask(ResultCallback<List<TaskInfoData>> callback) {
         TaskInfoReqBean req = new TaskInfoReqBean();
-        req.setId(Integer.parseInt(LineInfoBusinessUtil.getInstance().queryAllLineInfo().getId()));
+        req.setId(LineInfoBusinessUtil.getInstance().queryAllLineInfo().getId());
 
         if (AppUserConfig.isTest) {
             try {
                 TaskInfoRespBean respData = FastJsonUtils.getSingleBean(TestDatas.testSer(UrlConstant.TASK_INFO), TaskInfoRespBean.class);
-                callback.onSuccess(respData);
+                callback.onSuccess(respData.getData());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             WebService.getInstance().asyncGet(UrlConstant.TASK_INFO, req, new
-                    JsonCallback<TaskInfoRespBean>(new TypeToken<ResponseRoot<TaskInfoRespBean>>() {
+                    JsonCallback<List<TaskInfoData>>(new TypeToken<ResponseRoot<List<TaskInfoData>>>() {
             }.getType(),
                     callback));
         }

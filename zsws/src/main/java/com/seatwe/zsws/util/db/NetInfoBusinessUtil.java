@@ -82,7 +82,14 @@ public class NetInfoBusinessUtil {
         try {
             List<NetInfoData> list = netInfoService.queryForAll();
             if (list != null && list.size() > 0) {
-                return list.get(0).getVersion();
+                int version = Integer.parseInt(list.get(0).getVersion());
+                for (NetInfoData netInfoData : list) {
+                    int nextVersion = Integer.parseInt(netInfoData.getVersion());
+                    if (nextVersion > version) {
+                        version = nextVersion;
+                    }
+                }
+                return version+"";
             } else {
                 return "0";
             }

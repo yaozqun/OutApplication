@@ -12,7 +12,7 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.grgbanking.baselib.ui.loading.LoadingView
+        <com.grgbanking.baselib.ui.view.loading.LoadingView
             android:id="@+id/loadView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
             android:layout_marginBottom="15dp"
             android:layout_marginTop="20dp" />
 
-        <com.grgbanking.baselib.ui.numberprogressbar.NumberProgressBar
+        <com.grgbanking.baselib.ui.view.numberprogressbar.NumberProgressBar
             android:id="@+id/numberbar"
             style="@style/NumberProgressBar_Relax_Blue"
             android:layout_below="@id/loadView"
