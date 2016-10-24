@@ -4,20 +4,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.grgbanking.baselib.core.callback.ResultCallback;
 import com.grgbanking.baselib.ui.view.AdaptScrViewListView;
 import com.grgbanking.baselib.ui.view.EditTextToDel;
 import com.grgbanking.baselib.util.ToastUtil;
 import com.grgbanking.baselib.util.log.LogUtil;
+import com.grgbanking.baselib.web.entity.ErrorMsg;
+import com.grgbanking.baselib.web.response.ResponseRoot;
 import com.seatwe.zsws.R;
 import com.seatwe.zsws.bean.req.ArriveNodeReqBean;
 import com.seatwe.zsws.constant.LocalStatusConstant;
 import com.seatwe.zsws.ui.adapter.LineNodeAdapter;
 import com.seatwe.zsws.ui.base.ScanBaseActivity;
 import com.seatwe.zsws.util.BarcodeScannedUtil;
-import com.seatwe.zsws.util.UploadUtil;
 import com.seatwe.zsws.util.db.LineNodeBusinessUtil;
+import com.seatwe.zsws.web.NetService;
 
 import java.util.List;
+
+import okhttp3.Call;
 
 public class LineNodeActivity extends ScanBaseActivity {
     private AdaptScrViewListView asvlv_node;
@@ -70,12 +75,38 @@ public class LineNodeActivity extends ScanBaseActivity {
     public void scan(String barcodeStr) {
         int pos = BarcodeScannedUtil.scannedNodeSuccess(this, listNode, barcodeStr);
         if (pos != -1) {
-            listNode.get(pos).setLocalStatus(LocalStatusConstant.DONE);
-            adapter.notifyDataSetChanged();
-
             //上传
-            UploadUtil.uploadLineNode(this, listNode.get(pos));
+            uploadNode(pos);
         }
     }
 
+    public void uploadNode(final int position) {
+        final ArriveNodeReqBean bean = listNode.get(position);
+        final ArriveNodeReqBean req = new ArriveNodeReqBean();
+        req.setArrive_time(bean.getArrive_time());
+        req.setLine_id(bean.getLine_id());
+        req.setNode_type(bean.getNode_type());
+
+        NetService.getInstance().arriveNode(req, new ResultCallback<ResponseRoot>() {
+            @Override
+            public void onSuccess(ResponseRoot resp) {
+                ToastUtil.shortShow(getResources().getString(R.string.scan_success));
+                bean.setLocalStatus(LocalStatusConstant.UPLOADED);
+                LineNodeBusinessUtil.getInstance().createOrUpdate(bean);
+
+                listNode.get(position).setLocalStatus(LocalStatusConstant.DONE);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(ErrorMsg errorMsg) {
+                ToastUtil.shortShow(errorMsg.getMessage());
+            }
+
+            @Override
+            public void onPre(Call call) {
+
+            }
+        });
+    }
 }

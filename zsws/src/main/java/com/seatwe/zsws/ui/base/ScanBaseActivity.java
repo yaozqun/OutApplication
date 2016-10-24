@@ -24,7 +24,7 @@ public class ScanBaseActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        initScan();
+//        initScan();
     }
 
     //扫描成功广播

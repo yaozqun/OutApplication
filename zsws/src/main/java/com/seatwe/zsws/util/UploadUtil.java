@@ -6,8 +6,8 @@ import android.view.View;
 import com.grgbanking.baselib.core.callback.ResultCallback;
 import com.grgbanking.baselib.ui.view.loading.ShapeLoadingDialog;
 import com.grgbanking.baselib.util.ToastUtil;
-import com.grgbanking.baselib.web.bean.ResponseBean;
 import com.grgbanking.baselib.web.entity.ErrorMsg;
+import com.grgbanking.baselib.web.response.ResponseRoot;
 import com.seatwe.zsws.R;
 import com.seatwe.zsws.bean.LineInfoData;
 import com.seatwe.zsws.bean.RecordboxInfoData;
@@ -87,9 +87,9 @@ public class UploadUtil {
             req.setBankman_name1("");
             req.setBoxes(listUpload);
 
-            NetService.getInstance().uploadRecord(req, new ResultCallback<ResponseBean>() {
+            NetService.getInstance().uploadRecord(req, new ResultCallback<ResponseRoot>() {
                 @Override
-                public void onSuccess(ResponseBean resp) {
+                public void onSuccess(ResponseRoot resp) {
                     ToastUtil.shortShow("上传成功");
                     loadingDialog.dismiss();
                     //上传成功后修改本地状态为已上传
@@ -146,9 +146,9 @@ public class UploadUtil {
                     req.setBankman_name1("");
                     req.setBoxes(listUpload);
 
-                    NetService.getInstance().uploadRecord(req, new ResultCallback<ResponseBean>() {
+                    NetService.getInstance().uploadRecord(req, new ResultCallback<ResponseRoot>() {
                         @Override
-                        public void onSuccess(ResponseBean resp) {
+                        public void onSuccess(ResponseRoot resp) {
                             //上传成功后修改本地状态为已上传
                             taskInfoData.setLocalStatus(LocalStatusConstant.UPLOADED);
                             TaskInfoBusinessUtil.getInstance().createOrUpdate(taskInfoData);
@@ -190,9 +190,9 @@ public class UploadUtil {
         req.setLine_id(bean.getLine_id());
         req.setNode_type(bean.getNode_type());
 
-        NetService.getInstance().arriveNode(req, new ResultCallback<ResponseBean>() {
+        NetService.getInstance().arriveNode(req, new ResultCallback<ResponseRoot>() {
             @Override
-            public void onSuccess(ResponseBean resp) {
+            public void onSuccess(ResponseRoot resp) {
                 ToastUtil.shortShow(context.getResources().getString(R.string.scan_success));
                 bean.setLocalStatus(LocalStatusConstant.UPLOADED);
                 LineNodeBusinessUtil.getInstance().createOrUpdate(bean);

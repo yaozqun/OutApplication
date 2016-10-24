@@ -187,8 +187,8 @@ public class BarcodeScannedUtil {
 //                    }
                     ToastUtil.shortShow(context.getResources().getString(R.string.scan_success));
                     result = true;
-                    data.setLocalStatus(LocalStatusConstant.DONE);
-                    LineNodeBusinessUtil.getInstance().createOrUpdate(data);//将钞箱状态保存到数据库
+//                    data.setLocalStatus(LocalStatusConstant.DONE);
+//                    LineNodeBusinessUtil.getInstance().createOrUpdate(data);//将钞箱状态保存到数据库
                     break;
                 } else {
                     ToastUtil.shortShow(context.getResources().getString(R.string.scanned_already));

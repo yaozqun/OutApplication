@@ -11,9 +11,9 @@ import android.widget.ImageButton;
 import com.grgbanking.baselib.core.callback.ResultCallback;
 import com.grgbanking.baselib.util.ProgressUtil;
 import com.grgbanking.baselib.util.ToastUtil;
-import com.grgbanking.baselib.web.bean.ResponseBean;
 import com.grgbanking.baselib.web.bean.req.ChangePasswordReqBean;
 import com.grgbanking.baselib.web.entity.ErrorMsg;
+import com.grgbanking.baselib.web.response.ResponseRoot;
 import com.seatwe.zsws.R;
 import com.seatwe.zsws.ui.base.BaseActivity;
 import com.seatwe.zsws.util.SharePrefUtil;
@@ -125,9 +125,9 @@ public class ModifyPasswordActivity extends BaseActivity implements View.OnClick
             lInfo.setNewPw(newPasswordTv.getText().toString());
             lInfo.setOldPw(oldPasswordTv.getText().toString());
             NetService.getInstance().changePassword(lInfo,
-                    new ResultCallback<ResponseBean>() {
+                    new ResultCallback<ResponseRoot>() {
                         @Override
-                        public void onSuccess(ResponseBean respData) {
+                        public void onSuccess(ResponseRoot respData) {
                             if (pD.isShowing())
                                 pD.dismiss();
                             try {
@@ -135,7 +135,7 @@ public class ModifyPasswordActivity extends BaseActivity implements View.OnClick
                                     exitView(respData);
                                 } else {
                                     // 返回标识为失败时所执行的操作
-                                    ToastUtil.longShow(respData.getMessage());
+                                    ToastUtil.longShow(respData.getMsg());
                                 }
                             } catch (Exception e) {
                                 Log.d(tag, e.toString());
@@ -159,7 +159,7 @@ public class ModifyPasswordActivity extends BaseActivity implements View.OnClick
            /* if (TestContant.isTest) {
                 pD.dismiss();
                 try {
-                    ResponseBean respData = FastJsonUtils.getSingleBean(new TestDatas().testSer(UrlConstant.CHANGE_PASSWORD), ResponseBean.class);
+                    ResponseRoot respData = FastJsonUtils.getSingleBean(new TestDatas().testSer(UrlConstant.CHANGE_PASSWORD), ResponseRoot.class);
                     exitView(respData);
                 } catch (Exception e) {
                     // Log.d(tag, e.toString());
@@ -179,7 +179,7 @@ public class ModifyPasswordActivity extends BaseActivity implements View.OnClick
                         if (pD.isShowing())
                             pD.dismiss();
                         try {
-                            ResponseBean respData = FastJsonUtils.getSingleBeanForRespone(response, ResponseBean.class);
+                            ResponseRoot respData = FastJsonUtils.getSingleBeanForRespone(response, ResponseRoot.class);
                             exitView(respData);
                         } catch (Exception e) {
                             //Log.d(tag, e.toString());
@@ -190,8 +190,8 @@ public class ModifyPasswordActivity extends BaseActivity implements View.OnClick
         }
     }
 
-    private void exitView(ResponseBean respData) {
-        ToastUtil.shortShow(respData.getMessage());
+    private void exitView(ResponseRoot respData) {
+        ToastUtil.shortShow(respData.getMsg());
         finish();
     }
 

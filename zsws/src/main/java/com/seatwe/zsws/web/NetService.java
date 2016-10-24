@@ -7,7 +7,6 @@ import com.grgbanking.baselib.core.callback.ResultCallback;
 import com.grgbanking.baselib.web.WebService;
 import com.grgbanking.baselib.web.bean.CashBoxData;
 import com.grgbanking.baselib.web.bean.NetInfoData;
-import com.grgbanking.baselib.web.bean.ResponseBean;
 import com.grgbanking.baselib.web.bean.req.BaseInfoReqBean;
 import com.grgbanking.baselib.web.bean.req.ChangePasswordReqBean;
 import com.grgbanking.baselib.web.bean.resp.CashBoxRespBean;
@@ -152,15 +151,15 @@ public class NetService extends BaseService {
      *
      * @param callback
      */
-    public void loginOut(ResultCallback<ResponseBean> callback) {
+    public void loginOut(ResultCallback<ResponseRoot> callback) {
         LogoutReqBean req = new LogoutReqBean();
         req.setLine_id(SharePrefUtil.getInstance().getUserInfo().getLine_id());
         req.setLogin_name(SharePrefUtil.getInstance().getUserInfo().getLogin_name());//登录名
 
         if (AppUserConfig.isTest) {
-            ResponseBean respData = null;
+            ResponseRoot respData = null;
             try {
-                respData = FastJsonUtils.getSingleBean(TestDatas.testSer(UrlConstant.USER_LOGOUT), ResponseBean.class);
+                respData = FastJsonUtils.getSingleBean(TestDatas.testSer(UrlConstant.USER_LOGOUT), ResponseRoot.class);
                 callback.onSuccess(respData);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -168,7 +167,7 @@ public class NetService extends BaseService {
 
         } else {
             WebService.getInstance().asyncGet(UrlConstant.TASK_INFO, req, new
-                    JsonCallback<ResponseBean>(new TypeToken<ResponseBean>() {
+                    JsonCallback<ResponseRoot>(new TypeToken<ResponseRoot>() {
             }.getType(),
                     callback));
         }
@@ -180,17 +179,17 @@ public class NetService extends BaseService {
      *
      * @param callback
      */
-    public void arriveNode(ArriveNodeReqBean req, ResultCallback<ResponseBean> callback) {
+    public void arriveNode(ArriveNodeReqBean req, ResultCallback<ResponseRoot> callback) {
         if (AppUserConfig.isTest) {
             try {
-                ResponseBean respData = FastJsonUtils.getSingleBean(new TestDatas().testSer(UrlConstant.ARRIVE_NODE), ResponseBean.class);
+                ResponseRoot respData = FastJsonUtils.getSingleBean(new TestDatas().testSer(UrlConstant.ARRIVE_NODE), ResponseRoot.class);
                 callback.onSuccess(respData);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             WebService.getInstance().asyncGet(UrlConstant.ARRIVE_NODE, req, new
-                    JsonCallback<ResponseBean>(new TypeToken<ResponseBean>() {
+                    JsonCallback<ResponseRoot>(new TypeToken<ResponseRoot>() {
             }.getType(),
                     callback));
         }
@@ -202,17 +201,17 @@ public class NetService extends BaseService {
      *
      * @param callback
      */
-    public void uploadRecord(RecordReqBean req, ResultCallback<ResponseBean> callback) {
+    public void uploadRecord(RecordReqBean req, ResultCallback<ResponseRoot> callback) {
         if (AppUserConfig.isTest) {
             try {
-                ResponseBean respData = FastJsonUtils.getSingleBean(new TestDatas().testSer(UrlConstant.UPLOAD_RECORD), ResponseBean.class);
+                ResponseRoot respData = FastJsonUtils.getSingleBean(new TestDatas().testSer(UrlConstant.UPLOAD_RECORD), ResponseRoot.class);
                 callback.onSuccess(respData);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             WebService.getInstance().asyncGet(UrlConstant.UPLOAD_RECORD, req, new
-                    JsonCallback<ResponseBean>(new TypeToken<ResponseBean>() {
+                    JsonCallback<ResponseRoot>(new TypeToken<ResponseRoot>() {
             }.getType(),
                     callback));
         }
@@ -225,17 +224,17 @@ public class NetService extends BaseService {
      *
      * @param callback
      */
-    public void changePassword(ChangePasswordReqBean req, ResultCallback<ResponseBean> callback) {
+    public void changePassword(ChangePasswordReqBean req, ResultCallback<ResponseRoot> callback) {
         if (AppUserConfig.isTest) {
             try {
-                ResponseBean respData = FastJsonUtils.getSingleBean(new TestDatas().testSer(UrlConstant.CHANGE_PASSWORD), ResponseBean.class);
+                ResponseRoot respData = FastJsonUtils.getSingleBean(new TestDatas().testSer(UrlConstant.CHANGE_PASSWORD), ResponseRoot.class);
                 callback.onSuccess(respData);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             WebService.getInstance().asyncGet(UrlConstant.CHANGE_PASSWORD, req, new
-                    JsonCallback<ResponseBean>(new TypeToken<ResponseBean>() {
+                    JsonCallback<ResponseRoot>(new TypeToken<ResponseRoot>() {
             }.getType(),
                     callback));
         }

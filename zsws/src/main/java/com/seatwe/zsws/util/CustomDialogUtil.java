@@ -10,8 +10,8 @@ import com.grgbanking.baselib.ui.view.dialog.CustomDialog;
 import com.grgbanking.baselib.util.ActivityManagerUtil;
 import com.grgbanking.baselib.util.DialogUtil;
 import com.grgbanking.baselib.util.ToastUtil;
-import com.grgbanking.baselib.web.bean.ResponseBean;
 import com.grgbanking.baselib.web.entity.ErrorMsg;
+import com.grgbanking.baselib.web.response.ResponseRoot;
 import com.seatwe.zsws.ui.LoginActivity;
 import com.seatwe.zsws.util.db.LineInfoBusinessUtil;
 import com.seatwe.zsws.util.db.LineNodeBusinessUtil;
@@ -44,10 +44,10 @@ public class CustomDialogUtil {
     }
 
     public static void loginOutNet() {
-        NetService.getInstance().loginOut(new ResultCallback<ResponseBean>() {
+        NetService.getInstance().loginOut(new ResultCallback<ResponseRoot>() {
             @Override
-            public void onSuccess(ResponseBean resp) {
-                ToastUtil.shortShow(resp.getMessage());
+            public void onSuccess(ResponseRoot resp) {
+                ToastUtil.shortShow(resp.getMsg());
             }
 
             @Override
